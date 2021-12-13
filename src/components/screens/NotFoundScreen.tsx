@@ -1,8 +1,8 @@
+import { Container } from "native-base";
 import React from "react";
-import { HeaderBlock } from "../blocks/HeaderBlock";
 
 const NotFoundScreen = () => {
-  return <HeaderBlock />;
+  return <Container></Container>;
 };
 
 export default NotFoundScreen;

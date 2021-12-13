@@ -20,7 +20,7 @@ module.exports = function (api) {
           ],
           alias: {
             "@": "./src",
-            "@component": "./src/components",
+            "@components": "./src/components",
             "@hooks": "./src/hooks",
             "@constants": "./src/constants",
             "@types": "./src/types",

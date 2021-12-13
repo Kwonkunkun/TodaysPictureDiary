@@ -1,9 +1,22 @@
-import React from "react";
-import { HStack, IconButton, Icon, Text, Box, StatusBar } from "native-base";
-import { MaterialIcons, AntDesign } from "@expo/vector-icons";
+import React, { ReactElement } from "react";
+import { HStack, Box, StatusBar } from "native-base";
 import { Colors } from "@constants";
 
-export const HeaderBlock = () => {
+/**
+ * HeaderBlock
+ * leftcomponent
+ * rightcomponent
+ */
+
+type HeaderBlockProps = {
+  leftComponent?: ReactElement;
+  rightComponent?: ReactElement;
+};
+
+export const HeaderBlock = ({
+  leftComponent,
+  rightComponent,
+}: HeaderBlockProps) => {
   return (
     <>
       <StatusBar backgroundColor={Colors.background} barStyle="light-content" />
@@ -15,31 +28,8 @@ export const HeaderBlock = () => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <HStack space="4" alignItems="flex-start">
-          <Text color="white" fontSize="20" fontWeight="bold"></Text>
-          <IconButton
-            icon={
-              <Icon size="sm" as={<AntDesign name="down" />} color="white" />
-            }
-          />
-        </HStack>
-        <HStack space="2">
-          <IconButton
-            icon={
-              <Icon as={<AntDesign name="plus" />} size="sm" color="white" />
-            }
-          />
-
-          <IconButton
-            icon={
-              <Icon
-                as={<MaterialIcons name="more-vert" />}
-                size="sm"
-                color="white"
-              />
-            }
-          />
-        </HStack>
+        <HStack>{leftComponent}</HStack>
+        <HStack>{rightComponent}</HStack>
       </HStack>
     </>
   );
