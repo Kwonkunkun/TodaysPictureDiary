@@ -1,4 +1,4 @@
-type pictureDiary = {
+type PictureDiary = {
   time: string;
   weather: "sun" | "rain" | "snow" | "cloud";
   title: string;
