@@ -2,11 +2,11 @@ import React from "react";
 import { Center, Container, Divider, HStack, Image, VStack } from "native-base";
 import MenuScriptBlock from "@components/blocks/MenuScriptBlock";
 
-type PictureDiaryProps = {
+type PictureDiaryDetailProps = {
   pictureDiary: PictureDiary;
 };
 
-const PictureDiary = ({ pictureDiary }: PictureDiaryProps) => {
+const PictureDiaryDetail = ({ pictureDiary }: PictureDiaryDetailProps) => {
   return (
     <VStack>
       {/* 날짜, 날씨 */}
@@ -46,4 +46,4 @@ const PictureDiary = ({ pictureDiary }: PictureDiaryProps) => {
   );
 };
 
-export default PictureDiary;
+export default PictureDiaryDetail;

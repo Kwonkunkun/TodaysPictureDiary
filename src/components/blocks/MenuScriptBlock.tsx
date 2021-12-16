@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Center, Text, Divider, HStack, VStack } from "native-base";
+import { Center, Text, Divider, HStack, VStack, View } from "native-base";
+import { transform } from "@babel/core";
 
 type MenuScriptBlockProps = {
   scriptsString: string;
@@ -40,13 +41,19 @@ const MenuScriptBlock = ({ scriptsString }: MenuScriptBlockProps) => {
               }}
               key={idx}
             >
-              <Text
+              <View
                 style={{
                   position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                {word}
-              </Text>
+                <Text>{word}</Text>
+              </View>
             </Center>
           ))}
         </HStack>
