@@ -26,7 +26,7 @@ const CreateAndEditDiaryScreen = ({}: CreateAndEditDiaryScreenProps) => {
           <IconButton
             icon={
               <Icon
-                as={<MaterialIcons name="more-vert" />}
+                as={<MaterialIcons name="check" />}
                 size="sm"
                 color="white"
               />
