@@ -20,6 +20,7 @@ import HomeScreen from "@components/screens/HomeScreen";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { RootStackParamList } from "types/navigation";
 import CreateAndEditDiaryScreen from "@components/screens/CreateAndEditDiaryScreen";
+import DrawingScreen from "@components/screens/DrawingScreen";
 
 export default function Navigation() {
   return (
@@ -40,7 +41,7 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen
         name="Home"
-        component={CreateAndEditDiaryScreen}
+        component={DrawingScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
