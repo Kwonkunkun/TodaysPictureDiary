@@ -2,12 +2,20 @@ import { HeaderBlock } from "@components/blocks/HeaderBlock";
 import PictureDiaryDetail from "@components/blocks/PictureDiaryDetail";
 import { Spaces } from "@constants";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
-import { Center, Icon, IconButton } from "native-base";
+import {
+  Actionsheet,
+  Box,
+  Center,
+  Icon,
+  IconButton,
+  Text,
+  useDisclose,
+} from "native-base";
 import React from "react";
+import { RootStackScreenProps } from "types/navigation";
 
-type PreviewScreenProps = {};
-
-const PreviewScreen = ({}: PreviewScreenProps) => {
+const PreviewScreen = ({ navigation }: RootStackScreenProps<"Preview">) => {
+  const { isOpen, onOpen, onClose } = useDisclose();
   return (
     <>
       <HeaderBlock
@@ -20,6 +28,9 @@ const PreviewScreen = ({}: PreviewScreenProps) => {
                 color="white"
               />
             }
+            onPress={() => {
+              navigation.goBack();
+            }}
           />
         }
         rightComponent={
@@ -31,10 +42,13 @@ const PreviewScreen = ({}: PreviewScreenProps) => {
                 color="white"
               />
             }
+            onPress={() => {
+              onOpen();
+            }}
           />
         }
       />
-      <Center m={Spaces.padding} borderWidth={0.3}>
+      <Center m={Spaces.padding}>
         <PictureDiaryDetail
           pictureDiary={{
             time: "2021년 04월 01일",
@@ -45,6 +59,19 @@ const PreviewScreen = ({}: PreviewScreenProps) => {
           }}
         />
       </Center>
+      <Actionsheet isOpen={isOpen} onClose={onClose}>
+        <Actionsheet.Content>
+          <Actionsheet.Item
+            onPress={() => {
+              navigation.navigate("Create");
+              onClose();
+            }}
+          >
+            편집
+          </Actionsheet.Item>
+          <Actionsheet.Item>삭제</Actionsheet.Item>
+        </Actionsheet.Content>
+      </Actionsheet>
     </>
   );
 };

@@ -1,29 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Center, Text, Divider, HStack, VStack, View } from "native-base";
-import { transform } from "@babel/core";
 
 type MenuScriptBlockProps = {
   scriptsString: string;
 };
 
 const MenuScriptBlock = ({ scriptsString }: MenuScriptBlockProps) => {
-  const [scripts, setScripts] = useState(() => {
-    const result = Array.from(Array<Array<string>>(5), () =>
-      Array<string>(10).fill(" ")
-    );
+  const [scripts, setScripts] = useState(getArrayScripts(scriptsString));
 
-    //문자넣어주기
-    for (let i = 0; i < 5; i++) {
-      for (let j = 0; j < 10; j++) {
-        const idx = i * 10 + j;
-        if (idx < scriptsString.length) {
-          result[i][j] = scriptsString[idx];
-        }
-      }
-    }
-
-    return result;
-  });
+  useEffect(() => {
+    setScripts(getArrayScripts(scriptsString));
+  }, [scriptsString]);
 
   return (
     <VStack divider={<Divider />}>
@@ -32,13 +19,23 @@ const MenuScriptBlock = ({ scriptsString }: MenuScriptBlockProps) => {
         <HStack justifyContent="center" key={idx}>
           {script.map((word, idx) => (
             <Center
-              bg="amber.50"
-              style={{
-                borderWidth: 0.5,
-                width: "10%",
-                height: 0,
-                paddingBottom: "10%",
-              }}
+              bg={"amber.50"}
+              style={
+                idx === 0
+                  ? {
+                      borderBottomWidth: 0.5,
+                      width: "10%",
+                      height: 0,
+                      paddingBottom: "10%",
+                    }
+                  : {
+                      borderLeftWidth: 0.5,
+                      borderBottomWidth: 0.5,
+                      width: "10%",
+                      height: 0,
+                      paddingBottom: "10%",
+                    }
+              }
               key={idx}
             >
               <View
@@ -65,5 +62,23 @@ const MenuScriptBlock = ({ scriptsString }: MenuScriptBlockProps) => {
 function chunkString(str: string, length: number) {
   return str.match(new RegExp(".{1," + length + "}", "g"));
 }
+
+const getArrayScripts = (scriptsString: string) => {
+  const result = Array.from(Array<Array<string>>(5), () =>
+    Array<string>(10).fill(" ")
+  );
+
+  //문자넣어주기
+  for (let i = 0; i < 5; i++) {
+    for (let j = 0; j < 10; j++) {
+      const idx = i * 10 + j;
+      if (idx < scriptsString.length) {
+        result[i][j] = scriptsString[idx];
+      }
+    }
+  }
+
+  return result;
+};
 
 export default MenuScriptBlock;

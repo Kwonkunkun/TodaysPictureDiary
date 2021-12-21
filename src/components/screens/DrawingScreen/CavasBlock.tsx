@@ -1,5 +1,12 @@
 import React, { useRef, useState } from "react";
-import { Center, HStack, IconButton, Slider, VStack } from "native-base";
+import {
+  Button,
+  Center,
+  HStack,
+  IconButton,
+  Slider,
+  VStack,
+} from "native-base";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import SignatureScreen, {
   SignatureViewRef,
@@ -28,7 +35,7 @@ export const CanvasBlock = ({ onOK }: CavasBlockProps) => {
   };
 
   const handleEnd = () => {
-    // ref.current?.readSignature();
+    ref.current?.readSignature();
   };
 
   const style = `.m-signature-pad {box-shadow: none; } 
@@ -38,10 +45,9 @@ export const CanvasBlock = ({ onOK }: CavasBlockProps) => {
 
   return (
     <VStack flex={1}>
-      <Center flex={2}>
+      <Center flex={3}>
         <SignatureScreen
           ref={ref}
-          onEnd={handleEnd}
           onOK={handleSignature}
           onEmpty={handleEmpty}
           onClear={handleClear}
@@ -55,11 +61,12 @@ export const CanvasBlock = ({ onOK }: CavasBlockProps) => {
       </Center>
       <VStack
         space="sm"
-        flex={1}
+        flex={2}
         backgroundColor={Colors.white}
         alignItems="center"
       >
-        <HStack space={10} alignItems="center">
+        {/* undo redo button */}
+        <HStack space={5} alignItems="center">
           <IconButton
             icon={
               <Ionicons
@@ -79,7 +86,7 @@ export const CanvasBlock = ({ onOK }: CavasBlockProps) => {
                 size={20}
                 color="black"
                 onPress={() => {
-                  ref.current?.undo();
+                  ref.current?.redo();
                 }}
               />
             }
@@ -87,17 +94,20 @@ export const CanvasBlock = ({ onOK }: CavasBlockProps) => {
         </HStack>
         <HStack>
           {/* color picker, all clear 넣으면 됨 */}
-          <VStack space="sm">
+          <VStack space="sm" alignContent="space-between">
+            {/* pallette */}
             <ColorPalette
+              titleStyles={{ display: "none" }}
               onChange={(color: string) => {
                 setSelectedColor(color);
-                ref.current && ref.current.changePenColor(color);
+                ref && ref.current?.changePenColor(color);
               }}
               value={selectedColor}
               colors={["#C0392B", "#E74C3C", "#9B59B6", "#8E44AD", "#2980B9"]}
               title={""}
               icon={<Entypo name="circle" size={10} color="white" />}
             />
+            {/* slider */}
             <Slider
               defaultValue={2}
               minValue={0}
@@ -105,7 +115,7 @@ export const CanvasBlock = ({ onOK }: CavasBlockProps) => {
               accessibilityLabel="hello world"
               step={2}
               onChange={(value) => {
-                ref.current && ref.current.changePenSize(value, value);
+                ref && ref.current?.changePenSize(value, value);
               }}
             >
               <Slider.Track>
@@ -113,6 +123,14 @@ export const CanvasBlock = ({ onOK }: CavasBlockProps) => {
               </Slider.Track>
               <Slider.Thumb />
             </Slider>
+            {/* 완료 버튼 */}
+            <Button
+              onPress={() => {
+                ref.current?.readSignature();
+              }}
+            >
+              그리기 완료
+            </Button>
           </VStack>
         </HStack>
       </VStack>

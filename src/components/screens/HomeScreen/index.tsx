@@ -12,18 +12,16 @@ import {
   VStack,
 } from "native-base";
 import React, { useState } from "react";
+import { RootStackScreenProps } from "types/navigation";
 import PictureDiaryListItem from "./PictureDiaryListItem";
 
-type HomeScreenProps = {};
-
-const HomeScreen = ({}: HomeScreenProps) => {
+const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
   const [selectedTime, setSelectedTime] = useState(() => {
     let date = new Date();
     date.setDate(1);
     return date;
   });
 
-  const dummyString = "display the same for all devices";
   return (
     <>
       <HomeHeaderBlock
@@ -50,8 +48,11 @@ const HomeScreen = ({}: HomeScreenProps) => {
               base64Img: "",
               content: "집에 가면 좋아요",
             }}
+            handleOnPressItem={() => {
+              navigation.navigate("Preview");
+            }}
           />
-          <PictureDiaryListItem
+          {/* <PictureDiaryListItem
             pictureDiary={{
               time: "2021년 04월 01일",
               weather: "sun",
@@ -59,7 +60,7 @@ const HomeScreen = ({}: HomeScreenProps) => {
               base64Img: "",
               content: "집에 가면 좋아요",
             }}
-          />
+          /> */}
         </HStack>
       </VStack>
     </>

@@ -1,10 +1,11 @@
 import { HeaderBlock } from "@components/blocks/HeaderBlock";
 import React from "react";
 import { Icon, IconButton } from "native-base";
-import { Entypo } from "@expo/vector-icons";
-import { CanvasBlock } from "./CavasBlockProps";
+import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import { CanvasBlock } from "./CavasBlock";
+import { RootStackScreenProps } from "types/navigation";
 
-const DrawingScreen = () => {
+const DrawingScreen = ({ navigation }: RootStackScreenProps<"Drawing">) => {
   return (
     <>
       <HeaderBlock
@@ -17,6 +18,9 @@ const DrawingScreen = () => {
                 color="white"
               />
             }
+            onPress={() => {
+              navigation.goBack();
+            }}
           />
         }
       />
@@ -24,6 +28,7 @@ const DrawingScreen = () => {
       <CanvasBlock
         onOK={(signature?: string) => {
           console.log(signature);
+          navigation.goBack();
         }}
       />
     </>

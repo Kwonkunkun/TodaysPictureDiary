@@ -1,15 +1,18 @@
-import { VStack, Image, Text } from "native-base";
+import { VStack, Image, Text, Pressable } from "native-base";
 import React from "react";
-import { TouchableOpacity } from "react-native";
 
 type PictureDiaryListItemProps = {
   pictureDiary: PictureDiary;
+  handleOnPressItem: () => void;
 };
 
-const PictureDiaryListItem = ({ pictureDiary }: PictureDiaryListItemProps) => {
+const PictureDiaryListItem = ({
+  pictureDiary,
+  handleOnPressItem,
+}: PictureDiaryListItemProps) => {
   return (
     <VStack flex={1}>
-      <TouchableOpacity>
+      <Pressable onPress={handleOnPressItem}>
         <Image
           source={{
             uri: "https://wallpaperaccess.com/full/317501.jpg",
@@ -18,7 +21,7 @@ const PictureDiaryListItem = ({ pictureDiary }: PictureDiaryListItemProps) => {
         />
         <Text>{pictureDiary.time}</Text>
         <Text>{pictureDiary.title}</Text>
-      </TouchableOpacity>
+      </Pressable>
     </VStack>
   );
 };

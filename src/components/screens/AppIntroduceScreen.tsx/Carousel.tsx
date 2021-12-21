@@ -26,6 +26,7 @@ const IndicatorWrapper = styled.View`
   align-items: center;
   margin-top: 16px;
 `;
+
 export const Carousel = ({ pages, pageWidth, gap, offset }: CarouselProps) => {
   const [page, setPage] = useState(0);
 

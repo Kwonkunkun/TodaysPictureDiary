@@ -22,6 +22,7 @@ import { RootStackParamList } from "types/navigation";
 import CreateAndEditDiaryScreen from "@components/screens/CreateAndEditDiaryScreen";
 import DrawingScreen from "@components/screens/DrawingScreen";
 import AppIntroduceScreen from "@components/screens/AppIntroduceScreen.tsx";
+import PreviewScreen from "@components/screens/PreviewScreen.tsx";
 
 export default function Navigation() {
   return (
@@ -39,18 +40,18 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={AppIntroduceScreen}
-        options={{ headerShown: false }}
-      />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Preview" component={PreviewScreen} />
+      <Stack.Screen name="Create" component={CreateAndEditDiaryScreen} />
+      <Stack.Screen name="AppIntroduce" component={AppIntroduceScreen} />
       <Stack.Screen
         name="NotFound"
         component={HomeScreen}
         options={{ title: "Oops!" }}
       />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
+      <Stack.Group screenOptions={{ presentation: "fullScreenModal" }}>
+        <Stack.Screen name="Drawing" component={DrawingScreen} />
         {/* <Stack.Screen name="Modal" component={ModalScreen} /> */}
       </Stack.Group>
     </Stack.Navigator>
