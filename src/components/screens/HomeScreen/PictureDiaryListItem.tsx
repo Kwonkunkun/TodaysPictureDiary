@@ -1,4 +1,4 @@
-import { VStack, Image, Text, Pressable } from "native-base";
+import { VStack, Image, Text, Pressable, Center } from "native-base";
 import React from "react";
 
 type PictureDiaryListItemProps = {
@@ -11,7 +11,7 @@ const PictureDiaryListItem = ({
   handleOnPressItem,
 }: PictureDiaryListItemProps) => {
   return (
-    <VStack flex={1}>
+    <VStack flex={1} alignItems={"center"} p={"2"}>
       <Pressable onPress={handleOnPressItem}>
         <Image
           source={{

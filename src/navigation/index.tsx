@@ -15,14 +15,15 @@ import * as React from "react";
 import { ColorSchemeName } from "react-native";
 
 import NotFoundScreen from "../components/screens/NotFoundScreen";
-import HomeScreen from "@components/screens/HomeScreen";
 
 import LinkingConfiguration from "./LinkingConfiguration";
 import { RootStackParamList } from "types/navigation";
 import CreateAndEditDiaryScreen from "@components/screens/CreateAndEditDiaryScreen";
 import DrawingScreen from "@components/screens/DrawingScreen";
-import AppIntroduceScreen from "@components/screens/AppIntroduceScreen.tsx";
-import PreviewScreen from "@components/screens/PreviewScreen.tsx";
+import AppIntroduceScreen from "@components/screens/AppIntroduceScreen";
+import PreviewScreen from "@components/screens/PreviewScreen";
+import HomeScreen from "@components/screens/HomeScreen";
+import SettingScreen from "@components/screens/SettingScreen";
 
 export default function Navigation() {
   return (
@@ -45,6 +46,7 @@ function RootNavigator() {
       <Stack.Screen name="Preview" component={PreviewScreen} />
       <Stack.Screen name="Create" component={CreateAndEditDiaryScreen} />
       <Stack.Screen name="AppIntroduce" component={AppIntroduceScreen} />
+      <Stack.Screen name="Setting" component={SettingScreen} />
       <Stack.Screen
         name="NotFound"
         component={HomeScreen}

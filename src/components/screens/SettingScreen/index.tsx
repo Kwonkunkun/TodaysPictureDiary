@@ -1,11 +1,10 @@
 import { HeaderBlock } from "@components/blocks/HeaderBlock";
-import React from "react";
+import { Entypo, AntDesign } from "@expo/vector-icons";
 import { Icon, IconButton } from "native-base";
-import { Entypo } from "@expo/vector-icons";
-import { CanvasBlock } from "./CavasBlock";
+import React from "react";
 import { RootStackScreenProps } from "types/navigation";
 
-const DrawingScreen = ({ navigation }: RootStackScreenProps<"Drawing">) => {
+const SettingScreen = ({ navigation }: RootStackScreenProps<"Setting">) => {
   return (
     <>
       <HeaderBlock
@@ -23,16 +22,23 @@ const DrawingScreen = ({ navigation }: RootStackScreenProps<"Drawing">) => {
             }}
           />
         }
-      />
-      {/* canvas 자리 */}
-      <CanvasBlock
-        onOK={(signature?: string) => {
-          console.log(signature);
-          navigation.goBack();
-        }}
+        rightComponent={
+          <IconButton
+            icon={
+              <Icon
+                as={<AntDesign name="question" />}
+                size="sm"
+                color="white"
+              />
+            }
+            onPress={() => {
+              navigation.navigate("AppIntroduce");
+            }}
+          />
+        }
       />
     </>
   );
 };
 
-export default DrawingScreen;
+export default SettingScreen;

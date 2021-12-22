@@ -1,16 +1,5 @@
-import MenuScriptBlock from "@components/blocks/MenuScriptBlock";
-import PictureDiaryDetail from "@components/blocks/PictureDiaryDetail";
 import { HomeHeaderBlock } from "@components/screens/HomeScreen/HomeHeaderBlock";
-import {
-  Box,
-  Center,
-  Container,
-  Divider,
-  Flex,
-  HStack,
-  Image,
-  VStack,
-} from "native-base";
+import { HStack, VStack } from "native-base";
 import React, { useState } from "react";
 import { RootStackScreenProps } from "types/navigation";
 import PictureDiaryListItem from "./PictureDiaryListItem";
@@ -27,6 +16,12 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
       <HomeHeaderBlock
         selectedTime={selectedTime}
         setSelectedTime={setSelectedTime}
+        handleOnPressPlusIconButton={() => {
+          navigation.navigate("Create");
+        }}
+        handleOnPressSettingIconButton={() => {
+          navigation.navigate("Setting");
+        }}
       />
 
       {/* <PictureDiaryDetail
@@ -52,7 +47,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
               navigation.navigate("Preview");
             }}
           />
-          {/* <PictureDiaryListItem
+          <PictureDiaryListItem
             pictureDiary={{
               time: "2021년 04월 01일",
               weather: "sun",
@@ -60,7 +55,10 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
               base64Img: "",
               content: "집에 가면 좋아요",
             }}
-          /> */}
+            handleOnPressItem={() => {
+              navigation.navigate("Preview");
+            }}
+          />
         </HStack>
       </VStack>
     </>

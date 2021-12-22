@@ -16,11 +16,15 @@ import { HeaderBlock } from "@components/blocks/HeaderBlock";
 type HomeHeaderBlockProps = {
   selectedTime: Date;
   setSelectedTime: React.Dispatch<React.SetStateAction<Date>>;
+  handleOnPressPlusIconButton: () => void;
+  handleOnPressSettingIconButton: () => void;
 };
 
 export const HomeHeaderBlock = ({
   selectedTime,
   setSelectedTime,
+  handleOnPressPlusIconButton,
+  handleOnPressSettingIconButton,
 }: HomeHeaderBlockProps) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -69,16 +73,22 @@ export const HomeHeaderBlock = ({
               icon={
                 <Icon as={<Entypo name="plus" />} size="sm" color="white" />
               }
+              onPress={() => {
+                handleOnPressPlusIconButton();
+              }}
             />
 
             <IconButton
               icon={
                 <Icon
-                  as={<MaterialIcons name="more-vert" />}
+                  as={<MaterialIcons name="settings" />}
                   size="sm"
                   color="white"
                 />
               }
+              onPress={() => {
+                handleOnPressSettingIconButton();
+              }}
             />
           </>
         }

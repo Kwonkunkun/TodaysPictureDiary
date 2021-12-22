@@ -5,8 +5,11 @@ import { Center, Icon, IconButton } from "native-base";
 import React from "react";
 import { Dimension } from "@constants";
 import { Carousel } from "./Carousel";
+import { RootStackScreenProps } from "types/navigation";
 
-const AppIntroduceScreen = () => {
+const AppIntroduceScreen = ({
+  navigation,
+}: RootStackScreenProps<"AppIntroduce">) => {
   return (
     <>
       <HeaderBlock
@@ -19,6 +22,9 @@ const AppIntroduceScreen = () => {
                 color="white"
               />
             }
+            onPress={() => {
+              navigation.goBack();
+            }}
           />
         }
         // rightComponent={
