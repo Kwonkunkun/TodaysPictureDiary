@@ -5,7 +5,10 @@ import { Entypo } from "@expo/vector-icons";
 import { CanvasBlock } from "./CavasBlock";
 import { RootStackScreenProps } from "types/navigation";
 
-const DrawingScreen = ({ navigation }: RootStackScreenProps<"Drawing">) => {
+const DrawingScreen = ({
+  navigation,
+  route,
+}: RootStackScreenProps<"Drawing">) => {
   return (
     <>
       <HeaderBlock
@@ -27,9 +30,13 @@ const DrawingScreen = ({ navigation }: RootStackScreenProps<"Drawing">) => {
       {/* canvas 자리 */}
       <CanvasBlock
         onOK={(signature?: string) => {
-          console.log(signature);
+          const base64Img = signature ? signature : "";
+
+          //base64 data를 업데이트 시켜줘야함
+          route.params.setBase64Img(base64Img);
           navigation.goBack();
         }}
+        defaultData={route.params.base64Img}
       />
     </>
   );

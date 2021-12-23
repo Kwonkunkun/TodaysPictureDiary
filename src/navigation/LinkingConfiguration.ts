@@ -16,7 +16,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       Preview: "preview",
       Setting: "setting",
       AppIntroduce: "appIntroduce",
-      Create: "create",
+      CreateAndEdit: "create",
       Drawing: "drawing",
       ColorPicker: "colorPicker",
       NotFound: "*",

@@ -19,7 +19,6 @@ const MenuScriptBlock = ({ scriptsString }: MenuScriptBlockProps) => {
         <HStack justifyContent="center" key={idx}>
           {script.map((word, idx) => (
             <Center
-              bg={"amber.50"}
               style={
                 idx === 0
                   ? {

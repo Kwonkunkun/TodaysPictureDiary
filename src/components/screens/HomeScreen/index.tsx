@@ -17,7 +17,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
         selectedTime={selectedTime}
         setSelectedTime={setSelectedTime}
         handleOnPressPlusIconButton={() => {
-          navigation.navigate("Create");
+          navigation.navigate("CreateAndEdit", { pictureDiary: undefined });
         }}
         handleOnPressSettingIconButton={() => {
           navigation.navigate("Setting");

@@ -10,6 +10,7 @@ export const Colors = {
   accentText: "#FFD3B4",
   icon: "#FFD3B4",
   white: "#ffffff",
+  snow: "#fffafa",
   black: "#000000",
 };
 

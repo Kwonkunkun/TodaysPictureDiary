@@ -11,50 +11,36 @@ import {
   ScrollView,
   VStack,
 } from "native-base";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import { RootStackScreenProps } from "types/navigation";
 import LottieView from "lottie-react-native";
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  TextInput,
-} from "react-native";
-import { ITextAreaProps } from "native-base/lib/typescript/components/primitives/TextArea";
+import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
 
-const lottieGroup = [
-  [
-    { title: "sun", source: require("../../../../assets/lotties/sun.json") },
-    {
-      title: "cloud",
-      source: require("../../../../assets/lotties/cloud.json"),
-    },
-  ],
-  [
-    { title: "rain", source: require("../../../../assets/lotties/rain.json") },
-    { title: "snow", source: require("../../../../assets/lotties/snow.json") },
-  ],
-];
+/**
+ * CreateAndEditDiaryScreen
+ * mode: create & edit
+ */
 
 const CreateAndEditDiaryScreen = ({
   navigation,
-}: RootStackScreenProps<"Create">) => {
+  route,
+}: RootStackScreenProps<"CreateAndEdit">) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isWeatherPickerVisible, setWeatherPickerVisiblilty] = useState(false);
-  const [
-    isPictureDiaryDetailVisible,
-    setPictureDiaryDetailVisiblity,
-  ] = useState(false);
-  let contentTextAreaRef: TextInput | null;
+  const contentTextAreaRef = useRef<TextInput>(null);
 
-  const [pictureDiary, setPictureDiary] = useState<PictureDiary>({
-    time: "2021년 4월 1일",
-    weather: "sun",
-    title: "집에 가고 싶어요",
-    base64Img: "",
-    content: "집에 가면 좋아요",
-  });
+  const [pictureDiary, setPictureDiary] = useState<PictureDiary>(
+    route.params.pictureDiary
+      ? route.params.pictureDiary
+      : {
+          time: "",
+          weather: "sun",
+          title: "",
+          base64Img: "",
+          content: "",
+        }
+  );
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -108,6 +94,9 @@ const CreateAndEditDiaryScreen = ({
                 color="white"
               />
             }
+            onPress={() => {
+              //preview 화면으로 가자, navigation.replace 쓰면 수월할듯
+            }}
           />
         }
       />
@@ -129,28 +118,32 @@ const CreateAndEditDiaryScreen = ({
               });
             }}
             handleOnPressImage={() => {
-              navigation.navigate("Drawing");
+              navigation.navigate("Drawing", {
+                base64Img: pictureDiary.base64Img,
+                setBase64Img: (base64Img: string) => {
+                  setPictureDiary({
+                    ...pictureDiary,
+                    base64Img: base64Img,
+                  });
+                },
+              });
             }}
             handleOnPressMenuScript={() => {
-              contentTextAreaRef?.focus();
+              contentTextAreaRef.current?.focus();
             }}
           />
         </ScrollView>
       </KeyboardAvoidingView>
 
       <TextInput
-        ref={(ref) => {
-          contentTextAreaRef = ref;
-        }}
+        ref={contentTextAreaRef}
         style={{ color: "white" }}
         defaultValue={pictureDiary.content}
         onChangeText={(text) => {
           setPictureDiary({ ...pictureDiary, content: text });
         }}
         onFocus={() => {}}
-        onBlur={() => {
-          setPictureDiaryDetailVisiblity(true);
-        }}
+        onBlur={() => {}}
       />
 
       <DateTimePicker
@@ -208,3 +201,17 @@ const CreateAndEditDiaryScreen = ({
 };
 
 export default CreateAndEditDiaryScreen;
+
+const lottieGroup = [
+  [
+    { title: "sun", source: require("../../../../assets/lotties/sun.json") },
+    {
+      title: "cloud",
+      source: require("../../../../assets/lotties/cloud.json"),
+    },
+  ],
+  [
+    { title: "rain", source: require("../../../../assets/lotties/rain.json") },
+    { title: "snow", source: require("../../../../assets/lotties/snow.json") },
+  ],
+];

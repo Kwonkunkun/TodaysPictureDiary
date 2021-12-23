@@ -44,7 +44,7 @@ function RootNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Preview" component={PreviewScreen} />
-      <Stack.Screen name="Create" component={CreateAndEditDiaryScreen} />
+      <Stack.Screen name="CreateAndEdit" component={CreateAndEditDiaryScreen} />
       <Stack.Screen name="AppIntroduce" component={AppIntroduceScreen} />
       <Stack.Screen name="Setting" component={SettingScreen} />
       <Stack.Screen

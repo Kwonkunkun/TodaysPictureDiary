@@ -21,8 +21,8 @@ export type RootStackParamList = {
   Preview: undefined;
   Setting: undefined;
   AppIntroduce: undefined;
-  Create: undefined;
-  Drawing: undefined;
+  CreateAndEdit: { pictureDiary?: PictureDiary };
+  Drawing: { base64Img: string; setBase64Img: (base64Img: string) => void };
   ColorPicker: undefined;
   NotFound: undefined;
 };

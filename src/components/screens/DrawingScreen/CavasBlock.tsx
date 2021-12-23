@@ -15,9 +15,10 @@ import { Colors } from "@constants";
 import ColorPalette from "react-native-color-palette";
 
 type CavasBlockProps = {
+  defaultData: string;
   onOK: (signature?: string) => void;
 };
-export const CanvasBlock = ({ onOK }: CavasBlockProps) => {
+export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
   const [selectedColor, setSelectedColor] = useState("#C0392B");
   const ref = useRef<SignatureViewRef>(null);
 
@@ -52,11 +53,12 @@ export const CanvasBlock = ({ onOK }: CavasBlockProps) => {
           onEmpty={handleEmpty}
           onClear={handleClear}
           autoClear={true}
-          backgroundColor={Colors.white}
+          backgroundColor={Colors.snow}
           webStyle={style}
           penColor={selectedColor}
           minWidth={2}
           maxWidth={2}
+          dataURL={defaultData}
         />
       </Center>
       <VStack

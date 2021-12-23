@@ -4,13 +4,15 @@ import {
   Container,
   Divider,
   HStack,
-  Image,
+  // Image,
   Input,
   Pressable,
   TextArea,
   VStack,
 } from "native-base";
 import MenuScriptBlock from "@components/blocks/MenuScriptBlock";
+import { Image } from "react-native";
+import { Colors } from "@constants";
 
 type PictureDiaryDetailProps = {
   isEdit?: boolean;
@@ -33,7 +35,7 @@ const PictureDiaryDetail = ({
 }: PictureDiaryDetailProps) => {
   return (
     <>
-      <VStack borderWidth={0.3}>
+      <VStack borderWidth={0.3} backgroundColor={Colors.snow}>
         {/* 날짜, 날씨 */}
         <HStack divider={<Divider bg="black" />}>
           <Pressable
@@ -86,7 +88,11 @@ const PictureDiaryDetail = ({
               py={"1"}
             >{`제목`}</Center>
             <Center style={{ borderBottomWidth: 0.5 }} flex={5} py={"1"}>
-              <Input isDisabled={!isEdit} defaultValue={pictureDiary.title} />
+              <Input
+                w="80%"
+                isDisabled={!isEdit}
+                defaultValue={pictureDiary.title}
+              />
             </Center>
           </Pressable>
         </HStack>
@@ -97,13 +103,13 @@ const PictureDiaryDetail = ({
             isEdit && handleOnPressImage && handleOnPressImage();
           }}
         >
-          <Center background="amber.100">
+          <Center background="white" borderBottomWidth="1">
             <Image
               source={{
-                uri: "https://wallpaperaccess.com/full/317501.jpg",
+                uri:
+                  pictureDiary.base64Img !== "" ? pictureDiary.base64Img : "",
               }}
-              alt="Alternate Text"
-              style={{ width: 335, height: 114 }}
+              style={{ width: "100%", height: 240 }}
             />
           </Center>
         </Pressable>
