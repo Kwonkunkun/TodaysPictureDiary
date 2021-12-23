@@ -34,7 +34,7 @@ const CreateAndEditDiaryScreen = ({
     route.params.pictureDiary
       ? route.params.pictureDiary
       : {
-          time: "",
+          time: new Date().toISOString(),
           weather: "sun",
           title: "",
           base64Img: "",
@@ -62,9 +62,10 @@ const CreateAndEditDiaryScreen = ({
     console.warn("A date has been picked: ", date);
     setPictureDiary({
       ...pictureDiary,
-      time: `${date.getFullYear()}년 ${
-        date.getMonth() + 1
-      }월 ${date.getDate()}일`,
+      time: date.toISOString(),
+      // time: `${date.getFullYear()}년 ${
+      //   date.getMonth() + 1
+      // }월 ${date.getDate()}일`,
     });
     hideDatePicker();
   };
@@ -186,7 +187,7 @@ const CreateAndEditDiaryScreen = ({
                       style={{
                         width: Dimension.window.width / 2,
                         height: Dimension.window.width / 2,
-                        backgroundColor: "white",
+                        backgroundColor: "transparent",
                       }}
                     />
                   </Pressable>
@@ -204,14 +205,14 @@ export default CreateAndEditDiaryScreen;
 
 const lottieGroup = [
   [
-    { title: "sun", source: require("../../../../assets/lotties/sun.json") },
+    { title: "sun", source: require("@assets/lotties/sun.json") },
     {
       title: "cloud",
-      source: require("../../../../assets/lotties/cloud.json"),
+      source: require("@assets/lotties/cloud.json"),
     },
   ],
   [
-    { title: "rain", source: require("../../../../assets/lotties/rain.json") },
-    { title: "snow", source: require("../../../../assets/lotties/snow.json") },
+    { title: "rain", source: require("@assets/lotties/rain.json") },
+    { title: "snow", source: require("@assets/lotties/snow.json") },
   ],
 ];

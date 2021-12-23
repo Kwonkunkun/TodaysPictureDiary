@@ -9,6 +9,7 @@
       "@constants": ["constants"],
       "@types": ["types"],
       "@state": ["state"],
+      "@Utils": ["Utils"],
       "@assets/*": ["../assets/*"]
     }
   },

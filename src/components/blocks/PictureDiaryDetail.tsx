@@ -13,6 +13,7 @@ import {
 import MenuScriptBlock from "@components/blocks/MenuScriptBlock";
 import { Image } from "react-native";
 import { Colors } from "@constants";
+import { getAppDateStringFormatWith } from "@Utils";
 
 type PictureDiaryDetailProps = {
   isEdit?: boolean;
@@ -50,7 +51,7 @@ const PictureDiaryDetail = ({
               flex={1}
             >{`날짜`}</Center>
             <Center style={{ borderBottomWidth: 0.5 }} flex={3}>
-              {pictureDiary.time}
+              {getAppDateStringFormatWith(pictureDiary.time)}
             </Center>
           </Pressable>
           <Pressable

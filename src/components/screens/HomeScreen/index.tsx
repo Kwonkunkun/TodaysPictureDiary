@@ -23,21 +23,11 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
           navigation.navigate("Setting");
         }}
       />
-
-      {/* <PictureDiaryDetail
-        pictureDiary={{
-          time: "2021년 04월 01일",
-          weather: "sun",
-          title: "집에 가고 싶어요",
-          base64Img: "",
-          content: "집에 가면 좋아요",
-        }}
-      /> */}
       <VStack>
         <HStack>
           <PictureDiaryListItem
             pictureDiary={{
-              time: "2021년 04월 01일",
+              time: "1995-12-17T03:24:00Z",
               weather: "sun",
               title: "집에 가고 싶어요",
               base64Img: "",
@@ -49,7 +39,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
           />
           <PictureDiaryListItem
             pictureDiary={{
-              time: "2021년 04월 01일",
+              time: "1995-12-17T03:24:00Z",
               weather: "sun",
               title: "집에 가고 싶어요",
               base64Img: "",

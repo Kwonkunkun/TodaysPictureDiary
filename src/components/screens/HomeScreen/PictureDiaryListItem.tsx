@@ -1,5 +1,9 @@
-import { VStack, Image, Text, Pressable, Center } from "native-base";
+import { Colors, Dimension, Sizes, Spaces } from "@constants";
+import { VStack, Image, Text, Pressable, Center, HStack } from "native-base";
 import React from "react";
+import LottieView from "lottie-react-native";
+import { ColorPicker } from "react-native-color-picker";
+import { getAppDateStringFormatWith } from "@Utils";
 
 type PictureDiaryListItemProps = {
   pictureDiary: PictureDiary;
@@ -17,13 +21,42 @@ const PictureDiaryListItem = ({
           source={{
             uri: "https://wallpaperaccess.com/full/317501.jpg",
           }}
-          size="10"
+          width={Dimension.window.width / 2}
+          height={"40"}
+          resizeMode="contain"
         />
-        <Text>{pictureDiary.time}</Text>
-        <Text>{pictureDiary.title}</Text>
+        <LottieView
+          autoPlay={true}
+          source={lottieGroup[0].source}
+          style={{
+            width: Dimension.window.width / 8,
+            height: Dimension.window.width / 8,
+            backgroundColor: "transparent",
+            position: "absolute",
+            top: 3,
+          }}
+        />
+        <VStack space={0.5} px={"0.5"}>
+          <Text fontSize={Sizes.smallText}>
+            {getAppDateStringFormatWith(pictureDiary.time)}
+          </Text>
+          <Text fontSize={Sizes.midText} fontWeight={"semibold"}>
+            {pictureDiary.title}
+          </Text>
+        </VStack>
       </Pressable>
     </VStack>
   );
 };
 
 export default PictureDiaryListItem;
+
+const lottieGroup = [
+  { title: "sun", source: require("../../../../assets/lotties/sun.json") },
+  {
+    title: "cloud",
+    source: require("../../../../assets/lotties/cloud.json"),
+  },
+  { title: "rain", source: require("../../../../assets/lotties/rain.json") },
+  { title: "snow", source: require("../../../../assets/lotties/snow.json") },
+];

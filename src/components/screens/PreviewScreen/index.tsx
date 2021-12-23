@@ -63,7 +63,7 @@ const PreviewScreen = ({ navigation }: RootStackScreenProps<"Preview">) => {
         <Actionsheet.Content>
           <Actionsheet.Item
             onPress={() => {
-              navigation.navigate("Create");
+              navigation.navigate("CreateAndEdit", { pictureDiary: undefined });
               onClose();
             }}
           >
