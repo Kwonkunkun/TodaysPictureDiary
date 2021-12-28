@@ -3,7 +3,7 @@ import { VStack, Image, Text, Pressable, Center, HStack } from "native-base";
 import React from "react";
 import LottieView from "lottie-react-native";
 import { ColorPicker } from "react-native-color-picker";
-import { getAppDateStringFormatWith } from "@Utils";
+import { getAppDateStringFormatWith, getLottieSourceWith } from "@Utils";
 
 type PictureDiaryListItemProps = {
   pictureDiary: PictureDiary;
@@ -25,9 +25,9 @@ const PictureDiaryListItem = ({
           height={"40"}
           resizeMode="contain"
         />
-        {/* <LottieView
+        <LottieView
           autoPlay={true}
-          source={lottieGroup[0].source}
+          source={getLottieSourceWith(pictureDiary.weather)}
           style={{
             width: Dimension.window.width / 8,
             height: Dimension.window.width / 8,
@@ -35,7 +35,7 @@ const PictureDiaryListItem = ({
             position: "absolute",
             top: 3,
           }}
-        /> */}
+        />
         <VStack space={0.5} px={"0.5"}>
           <Text fontSize={Sizes.smallText}>
             {getAppDateStringFormatWith(pictureDiary.time)}
@@ -50,13 +50,3 @@ const PictureDiaryListItem = ({
 };
 
 export default PictureDiaryListItem;
-
-const lottieGroup = [
-  { title: "sun", source: require("../../../../assets/lotties/sun.json") },
-  {
-    title: "cloud",
-    source: require("../../../../assets/lotties/cloud.json"),
-  },
-  { title: "rain", source: require("../../../../assets/lotties/rain.json") },
-  { title: "snow", source: require("../../../../assets/lotties/snow.json") },
-];

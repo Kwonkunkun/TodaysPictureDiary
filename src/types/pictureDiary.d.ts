@@ -1,7 +1,9 @@
 type PictureDiary = {
   time: string;
-  weather: "sun" | "rain" | "snow" | "cloud";
+  weather: Weather;
   title: string;
   base64Img: string;
   content: string;
 };
+
+type Weather = "sun" | "rain" | "snow" | "cloud";
