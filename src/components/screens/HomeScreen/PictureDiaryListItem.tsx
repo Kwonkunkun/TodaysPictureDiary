@@ -25,7 +25,7 @@ const PictureDiaryListItem = ({
           height={"40"}
           resizeMode="contain"
         />
-        <LottieView
+        {/* <LottieView
           autoPlay={true}
           source={lottieGroup[0].source}
           style={{
@@ -35,7 +35,7 @@ const PictureDiaryListItem = ({
             position: "absolute",
             top: 3,
           }}
-        />
+        /> */}
         <VStack space={0.5} px={"0.5"}>
           <Text fontSize={Sizes.smallText}>
             {getAppDateStringFormatWith(pictureDiary.time)}

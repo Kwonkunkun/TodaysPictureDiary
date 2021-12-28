@@ -15,7 +15,12 @@ import React, { useEffect, useRef, useState } from "react";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import { RootStackScreenProps } from "types/navigation";
 import LottieView from "lottie-react-native";
-import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView as DefaultScrollView,
+  TextInput,
+} from "react-native";
 
 /**
  * CreateAndEditDiaryScreen
@@ -29,6 +34,7 @@ const CreateAndEditDiaryScreen = ({
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isWeatherPickerVisible, setWeatherPickerVisiblilty] = useState(false);
   const contentTextAreaRef = useRef<TextInput>(null);
+  const scrollViewRef = useRef<DefaultScrollView>(null);
 
   const [pictureDiary, setPictureDiary] = useState<PictureDiary>(
     route.params.pictureDiary
@@ -96,17 +102,23 @@ const CreateAndEditDiaryScreen = ({
               />
             }
             onPress={() => {
-              //preview 화면으로 가자, navigation.replace 쓰면 수월할듯
+              // ㄴㄴㄴ 그냥 goback
+              navigation.goBack();
             }}
           />
         }
       />
 
+      {/* body */}
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
       >
-        <ScrollView m={Spaces.padding} style={{ marginBottom: 0 }}>
+        <ScrollView
+          ref={scrollViewRef}
+          m={Spaces.padding}
+          style={{ marginBottom: 0 }}
+        >
           <PictureDiaryDetail
             pictureDiary={pictureDiary}
             isEdit={true}
@@ -136,17 +148,20 @@ const CreateAndEditDiaryScreen = ({
         </ScrollView>
       </KeyboardAvoidingView>
 
+      {/* input */}
       <TextInput
         ref={contentTextAreaRef}
-        style={{ color: "white" }}
+        style={{ color: "transparent" }}
         defaultValue={pictureDiary.content}
         onChangeText={(text) => {
           setPictureDiary({ ...pictureDiary, content: text });
         }}
-        onFocus={() => {}}
+        onFocus={(event) => {
+          scrollViewRef.current?.scrollTo(event.target);
+        }}
         onBlur={() => {}}
       />
-
+      {/* date picker */}
       <DateTimePicker
         isVisible={isDatePickerVisible}
         mode="date"
@@ -157,7 +172,7 @@ const CreateAndEditDiaryScreen = ({
         display="spinner"
         locale="ko_KR"
       />
-
+      {/* action sheet */}
       <Actionsheet
         isOpen={isWeatherPickerVisible}
         onClose={hideWeatherPicker}

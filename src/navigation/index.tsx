@@ -43,7 +43,11 @@ function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Preview" component={PreviewScreen} />
+      <Stack.Screen
+        name="Preview"
+        component={PreviewScreen}
+        // options={{ animation: "fade_from_bottom" }}
+      />
       <Stack.Screen name="CreateAndEdit" component={CreateAndEditDiaryScreen} />
       <Stack.Screen name="AppIntroduce" component={AppIntroduceScreen} />
       <Stack.Screen name="Setting" component={SettingScreen} />

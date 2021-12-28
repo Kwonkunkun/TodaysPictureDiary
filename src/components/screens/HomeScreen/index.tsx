@@ -1,8 +1,32 @@
 import { HomeHeaderBlock } from "@components/screens/HomeScreen/HomeHeaderBlock";
-import { HStack, VStack } from "native-base";
+import {
+  HStack,
+  VStack,
+  SimpleGrid,
+  ScrollView,
+  FlatList,
+  View,
+} from "native-base";
 import React, { useState } from "react";
 import { RootStackScreenProps } from "types/navigation";
 import PictureDiaryListItem from "./PictureDiaryListItem";
+import DummyData from "./dummyData.json";
+import { Dimension } from "@constants";
+
+const formatData = (data: Array<any>, numColumns: number) => {
+  const numberOfFullRows = Math.floor(data.length / numColumns);
+
+  let numberOfElementsLastRow = data.length - numberOfFullRows * numColumns;
+  while (
+    numberOfElementsLastRow !== numColumns &&
+    numberOfElementsLastRow !== 0
+  ) {
+    data.push({ empty: true });
+    numberOfElementsLastRow++;
+  }
+
+  return data;
+};
 
 const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
   const [selectedTime, setSelectedTime] = useState(() => {
@@ -23,34 +47,24 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
           navigation.navigate("Setting");
         }}
       />
-      <VStack>
-        <HStack>
-          <PictureDiaryListItem
-            pictureDiary={{
-              time: "1995-12-17T03:24:00Z",
-              weather: "sun",
-              title: "집에 가고 싶어요",
-              base64Img: "",
-              content: "집에 가면 좋아요",
-            }}
-            handleOnPressItem={() => {
-              navigation.navigate("Preview");
-            }}
-          />
-          <PictureDiaryListItem
-            pictureDiary={{
-              time: "1995-12-17T03:24:00Z",
-              weather: "sun",
-              title: "집에 가고 싶어요",
-              base64Img: "",
-              content: "집에 가면 좋아요",
-            }}
-            handleOnPressItem={() => {
-              navigation.navigate("Preview");
-            }}
-          />
-        </HStack>
-      </VStack>
+
+      <FlatList
+        data={formatData(DummyData.data, 2)}
+        renderItem={({ item }) =>
+          item.empty ? (
+            <View flex={1} width={Dimension.window.width / 2} p={"2"} />
+          ) : (
+            <PictureDiaryListItem
+              pictureDiary={item as PictureDiary}
+              handleOnPressItem={() => {
+                navigation.navigate("Preview");
+              }}
+            />
+          )
+        }
+        numColumns={2}
+        keyExtractor={(item, idx) => idx.toString()}
+      />
     </>
   );
 };
