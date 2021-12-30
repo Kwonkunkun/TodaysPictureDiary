@@ -42,9 +42,9 @@ const AppIntroduceScreen = ({
       <Center flex={1}>
         <Carousel
           gap={16}
-          offset={36}
+          offset={30}
           pages={PAGES}
-          pageWidth={Dimension.window.width - (16 + 36) * 2}
+          pageWidth={Dimension.window.width - (16 + 30) * 2}
         />
       </Center>
     </>
@@ -56,22 +56,21 @@ export default AppIntroduceScreen;
 const PAGES = [
   {
     num: 0,
-    color: "#86E3CE",
+    color: "#98DDCA",
+    imgSource: require("@assets/images/appIntro1.png"),
   },
   {
     num: 1,
-    color: "#D0E6A5",
+    color: "#D5ECC2",
+    imgSource: require("@assets/images/appIntro2.png"),
   },
   {
     num: 2,
-    color: "#FFDD94",
+    color: "#FFD3B4",
+    imgSource: require("@assets/images/appIntro3.png"),
   },
-  {
-    num: 3,
-    color: "#FA897B",
-  },
-  {
-    num: 4,
-    color: "#CCABD8",
-  },
+  // {
+  //   num: 3,
+  //   color: "#FFAAA7",
+  // },
 ];

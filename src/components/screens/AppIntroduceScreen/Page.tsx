@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
 import { ViewStyle } from "react-native";
+import { Image, Heading, Center, Text, Flex } from "native-base";
 
 type PageProps = {
-  item: { num: number; color: string };
+  item: { num: number; color: string; imgSource: any };
   style: ViewStyle;
 };
 
@@ -14,12 +15,10 @@ const PageItem = styled.View<{ color: string }>`
   border-radius: 20px;
 `;
 
-const PageNum = styled.Text``;
-
 export default function Page({ item, style }: PageProps) {
   return (
     <PageItem color={item.color} style={style}>
-      <PageNum>{item.num}</PageNum>
+      <Image resizeMode={"contain"} source={item.imgSource} />
     </PageItem>
   );
 }

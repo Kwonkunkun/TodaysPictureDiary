@@ -6,7 +6,7 @@ import Page from "./Page";
 type CarouselProps = {
   gap: number;
   offset: number;
-  pages: Array<{ num: number; color: string }>;
+  pages: Array<{ num: number; color: string; imgSource: any }>;
   pageWidth: number;
 };
 const Container = styled.View`
