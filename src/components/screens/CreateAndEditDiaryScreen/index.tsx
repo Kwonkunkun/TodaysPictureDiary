@@ -23,6 +23,8 @@ import {
 } from "react-native";
 import { useRecoilState } from "recoil";
 import { PictureDiaryState } from "@state";
+import CustomView from "@components/atoms/CustomView";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 
 /**
  * CreateAndEditDiaryScreen
@@ -37,7 +39,7 @@ const CreateAndEditDiaryScreen = ({
   const [isWeatherPickerVisible, setWeatherPickerVisiblilty] = useState(false);
   const contentTextAreaRef = useRef<TextInput>(null);
   const scrollViewRef = useRef<DefaultScrollView>(null);
-
+  const { setItem } = useAsyncStorage("@pictureDiaries");
   const [pictureDiaries, setPictureDiaries] = useRecoilState(PictureDiaryState);
   const [isEdit, setIsEdit] = useState<Boolean>(
     route.params.pictureDiary ? true : false
@@ -85,15 +87,39 @@ const CreateAndEditDiaryScreen = ({
 
   const onPressCheckIconButton = () => {
     //이 부분을 edit와 create 나눠서 분기처리할것
-    pictureDiaries
-      ? setPictureDiaries([...pictureDiaries, pictureDiary])
-      : setPictureDiaries([pictureDiary] as Array<PictureDiary>);
+    if (isEdit) {
+      const newPictureDiaries = pictureDiaries!.map((item) => {
+        if (item.id === pictureDiary.id) {
+          return pictureDiary;
+        }
+        return item;
+      });
+      setPictureDiaries(newPictureDiaries);
+      setPictureDiaryPhoneStorage(newPictureDiaries);
+    } else {
+      const newPictureDiaries = pictureDiaries
+        ? [...pictureDiaries, pictureDiary]
+        : [pictureDiary];
+      setPictureDiaries(newPictureDiaries);
+      setPictureDiaryPhoneStorage(newPictureDiaries);
+    }
 
-    navigation.goBack();
+    navigation.popToTop();
+  };
+
+  const setPictureDiaryPhoneStorage = (_pictureDiary: Array<PictureDiary>) => {
+    setItem(JSON.stringify(_pictureDiary))
+      .then(() => {
+        console.log("저장 성공");
+      })
+      .catch((err) => {
+        console.log("저장 실패");
+        console.log(err);
+      });
   };
 
   return (
-    <>
+    <CustomView>
       <HeaderBlock
         leftComponent={
           <IconButton
@@ -226,7 +252,7 @@ const CreateAndEditDiaryScreen = ({
           ))}
         </Actionsheet.Content>
       </Actionsheet>
-    </>
+    </CustomView>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { HStack, Box, StatusBar } from "native-base";
 import { Colors } from "@constants";
+import StyledText from "@components/atoms/StyledText";
 
 /**
  * HeaderBlock
@@ -19,10 +20,10 @@ export const HeaderBlock = ({
 }: HeaderBlockProps) => {
   return (
     <>
-      <StatusBar backgroundColor={Colors.background} barStyle="light-content" />
-      <Box safeAreaTop backgroundColor={Colors.background} />
+      <StatusBar backgroundColor={Colors.header} barStyle="light-content" />
+      <Box safeAreaTop backgroundColor={Colors.header} />
       <HStack
-        bg={Colors.background}
+        bg={Colors.header}
         px="1"
         py="1"
         justifyContent="space-between"

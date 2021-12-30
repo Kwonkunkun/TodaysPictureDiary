@@ -1,11 +1,20 @@
 import React, { useState } from "react";
-import { HStack, IconButton, Icon, Text, Box, StatusBar } from "native-base";
+import {
+  HStack,
+  IconButton,
+  Icon,
+  Text,
+  Box,
+  StatusBar,
+  Image,
+} from "native-base";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
-import { Colors, Spaces } from "@constants";
+import { Colors, Sizes, Spaces } from "@constants";
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { TouchableOpacity } from "react-native";
 import { HeaderBlock } from "@components/blocks/HeaderBlock";
+import StyledText from "@components/atoms/StyledText";
 /**
  * HeaderBlock
  * 기능
@@ -45,27 +54,48 @@ export const HomeHeaderBlock = ({
   return (
     <>
       <HeaderBlock
+        // leftComponent={
+        //   <TouchableOpacity
+        //     style={{ flexDirection: "row" }}
+        //     onPress={showDatePicker}
+        //   >
+        //     <Text
+        //       style={{ alignSelf: "center", paddingLeft: Spaces.left }}
+        //       color="white"
+        //       fontSize="15"
+        //       fontWeight="medium"
+        //     >
+        //       {`${selectedTime.getFullYear()}년 ${
+        //         selectedTime.getMonth() + 1
+        //       }월`}
+        //     </Text>
+        //     <Icon
+        //       size="sm"
+        //       as={<Entypo name="chevron-small-down" color="black" />}
+        //       color="white"
+        //     />
+        //   </TouchableOpacity>
+        // }
         leftComponent={
-          <TouchableOpacity
-            style={{ flexDirection: "row" }}
-            onPress={showDatePicker}
-          >
-            <Text
-              style={{ alignSelf: "center", paddingLeft: Spaces.left }}
-              color="white"
-              fontSize="15"
-              fontWeight="medium"
-            >
-              {`${selectedTime.getFullYear()}년 ${
-                selectedTime.getMonth() + 1
-              }월`}
-            </Text>
-            <Icon
-              size="sm"
-              as={<Entypo name="chevron-small-down" color="black" />}
-              color="white"
+          <HStack alignItems={"center"}>
+            <Image
+              source={require("@assets/images/logo.png")}
+              width={"1/4"}
+              height={"10"}
+              resizeMode="contain"
             />
-          </TouchableOpacity>
+            <StyledText
+              style={{
+                paddingLeft: Spaces.left,
+                fontSize: Sizes.bigText,
+              }}
+            >
+              오늘의
+            </StyledText>
+            <StyledText style={{ color: "green", fontSize: Sizes.bigText }}>
+              {` ${"그림일기"}`}
+            </StyledText>
+          </HStack>
         }
         rightComponent={
           <>

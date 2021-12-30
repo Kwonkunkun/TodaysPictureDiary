@@ -1,19 +1,11 @@
-import React, { useState } from "react";
-import {
-  Center,
-  Container,
-  Divider,
-  HStack,
-  // Image,
-  Input,
-  Pressable,
-  TextArea,
-  VStack,
-} from "native-base";
+import React from "react";
+import { Center, Divider, HStack, Input, Pressable, VStack } from "native-base";
 import MenuScriptBlock from "@components/blocks/MenuScriptBlock";
 import { Image } from "react-native";
 import { Colors } from "@constants";
-import { getAppDateStringFormatWith } from "@Utils";
+import { getAppDateStringFormatWith, getClientStringWith } from "@Utils";
+import StyledText from "@components/atoms/StyledText";
+import emptyPicture from "@assets/images/emptyPicture.png";
 
 type PictureDiaryDetailProps = {
   isEdit?: boolean;
@@ -49,9 +41,13 @@ const PictureDiaryDetail = ({
             <Center
               style={{ borderBottomWidth: 0.5, borderRightWidth: 0.5 }}
               flex={1}
-            >{`날짜`}</Center>
+            >
+              <StyledText>날짜</StyledText>
+            </Center>
             <Center style={{ borderBottomWidth: 0.5 }} flex={3}>
-              {getAppDateStringFormatWith(pictureDiary.time)}
+              <StyledText>
+                {getAppDateStringFormatWith(pictureDiary.time)}
+              </StyledText>
             </Center>
           </Pressable>
           <Pressable
@@ -65,9 +61,13 @@ const PictureDiaryDetail = ({
               style={{ borderBottomWidth: 0.5, borderRightWidth: 0.5 }}
               flex={1}
               py={"1"}
-            >{`날씨`}</Center>
+            >
+              <StyledText>날씨</StyledText>
+            </Center>
             <Center style={{ borderBottomWidth: 0.5 }} flex={1} py={"1"}>
-              {pictureDiary.weather}
+              <StyledText>
+                {getClientStringWith(pictureDiary.weather)}
+              </StyledText>
             </Center>
           </Pressable>
         </HStack>
@@ -79,9 +79,12 @@ const PictureDiaryDetail = ({
               style={{ borderBottomWidth: 0.5, borderRightWidth: 0.5 }}
               flex={1}
               py={"1"}
-            >{`제목`}</Center>
+            >
+              <StyledText>제목</StyledText>
+            </Center>
             <Center style={{ borderBottomWidth: 0.5 }} flex={5} py={"1"}>
               <Input
+                fontFamily={"crayon"}
                 w="80%"
                 isDisabled={!isEdit}
                 defaultValue={pictureDiary.title}
@@ -103,10 +106,13 @@ const PictureDiaryDetail = ({
         >
           <Center background="white" borderBottomWidth="1">
             <Image
-              source={{
-                uri:
-                  pictureDiary.base64Img !== "" ? pictureDiary.base64Img : "",
-              }}
+              source={
+                pictureDiary.base64Img !== ""
+                  ? {
+                      uri: pictureDiary.base64Img,
+                    }
+                  : emptyPicture
+              }
               style={{ width: "100%", height: 240 }}
             />
           </Center>

@@ -17,3 +17,18 @@ export const getLottieSourceWith = (weather: Weather) => {
       return require("@assets/lotties/sun.json");
   }
 };
+
+export const getClientStringWith = (weather: Weather) => {
+  switch (weather) {
+    case "sun":
+      return "맑음";
+    case "rain":
+      return "비";
+    case "cloud":
+      return "구름";
+    case "snow":
+      return "눈";
+    default:
+      return "맑음";
+  }
+};

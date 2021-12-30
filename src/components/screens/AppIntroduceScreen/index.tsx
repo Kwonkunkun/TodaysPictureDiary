@@ -6,12 +6,13 @@ import React from "react";
 import { Dimension } from "@constants";
 import { Carousel } from "./Carousel";
 import { RootStackScreenProps } from "types/navigation";
+import CustomView from "@components/atoms/CustomView";
 
 const AppIntroduceScreen = ({
   navigation,
 }: RootStackScreenProps<"AppIntroduce">) => {
   return (
-    <>
+    <CustomView>
       <HeaderBlock
         leftComponent={
           <IconButton
@@ -47,7 +48,7 @@ const AppIntroduceScreen = ({
           pageWidth={Dimension.window.width - (16 + 30) * 2}
         />
       </Center>
-    </>
+    </CustomView>
   );
 };
 
@@ -66,7 +67,7 @@ const PAGES = [
   },
   {
     num: 2,
-    color: "#FFD3B4",
+    color: "#6D88B3",
     imgSource: require("@assets/images/appIntro3.png"),
   },
   // {

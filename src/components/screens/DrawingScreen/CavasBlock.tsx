@@ -3,23 +3,27 @@ import {
   Button,
   Center,
   HStack,
+  Icon,
   IconButton,
   Slider,
+  View,
   VStack,
 } from "native-base";
-import { Entypo, Ionicons } from "@expo/vector-icons";
+import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import SignatureScreen, {
   SignatureViewRef,
 } from "react-native-signature-canvas";
-import { Colors } from "@constants";
+import { Colors, Spaces } from "@constants";
 import ColorPalette from "react-native-color-palette";
+import CustomButton from "@components/atoms/CustomButton";
+import CustomView from "@components/atoms/CustomView";
 
 type CavasBlockProps = {
   defaultData: string;
   onOK: (signature?: string) => void;
 };
 export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
-  const [selectedColor, setSelectedColor] = useState("#C0392B");
+  const [selectedColor, setSelectedColor] = useState("#000000");
   const ref = useRef<SignatureViewRef>(null);
 
   const handleSignature = (signature?: string) => {
@@ -38,11 +42,21 @@ export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
   const handleEnd = () => {
     ref.current?.readSignature();
   };
+  // .m-signature-pad--footer {display: none; margin: 0px; }
 
-  const style = `.m-signature-pad {box-shadow: none; } 
-              .m-signature-pad--body {border: none;, margin: 0}
-              .m-signature-pad--footer {display: none; margin: 0px;}
-             `;
+  const style = `.m-signature-pad {box-shadow: none;  } 
+              .m-signature-pad--body {border: none;, margin: 0; }
+              .m-signature-pad--footer {display: none; margin: 0px; padding: 0px}
+                `;
+
+  const webStyle = `.m-signature-pad {
+                  flex: 1;
+                  box-shadow: none;
+                  border-radius: 10px;
+                }
+                .m-signature-pad--footer {
+                  display: none;
+                }`;
 
   return (
     <VStack flex={1}>
@@ -58,7 +72,8 @@ export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
           penColor={selectedColor}
           minWidth={2}
           maxWidth={2}
-          dataURL={defaultData}
+          dataURL={defaultData !== "" ? defaultData : undefined}
+          webviewContainerStyle={{ backgroundColor: Colors.subBackground }}
         />
       </Center>
       <VStack
@@ -66,6 +81,9 @@ export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
         flex={2}
         backgroundColor={Colors.white}
         alignItems="center"
+        justifyContent={"space-between"}
+        style={{ padding: Spaces.padding }}
+        safeArea
       >
         {/* undo redo button */}
         <HStack space={5} alignItems="center">
@@ -96,7 +114,7 @@ export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
         </HStack>
         <HStack>
           {/* color picker, all clear 넣으면 됨 */}
-          <VStack space="sm" alignContent="space-between">
+          <VStack space="md" alignContent="space-between">
             {/* pallette */}
             <ColorPalette
               titleStyles={{ display: "none" }}
@@ -105,7 +123,7 @@ export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
                 ref && ref.current?.changePenColor(color);
               }}
               value={selectedColor}
-              colors={["#C0392B", "#E74C3C", "#9B59B6", "#8E44AD", "#2980B9"]}
+              colors={["#000000", "#ffffff", "#c52b2b", "#40d164", "#2282ff"]}
               title={""}
               icon={<Entypo name="circle" size={10} color="white" />}
             />
@@ -123,16 +141,22 @@ export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
               <Slider.Track>
                 <Slider.FilledTrack />
               </Slider.Track>
-              <Slider.Thumb />
+              <Slider.Thumb borderWidth="0" bg="transparent">
+                <Icon
+                  as={Entypo}
+                  name="pencil"
+                  color={selectedColor}
+                  size="sm"
+                />
+              </Slider.Thumb>
             </Slider>
             {/* 완료 버튼 */}
-            <Button
-              onPress={() => {
+            <CustomButton
+              innerText="그리기 완료"
+              handleOnPressButton={() => {
                 ref.current?.readSignature();
               }}
-            >
-              그리기 완료
-            </Button>
+            ></CustomButton>
           </VStack>
         </HStack>
       </VStack>

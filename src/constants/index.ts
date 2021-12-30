@@ -4,8 +4,10 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 export const Colors = {
-  // background: "#98ddca",
-  background: "#000000",
+  header: "#FFAAA7",
+  background: "#FFD3B4",
+  subBackground: "#FFD3B4",
+  button: "#6D88B3",
   text: "#000000",
   accentText: "#FFD3B4",
   icon: "#FFD3B4",

@@ -4,13 +4,15 @@ import { Icon, IconButton } from "native-base";
 import { Entypo } from "@expo/vector-icons";
 import { CanvasBlock } from "./CavasBlock";
 import { RootStackScreenProps } from "types/navigation";
+import CustomView from "@components/atoms/CustomView";
+import { Colors } from "@constants";
 
 const DrawingScreen = ({
   navigation,
   route,
 }: RootStackScreenProps<"Drawing">) => {
   return (
-    <>
+    <CustomView>
       <HeaderBlock
         leftComponent={
           <IconButton
@@ -38,7 +40,7 @@ const DrawingScreen = ({
         }}
         defaultData={route.params.base64Img}
       />
-    </>
+    </CustomView>
   );
 };
 

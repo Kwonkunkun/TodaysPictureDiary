@@ -15,7 +15,10 @@ export default function useCachedResources() {
         // Load fonts
         await Font.loadAsync({
           ...FontAwesome.font,
-          "space-mono": require("../../assets/fonts/SpaceMono-Regular.ttf"),
+          "sangsang-shinb": require("../../assets/fonts/SangSangShinb7.otf"),
+          crayon: require("../../assets/fonts/Typo_CrayonM.ttf"),
+          "young-child": require("../../assets/fonts/YoonChildfundkoreaManSeh.ttf"),
+          "young-child-bold": require("../../assets/fonts/YoonChildfundkoreaManSeh.ttf"),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service

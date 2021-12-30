@@ -1,19 +1,27 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import useCachedResources from "@hooks/useCachedResources";
 
 import Navigation from "./src/navigation";
 import { NativeBaseProvider, View } from "native-base";
-import { RecoilRoot, useRecoilState } from "recoil";
+import { RecoilRoot, useSetRecoilState } from "recoil";
 
-import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { PictureDiaryState } from "@state";
 import AuthService from "@service/auth_service";
 import PictureDiaryRepository from "@service/pictureDiary_repository";
+import useCustomAsyncStorage from "@hooks/useCustomAsyncStorage";
+import SpinnerBlock from "@components/blocks/SpinnerBlock";
+import * as SplashScreen from "expo-splash-screen";
 
 const authService = new AuthService();
 const pictureDiaryRepositoryService = new PictureDiaryRepository();
+
+SplashScreen.preventAutoHideAsync()
+  .then((result) =>
+    console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`)
+  )
+  .catch(console.warn); // it's good to explicitly catch and inspect any error
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -25,12 +33,12 @@ export default function App() {
       <RecoilRoot>
         <NativeBaseProvider>
           <SafeAreaProvider>
-            {/* <GlobalStateSetter> */}
-            <SignInChecker>
+            <GlobalStateSetter>
+              {/* <SignInChecker> */}
               <Navigation />
               <StatusBar style="dark" />
-            </SignInChecker>
-            {/* </GlobalStateSetter> */}
+              {/* </SignInChecker> */}
+            </GlobalStateSetter>
           </SafeAreaProvider>
         </NativeBaseProvider>
       </RecoilRoot>
@@ -57,19 +65,18 @@ const GlobalStateSetter = (
     children?: React.ReactNode;
   }>
 ) => {
-  const { getItem } = useAsyncStorage("@pictureDiaries");
-  const [pictureDiaries, setPictureDiaries] = useRecoilState(PictureDiaryState);
+  const setPictureDiaries = useSetRecoilState(PictureDiaryState);
+  const { response, error, isLoadingComplete } = useCustomAsyncStorage<
+    Array<PictureDiary>
+  >({
+    key: "@pictureDiaries",
+  });
 
   useEffect(() => {
-    getItem((err, pictureDiariesString) => {
-      if (pictureDiariesString) {
-        const pictureDiaries = JSON.parse(
-          pictureDiariesString
-        ) as Array<PictureDiary>;
-        setPictureDiaries(pictureDiaries);
-      }
-    });
-  }, []);
+    if (response) {
+      setPictureDiaries(response);
+    }
+  }, [response]);
 
   return <View style={{ flex: 1 }} {...props} />;
 };

@@ -1,18 +1,14 @@
 import { HomeHeaderBlock } from "@components/screens/HomeScreen/HomeHeaderBlock";
-import {
-  HStack,
-  VStack,
-  SimpleGrid,
-  ScrollView,
-  FlatList,
-  View,
-} from "native-base";
+import { FlatList, View, Center, Button } from "native-base";
 import React, { useState } from "react";
 import { RootStackScreenProps } from "types/navigation";
 import PictureDiaryListItem from "./PictureDiaryListItem";
-import { Dimension } from "@constants";
+import { Dimension, Sizes, Spaces } from "@constants";
 import { useRecoilValue } from "recoil";
 import { PictureDiaryState } from "@state";
+import StyledText from "@components/atoms/StyledText";
+import CustomView from "@components/atoms/CustomView";
+import CustomButton from "@components/atoms/CustomButton";
 
 const formatData = (data: Array<any>, numColumns: number) => {
   let result = [...data];
@@ -39,20 +35,24 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
 
   const pictureDiaries = useRecoilValue(PictureDiaryState);
 
+  const handleOnPressPlusIconButton = () => {
+    navigation.navigate("CreateAndEdit", { pictureDiary: undefined });
+  };
+
+  const handleOnPressSettingIconButton = () => {
+    navigation.navigate("Setting");
+  };
+
   return (
-    <>
+    <CustomView>
       <HomeHeaderBlock
         selectedTime={selectedTime}
         setSelectedTime={setSelectedTime}
-        handleOnPressPlusIconButton={() => {
-          navigation.navigate("CreateAndEdit", { pictureDiary: undefined });
-        }}
-        handleOnPressSettingIconButton={() => {
-          navigation.navigate("Setting");
-        }}
+        handleOnPressPlusIconButton={handleOnPressPlusIconButton}
+        handleOnPressSettingIconButton={handleOnPressSettingIconButton}
       />
 
-      {pictureDiaries ? (
+      {pictureDiaries && pictureDiaries.length !== 0 ? (
         <FlatList
           data={formatData(pictureDiaries, 2)}
           renderItem={({ item }) =>
@@ -71,9 +71,17 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
           keyExtractor={(item, idx) => idx.toString()}
         />
       ) : (
-        <></>
+        <Center flex={1}>
+          <StyledText style={{ padding: Spaces.padding }}>
+            아직 그림일기가 생성되지 않았어요.
+          </StyledText>
+          <CustomButton
+            innerText="그림일기 생성하기"
+            handleOnPressButton={handleOnPressPlusIconButton}
+          ></CustomButton>
+        </Center>
       )}
-    </>
+    </CustomView>
   );
 };
 
