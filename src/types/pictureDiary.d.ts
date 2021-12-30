@@ -1,4 +1,5 @@
 type PictureDiary = {
+  id: string;
   time: string;
   weather: Weather;
   title: string;

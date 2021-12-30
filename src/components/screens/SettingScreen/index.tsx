@@ -1,7 +1,7 @@
 import { HeaderBlock } from "@components/blocks/HeaderBlock";
 import { Entypo, AntDesign } from "@expo/vector-icons";
-import { Icon, IconButton } from "native-base";
-import React from "react";
+import { Button, Icon, IconButton, Image, Text } from "native-base";
+import React, { useEffect } from "react";
 import { RootStackScreenProps } from "types/navigation";
 
 const SettingScreen = ({ navigation }: RootStackScreenProps<"Setting">) => {

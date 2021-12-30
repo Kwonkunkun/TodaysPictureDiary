@@ -10,7 +10,9 @@
       "@types": ["types"],
       "@state": ["state"],
       "@Utils": ["Utils"],
-      "@assets/*": ["../assets/*"]
+      "@assets/*": ["../assets/*"],
+      "@env": [".env"],
+      "@service/*": ["service/*"]
     }
   },
   "exclude": [
