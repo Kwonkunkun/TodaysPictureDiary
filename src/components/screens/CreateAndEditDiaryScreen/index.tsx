@@ -21,6 +21,8 @@ import {
   ScrollView as DefaultScrollView,
   TextInput,
 } from "react-native";
+import { useRecoilState } from "recoil";
+import { PictureDiaryState } from "@state";
 
 /**
  * CreateAndEditDiaryScreen
@@ -36,10 +38,15 @@ const CreateAndEditDiaryScreen = ({
   const contentTextAreaRef = useRef<TextInput>(null);
   const scrollViewRef = useRef<DefaultScrollView>(null);
 
+  const [pictureDiaries, setPictureDiaries] = useRecoilState(PictureDiaryState);
+  const [isEdit, setIsEdit] = useState<Boolean>(
+    route.params.pictureDiary ? true : false
+  );
   const [pictureDiary, setPictureDiary] = useState<PictureDiary>(
     route.params.pictureDiary
       ? route.params.pictureDiary
       : {
+          id: new Date().toISOString(),
           time: new Date().toISOString(),
           weather: "sun",
           title: "",
@@ -64,7 +71,7 @@ const CreateAndEditDiaryScreen = ({
     setWeatherPickerVisiblilty(false);
   };
 
-  const handleConfirm = (date: Date) => {
+  const handleDaetPickerConfirm = (date: Date) => {
     console.warn("A date has been picked: ", date);
     setPictureDiary({
       ...pictureDiary,
@@ -75,6 +82,16 @@ const CreateAndEditDiaryScreen = ({
     });
     hideDatePicker();
   };
+
+  const onPressCheckIconButton = () => {
+    //이 부분을 edit와 create 나눠서 분기처리할것
+    pictureDiaries
+      ? setPictureDiaries([...pictureDiaries, pictureDiary])
+      : setPictureDiaries([pictureDiary] as Array<PictureDiary>);
+
+    navigation.goBack();
+  };
+
   return (
     <>
       <HeaderBlock
@@ -101,10 +118,7 @@ const CreateAndEditDiaryScreen = ({
                 color="white"
               />
             }
-            onPress={() => {
-              // ㄴㄴㄴ 그냥 goback
-              navigation.goBack();
-            }}
+            onPress={onPressCheckIconButton}
           />
         }
       />
@@ -165,7 +179,7 @@ const CreateAndEditDiaryScreen = ({
       <DateTimePicker
         isVisible={isDatePickerVisible}
         mode="date"
-        onConfirm={handleConfirm}
+        onConfirm={handleDaetPickerConfirm}
         onCancel={hideDatePicker}
         confirmTextIOS={"확인"}
         cancelTextIOS={"취소"}

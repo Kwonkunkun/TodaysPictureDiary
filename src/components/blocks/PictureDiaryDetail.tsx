@@ -74,15 +74,7 @@ const PictureDiaryDetail = ({
 
         {/* 제목 */}
         <HStack>
-          <Pressable
-            flexDirection="row"
-            flex={2}
-            onPress={() => {
-              isEdit &&
-                handleOnChangeInputTitle &&
-                handleOnChangeInputTitle(pictureDiary.title);
-            }}
-          >
+          <Pressable flexDirection="row" flex={2}>
             <Center
               style={{ borderBottomWidth: 0.5, borderRightWidth: 0.5 }}
               flex={1}
@@ -93,6 +85,11 @@ const PictureDiaryDetail = ({
                 w="80%"
                 isDisabled={!isEdit}
                 defaultValue={pictureDiary.title}
+                onChangeText={(text: string) => {
+                  isEdit &&
+                    handleOnChangeInputTitle &&
+                    handleOnChangeInputTitle(text);
+                }}
               />
             </Center>
           </Pressable>

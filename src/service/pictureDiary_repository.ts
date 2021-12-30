@@ -1,5 +1,6 @@
 import { ref, remove, set } from "firebase/database";
 import { firebaseDatabase } from "./firebase";
+
 class PictureDiaryRepository {
   syncCard(userId: string, onUpdate: () => void) {
     const reference = ref(firebaseDatabase, `${userId}/cards`);

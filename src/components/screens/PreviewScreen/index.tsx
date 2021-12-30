@@ -14,8 +14,12 @@ import {
 import React from "react";
 import { RootStackScreenProps } from "types/navigation";
 
-const PreviewScreen = ({ navigation }: RootStackScreenProps<"Preview">) => {
+const PreviewScreen = ({
+  navigation,
+  route,
+}: RootStackScreenProps<"Preview">) => {
   const { isOpen, onOpen, onClose } = useDisclose();
+
   return (
     <>
       <HeaderBlock
@@ -49,27 +53,21 @@ const PreviewScreen = ({ navigation }: RootStackScreenProps<"Preview">) => {
         }
       />
       <Center m={Spaces.padding}>
-        <PictureDiaryDetail
-          pictureDiary={{
-            time: "2021년 04월 01일",
-            weather: "sun",
-            title: "집에 가고 싶어요",
-            base64Img: "",
-            content: "집에 가면 좋아요",
-          }}
-        />
+        <PictureDiaryDetail pictureDiary={route.params.pictureDiary} />
       </Center>
       <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content>
           <Actionsheet.Item
             onPress={() => {
-              navigation.navigate("CreateAndEdit", { pictureDiary: undefined });
+              navigation.navigate("CreateAndEdit", {
+                pictureDiary: route.params.pictureDiary,
+              });
               onClose();
             }}
           >
             편집
           </Actionsheet.Item>
-          <Actionsheet.Item>삭제</Actionsheet.Item>
+          <Actionsheet.Item onPress={() => {}}>삭제</Actionsheet.Item>
         </Actionsheet.Content>
       </Actionsheet>
     </>

@@ -1,9 +1,10 @@
 import { Colors, Dimension, Sizes, Spaces } from "@constants";
 import { VStack, Image, Text, Pressable, Center, HStack } from "native-base";
-import React from "react";
+import React, { useEffect } from "react";
 import LottieView from "lottie-react-native";
 import { ColorPicker } from "react-native-color-picker";
 import { getAppDateStringFormatWith, getLottieSourceWith } from "@Utils";
+import emptyPicture from "@assets/images/emptyPicture.png";
 
 type PictureDiaryListItemProps = {
   pictureDiary: PictureDiary;
@@ -18,12 +19,16 @@ const PictureDiaryListItem = ({
     <VStack flex={1} alignItems={"center"} p={"2"}>
       <Pressable onPress={handleOnPressItem}>
         <Image
-          source={{
-            uri: "https://wallpaperaccess.com/full/317501.jpg",
-          }}
+          source={
+            pictureDiary.base64Img !== ""
+              ? {
+                  uri: pictureDiary.base64Img,
+                }
+              : emptyPicture
+          }
           width={Dimension.window.width / 2}
-          height={"40"}
-          resizeMode="contain"
+          height={"32"}
+          resizeMode="stretch"
         />
         <LottieView
           autoPlay={true}
@@ -33,7 +38,6 @@ const PictureDiaryListItem = ({
             height: Dimension.window.width / 8,
             backgroundColor: "transparent",
             position: "absolute",
-            top: 3,
           }}
         />
         <VStack space={0.5} px={"0.5"}>

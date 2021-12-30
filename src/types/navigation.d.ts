@@ -18,7 +18,7 @@ declare global {
 
 export type RootStackParamList = {
   Home: undefined;
-  Preview: undefined;
+  Preview: { pictureDiary: PictureDiary };
   Setting: undefined;
   AppIntroduce: undefined;
   CreateAndEdit: { pictureDiary?: PictureDiary };

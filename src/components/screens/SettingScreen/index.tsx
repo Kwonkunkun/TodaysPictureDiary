@@ -1,6 +1,17 @@
 import { HeaderBlock } from "@components/blocks/HeaderBlock";
 import { Entypo, AntDesign } from "@expo/vector-icons";
-import { Button, Icon, IconButton, Image, Text } from "native-base";
+import AuthService from "@service/auth_service";
+import {
+  Box,
+  Button,
+  Divider,
+  Icon,
+  IconButton,
+  Image,
+  Pressable,
+  Text,
+  VStack,
+} from "native-base";
 import React, { useEffect } from "react";
 import { RootStackScreenProps } from "types/navigation";
 
@@ -22,21 +33,33 @@ const SettingScreen = ({ navigation }: RootStackScreenProps<"Setting">) => {
             }}
           />
         }
-        rightComponent={
-          <IconButton
-            icon={
-              <Icon
-                as={<AntDesign name="question" />}
-                size="sm"
-                color="white"
-              />
-            }
-            onPress={() => {
-              navigation.navigate("AppIntroduce");
-            }}
-          />
-        }
+        // rightComponent={
+        //   <IconButton
+        //     icon={
+        //       <Icon
+        //         as={<AntDesign name="question" />}
+        //         size="sm"
+        //         color="white"
+        //       />
+        //     }
+        //     onPress={() => {
+        //       navigation.navigate("AppIntroduce");
+        //     }}
+        //   />
+        // }
       />
+      <VStack>
+        <Pressable
+          onPress={() => {
+            navigation.navigate("AppIntroduce");
+          }}
+        >
+          <Box p={"4"}>
+            <Text textAlign={"right"}>도움말</Text>
+          </Box>
+        </Pressable>
+        <Divider />
+      </VStack>
     </>
   );
 };

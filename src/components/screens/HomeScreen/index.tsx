@@ -10,22 +10,24 @@ import {
 import React, { useState } from "react";
 import { RootStackScreenProps } from "types/navigation";
 import PictureDiaryListItem from "./PictureDiaryListItem";
-import DummyData from "./dummyData.json";
 import { Dimension } from "@constants";
+import { useRecoilValue } from "recoil";
+import { PictureDiaryState } from "@state";
 
 const formatData = (data: Array<any>, numColumns: number) => {
-  const numberOfFullRows = Math.floor(data.length / numColumns);
+  let result = [...data];
+  const numberOfFullRows = Math.floor(result.length / numColumns);
 
-  let numberOfElementsLastRow = data.length - numberOfFullRows * numColumns;
+  let numberOfElementsLastRow = result.length - numberOfFullRows * numColumns;
   while (
     numberOfElementsLastRow !== numColumns &&
     numberOfElementsLastRow !== 0
   ) {
-    data.push({ empty: true });
+    result.push({ empty: true });
     numberOfElementsLastRow++;
   }
 
-  return data;
+  return result;
 };
 
 const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
@@ -34,6 +36,8 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
     date.setDate(1);
     return date;
   });
+
+  const pictureDiaries = useRecoilValue(PictureDiaryState);
 
   return (
     <>
@@ -48,23 +52,27 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
         }}
       />
 
-      <FlatList
-        data={formatData(DummyData.data, 2)}
-        renderItem={({ item }) =>
-          item.empty ? (
-            <View flex={1} width={Dimension.window.width / 2} p={"2"} />
-          ) : (
-            <PictureDiaryListItem
-              pictureDiary={item as PictureDiary}
-              handleOnPressItem={() => {
-                navigation.navigate("Preview");
-              }}
-            />
-          )
-        }
-        numColumns={2}
-        keyExtractor={(item, idx) => idx.toString()}
-      />
+      {pictureDiaries ? (
+        <FlatList
+          data={formatData(pictureDiaries, 2)}
+          renderItem={({ item }) =>
+            item.empty ? (
+              <View flex={1} width={Dimension.window.width / 2} p={"2"} />
+            ) : (
+              <PictureDiaryListItem
+                pictureDiary={item as PictureDiary}
+                handleOnPressItem={() => {
+                  navigation.navigate("Preview", { pictureDiary: item });
+                }}
+              />
+            )
+          }
+          numColumns={2}
+          keyExtractor={(item, idx) => idx.toString()}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };

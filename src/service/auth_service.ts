@@ -30,12 +30,13 @@ class AuthService {
       // const facebookAuthProvider = new FacebookAuthProvider();
       const credential = FacebookAuthProvider.credential(result.token);
 
-      console.log(credential);
-
       // Sign in with credential from the Facebook user.
-      signInWithCredential(firebaseAuth, credential).catch((error) => {
-        // Handle Errors here.
-      });
+      signInWithCredential(firebaseAuth, credential)
+        .then((result) => console.log(result.user))
+        .catch((error) => {
+          // Handle Errors here.
+          console.log(error);
+        });
     }
   }
 }
