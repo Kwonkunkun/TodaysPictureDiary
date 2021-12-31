@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Center, Text, Divider, HStack, VStack, View } from "native-base";
-import StyledText from "@components/atoms/StyledText";
+import StyledBoldText from "@components/atoms/StyledBoldText";
 
 type MenuScriptBlockProps = {
   scriptsString: string;
@@ -49,7 +49,7 @@ const MenuScriptBlock = ({ scriptsString }: MenuScriptBlockProps) => {
                   alignItems: "center",
                 }}
               >
-                <StyledText>{word}</StyledText>
+                <StyledBoldText>{word}</StyledBoldText>
               </View>
             </Center>
           ))}

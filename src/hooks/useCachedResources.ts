@@ -18,7 +18,7 @@ export default function useCachedResources() {
           "sangsang-shinb": require("../../assets/fonts/SangSangShinb7.otf"),
           crayon: require("../../assets/fonts/Typo_CrayonM.ttf"),
           "young-child": require("../../assets/fonts/YoonChildfundkoreaManSeh.ttf"),
-          "young-child-bold": require("../../assets/fonts/YoonChildfundkoreaManSeh.ttf"),
+          "young-child-bold": require("../../assets/fonts/YoonChildfundkoreaDaeHan.ttf"),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
