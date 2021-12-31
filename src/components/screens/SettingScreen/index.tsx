@@ -1,8 +1,9 @@
 import CustomView from "@components/atoms/CustomView";
+import StyledBoldText from "@components/atoms/StyledBoldText";
 import StyledText from "@components/atoms/StyledText";
 import { HeaderBlock } from "@components/blocks/HeaderBlock";
+import { Colors, Sizes } from "@constants";
 import { Entypo, AntDesign } from "@expo/vector-icons";
-import AuthService from "@service/auth_service";
 import {
   Box,
   Button,
@@ -15,6 +16,7 @@ import {
   VStack,
 } from "native-base";
 import React, { useEffect } from "react";
+import { Linking } from "react-native";
 import { RootStackScreenProps } from "types/navigation";
 
 const SettingScreen = ({ navigation }: RootStackScreenProps<"Setting">) => {
@@ -35,6 +37,11 @@ const SettingScreen = ({ navigation }: RootStackScreenProps<"Setting">) => {
             }}
           />
         }
+        centerComponent={
+          <StyledBoldText style={{ fontSize: Sizes.bigText, color: "green" }}>
+            설정
+          </StyledBoldText>
+        }
         rightComponent={
           <IconButton
             icon={
@@ -51,13 +58,18 @@ const SettingScreen = ({ navigation }: RootStackScreenProps<"Setting">) => {
         }
       />
       <VStack>
+        <Pressable onPress={() => {}}>
+          <Box p={"4"}>
+            <StyledText style={{ textAlign: "right" }}>준비중이에요</StyledText>
+          </Box>
+        </Pressable>
         <Pressable
           onPress={() => {
-            navigation.navigate("AppIntroduce");
+            Linking.openURL("https://github.com/Kwonkunkun/TodaysPictureDiary");
           }}
         >
           <Box p={"4"}>
-            <StyledText style={{ textAlign: "right" }}>준비중이에여</StyledText>
+            <StyledText style={{ textAlign: "right" }}>코드 repo</StyledText>
           </Box>
         </Pressable>
         <Divider />

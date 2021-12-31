@@ -196,10 +196,13 @@ const CreateAndEditDiaryScreen = ({
         onChangeText={(text) => {
           setPictureDiary({ ...pictureDiary, content: text });
         }}
-        onFocus={(event) => {
-          scrollViewRef.current?.scrollTo(event.target);
+        onFocus={() => {
+          setTimeout(() => {
+            scrollViewRef.current?.scrollToEnd();
+          }, 100);
         }}
         onBlur={() => {}}
+        maxLength={50}
       />
       {/* date picker */}
       <DateTimePicker
@@ -224,6 +227,7 @@ const CreateAndEditDiaryScreen = ({
               <HStack>
                 {lotties.map((lottie) => (
                   <Pressable
+                    key={lottie.title}
                     onPress={() => {
                       setPictureDiary({
                         ...pictureDiary,

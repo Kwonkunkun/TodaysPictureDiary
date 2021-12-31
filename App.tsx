@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import useCachedResources from "@hooks/useCachedResources";
 
@@ -11,7 +11,6 @@ import { PictureDiaryState } from "@state";
 import AuthService from "@service/auth_service";
 import PictureDiaryRepository from "@service/pictureDiary_repository";
 import useCustomAsyncStorage from "@hooks/useCustomAsyncStorage";
-import SpinnerBlock from "@components/blocks/SpinnerBlock";
 import * as SplashScreen from "expo-splash-screen";
 
 const authService = new AuthService();

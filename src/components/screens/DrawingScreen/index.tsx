@@ -5,7 +5,6 @@ import { Entypo } from "@expo/vector-icons";
 import { CanvasBlock } from "./CavasBlock";
 import { RootStackScreenProps } from "types/navigation";
 import CustomView from "@components/atoms/CustomView";
-import { Colors } from "@constants";
 
 const DrawingScreen = ({
   navigation,

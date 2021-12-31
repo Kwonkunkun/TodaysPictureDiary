@@ -1,8 +1,7 @@
 import { Colors, Dimension, Sizes, Spaces } from "@constants";
-import { VStack, Image, Text, Pressable, Center, HStack } from "native-base";
-import React, { useEffect, useState } from "react";
+import { VStack, Image, Text, Pressable } from "native-base";
+import React from "react";
 import LottieView from "lottie-react-native";
-import { ColorPicker } from "react-native-color-picker";
 import { getAppDateStringFormatWith, getLottieSourceWith } from "@Utils";
 import emptyPicture from "@assets/images/emptyPicture.png";
 import StyledText from "@components/atoms/StyledText";
@@ -28,6 +27,7 @@ const PictureDiaryListItem = ({
                 }
               : emptyPicture
           }
+          fallbackSource={emptyPicture}
           width={Dimension.window.width / 2}
           height={"32"}
           resizeMode="stretch"

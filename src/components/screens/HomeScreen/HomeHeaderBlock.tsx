@@ -12,9 +12,10 @@ import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { Colors, Sizes, Spaces } from "@constants";
 
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { TouchableOpacity } from "react-native";
 import { HeaderBlock } from "@components/blocks/HeaderBlock";
 import StyledText from "@components/atoms/StyledText";
+import logoImg from "@assets/images/logo.png";
+
 /**
  * HeaderBlock
  * 기능
@@ -79,10 +80,11 @@ export const HomeHeaderBlock = ({
         leftComponent={
           <HStack alignItems={"center"}>
             <Image
-              source={require("@assets/images/logo.png")}
+              source={logoImg}
               width={"1/4"}
               height={"10"}
               resizeMode="contain"
+              fallbackSource={logoImg}
             />
             <StyledText
               style={{
