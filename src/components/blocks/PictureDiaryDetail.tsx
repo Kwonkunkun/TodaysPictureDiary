@@ -84,7 +84,7 @@ const PictureDiaryDetail = ({
             </Center>
             <Center style={{ borderBottomWidth: 0.5 }} flex={5} py={"1"}>
               <Input
-                fontFamily={"crayon"}
+                fontFamily={"young-child-bold"}
                 w="80%"
                 isDisabled={!isEdit}
                 defaultValue={pictureDiary.title}
@@ -93,6 +93,8 @@ const PictureDiaryDetail = ({
                     handleOnChangeInputTitle &&
                     handleOnChangeInputTitle(text);
                 }}
+                placeholder={isEdit ? "15글자 이하로 입력해주세요!" : ""}
+                maxLength={15}
               />
             </Center>
           </Pressable>

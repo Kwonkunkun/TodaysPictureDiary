@@ -11,11 +11,13 @@ import StyledText from "@components/atoms/StyledText";
 
 type HeaderBlockProps = {
   leftComponent?: ReactElement;
+  centerComponent?: ReactElement;
   rightComponent?: ReactElement;
 };
 
 export const HeaderBlock = ({
   leftComponent,
+  centerComponent,
   rightComponent,
 }: HeaderBlockProps) => {
   return (
@@ -30,6 +32,7 @@ export const HeaderBlock = ({
         alignItems="center"
       >
         <HStack>{leftComponent}</HStack>
+        <HStack>{centerComponent}</HStack>
         <HStack>{rightComponent}</HStack>
       </HStack>
     </>
