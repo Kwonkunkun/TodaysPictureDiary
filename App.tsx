@@ -12,6 +12,17 @@ import AuthService from "@service/auth_service";
 import PictureDiaryRepository from "@service/pictureDiary_repository";
 import useCustomAsyncStorage from "@hooks/useCustomAsyncStorage";
 import * as SplashScreen from "expo-splash-screen";
+import { LogBox } from "react-native";
+import _ from "lodash";
+
+LogBox.ignoreLogs(["Warning:..."]); // ignore specific logs
+LogBox.ignoreAllLogs(); // ignore all logs
+const _console = _.clone(console);
+console.warn = (message) => {
+  if (message.indexOf("Setting a timer") <= -1) {
+    _console.warn(message);
+  }
+};
 
 const authService = new AuthService();
 const pictureDiaryRepositoryService = new PictureDiaryRepository();

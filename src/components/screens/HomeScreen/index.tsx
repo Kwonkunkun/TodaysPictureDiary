@@ -1,14 +1,22 @@
 import { HomeHeaderBlock } from "@components/screens/HomeScreen/HomeHeaderBlock";
-import { FlatList, View, Center, Button } from "native-base";
-import React, { useState } from "react";
+import {
+  FlatList,
+  View,
+  Center,
+  Button,
+  ScrollView,
+  HStack,
+} from "native-base";
+import React, { useEffect, useState } from "react";
 import { RootStackScreenProps } from "types/navigation";
 import PictureDiaryListItem from "./PictureDiaryListItem";
-import { Dimension, Sizes, Spaces } from "@constants";
+import { Colors, Dimension, Sizes, Spaces } from "@constants";
 import { useRecoilValue } from "recoil";
-import { PictureDiaryState } from "@state";
+import { OrderedPictureDiaryState, PictureDiaryState } from "@state";
 import StyledText from "@components/atoms/StyledText";
 import CustomView from "@components/atoms/CustomView";
 import CustomButton from "@components/atoms/CustomButton";
+import FilterBlock from "./FilterBlock";
 
 const formatData = (data: Array<any>, numColumns: number) => {
   let result = [...data];
@@ -33,7 +41,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
     return date;
   });
 
-  const pictureDiaries = useRecoilValue(PictureDiaryState);
+  const pictureDiaries = useRecoilValue(OrderedPictureDiaryState);
 
   const handleOnPressPlusIconButton = () => {
     navigation.navigate("CreateAndEdit", { pictureDiary: undefined });
@@ -52,6 +60,10 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
         handleOnPressSettingIconButton={handleOnPressSettingIconButton}
       />
 
+      {/* 필터링 chip */}
+      <FilterBlock />
+
+      {/* 아이템 list */}
       {pictureDiaries && pictureDiaries.length !== 0 ? (
         <FlatList
           data={formatData(pictureDiaries, 2)}

@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  HStack,
-  IconButton,
-  Icon,
-  Text,
-  Box,
-  StatusBar,
-  Image,
-} from "native-base";
+import { HStack, IconButton, Icon, Image } from "native-base";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { Colors, Sizes, Spaces } from "@constants";
 
@@ -125,6 +117,7 @@ export const HomeHeaderBlock = ({
           </>
         }
       />
+
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"

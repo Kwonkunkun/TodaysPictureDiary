@@ -32,3 +32,13 @@ export const getClientStringWith = (weather: Weather) => {
       return "맑음";
   }
 };
+
+export const getSortedPictureDiariesWith = (
+  pictureDiaries: Array<PictureDiary>
+) => {
+  const result = pictureDiaries.sort((a: PictureDiary, b: PictureDiary) => {
+    return new Date(a.time).getTime() - new Date(b.time).getTime();
+  });
+
+  return result;
+};

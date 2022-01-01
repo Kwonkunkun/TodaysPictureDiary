@@ -60,4 +60,5 @@ export const Sizes = {
   midText: 13,
   smallText: 10,
   smallButton: 150,
+  chip: 60,
 };

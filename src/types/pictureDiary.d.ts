@@ -7,4 +7,6 @@ type PictureDiary = {
   content: string;
 };
 
+type OrderOption = "date" | "recent";
+
 type Weather = "sun" | "rain" | "snow" | "cloud";
