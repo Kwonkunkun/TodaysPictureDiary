@@ -1,17 +1,10 @@
 import { HomeHeaderBlock } from "@components/screens/HomeScreen/HomeHeaderBlock";
-import {
-  FlatList,
-  View,
-  Center,
-  Button,
-  ScrollView,
-  HStack,
-} from "native-base";
+import { FlatList, View, Center } from "native-base";
 import React, { useEffect, useState } from "react";
 import { RootStackScreenProps } from "types/navigation";
 import PictureDiaryListItem from "./PictureDiaryListItem";
 import { Colors, Dimension, Sizes, Spaces } from "@constants";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import { OrderedPictureDiaryState, PictureDiaryState } from "@state";
 import StyledText from "@components/atoms/StyledText";
 import CustomView from "@components/atoms/CustomView";
@@ -41,7 +34,10 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
     return date;
   });
 
-  const pictureDiaries = useRecoilValue(OrderedPictureDiaryState);
+  const orderedPictureDiaries = useRecoilValue(OrderedPictureDiaryState);
+  const orderedPictureDiariesLoadable = useRecoilValueLoadable(
+    OrderedPictureDiaryState
+  );
 
   const handleOnPressPlusIconButton = () => {
     navigation.navigate("CreateAndEdit", { pictureDiary: undefined });
@@ -49,6 +45,22 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
 
   const handleOnPressSettingIconButton = () => {
     navigation.navigate("Setting");
+  };
+
+  const renderPictureDiaryList = () => {
+    switch (orderedPictureDiariesLoadable.state) {
+      case "hasValue":
+        return;
+      case "loading":
+        return (
+          <CustomView>
+            <StyledText>loading</StyledText>
+          </CustomView>
+        );
+
+      case "hasError":
+        throw orderedPictureDiariesLoadable.contents;
+    }
   };
 
   return (
@@ -64,9 +76,9 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
       <FilterBlock />
 
       {/* 아이템 list */}
-      {pictureDiaries && pictureDiaries.length !== 0 ? (
+      {orderedPictureDiaries && orderedPictureDiaries.length !== 0 ? (
         <FlatList
-          data={formatData(pictureDiaries, 2)}
+          data={formatData(orderedPictureDiaries, 2)}
           renderItem={({ item }) =>
             item.empty ? (
               <View flex={1} width={Dimension.window.width / 2} p={"2"} />

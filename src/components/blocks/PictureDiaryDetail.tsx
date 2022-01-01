@@ -115,7 +115,11 @@ const PictureDiaryDetail = ({
                     }
                   : emptyPicture
               }
-              style={{ width: "100%", height: 240 }}
+              style={{
+                width: "100%",
+                height: 260,
+                resizeMode: "stretch",
+              }}
             />
           </Center>
         </Pressable>

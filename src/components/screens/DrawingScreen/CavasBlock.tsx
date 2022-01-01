@@ -1,22 +1,12 @@
 import React, { useRef, useState } from "react";
-import {
-  Button,
-  Center,
-  HStack,
-  Icon,
-  IconButton,
-  Slider,
-  View,
-  VStack,
-} from "native-base";
-import { Entypo, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Center, HStack, Icon, IconButton, Slider, VStack } from "native-base";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 import SignatureScreen, {
   SignatureViewRef,
 } from "react-native-signature-canvas";
 import { Colors, Spaces } from "@constants";
 import ColorPalette from "react-native-color-palette";
 import CustomButton from "@components/atoms/CustomButton";
-import CustomView from "@components/atoms/CustomView";
 
 type CavasBlockProps = {
   defaultData: string;
@@ -50,17 +40,24 @@ export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
                 `;
 
   const webStyle = `.m-signature-pad {
-                  flex: 1;
-                  box-shadow: none;
-                  border-radius: 10px;
-                }
-                .m-signature-pad--footer {
-                  display: none;
-                }`;
+    box-shadow: none; 
+    margin-left: 0px;
+    margin-top: 0px;
+  } 
+   .m-signature-pad--body
+    canvas {
+      background-color: ${Colors.snow};
+    }
+  .m-signature-pad--body {border: none}
+  .m-signature-pad--footer {display: none; margin: 0px;}
+  body,html {
+     width: 100%; 
+     height: 100%;
+  }`;
 
   return (
     <VStack flex={1}>
-      <Center flex={3}>
+      <Center flex={2}>
         <SignatureScreen
           ref={ref}
           onOK={handleSignature}
@@ -68,7 +65,7 @@ export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
           onClear={handleClear}
           autoClear={true}
           backgroundColor={Colors.snow}
-          webStyle={style}
+          webStyle={webStyle}
           penColor={selectedColor}
           minWidth={2}
           maxWidth={2}
@@ -113,7 +110,6 @@ export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
           />
         </HStack>
         <HStack>
-          {/* color picker, all clear 넣으면 됨 */}
           <VStack space="md" alignContent="space-between">
             {/* pallette */}
             <ColorPalette
@@ -123,7 +119,19 @@ export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
                 ref && ref.current?.changePenColor(color);
               }}
               value={selectedColor}
-              colors={["#000000", "#ffffff", "#c52b2b", "#40d164", "#2282ff"]}
+              colors={[
+                "#000000",
+                "#ffffff",
+                "#393E46",
+                "#00ADB5",
+                "#9145B6",
+                "#c52b2b",
+                "#FF8E00",
+                "#FFF1BD",
+                "#40d164",
+                "#2282ff",
+                "#fff022",
+              ]}
               title={""}
               icon={<Entypo name="circle" size={10} color="white" />}
             />

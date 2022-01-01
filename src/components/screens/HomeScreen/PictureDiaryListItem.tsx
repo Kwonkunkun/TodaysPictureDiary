@@ -1,5 +1,5 @@
 import { Colors, Dimension, Sizes, Spaces } from "@constants";
-import { VStack, Image, Text, Pressable } from "native-base";
+import { VStack, Image, Pressable } from "native-base";
 import React from "react";
 import LottieView from "lottie-react-native";
 import { getAppDateStringFormatWith, getLottieSourceWith } from "@Utils";
@@ -27,7 +27,6 @@ const PictureDiaryListItem = ({
                 }
               : emptyPicture
           }
-          fallbackSource={emptyPicture}
           width={Dimension.window.width / 2}
           height={"32"}
           resizeMode="stretch"

@@ -3,7 +3,7 @@ import StyledText from "@components/atoms/StyledText";
 import { HeaderBlock } from "@components/blocks/HeaderBlock";
 import PictureDiaryDetail from "@components/blocks/PictureDiaryDetail";
 import { Colors, Spaces } from "@constants";
-import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import { Entypo, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { PictureDiaryState } from "@state";
 import {
   Actionsheet,
@@ -11,13 +11,17 @@ import {
   Center,
   Icon,
   IconButton,
+  Spinner,
   Text,
   useDisclose,
 } from "native-base";
-import React from "react";
+import React, { useRef } from "react";
 import { useRecoilState } from "recoil";
 import { RootStackScreenProps } from "types/navigation";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import ViewShot from "react-native-view-shot";
+import * as MediaLibrary from "expo-media-library";
+import PreviewHeaderBlock from "./PreviewHeaderBlock";
 
 const PreviewScreen = ({
   navigation,
@@ -26,6 +30,8 @@ const PreviewScreen = ({
   const { isOpen, onOpen, onClose } = useDisclose();
   const [pictureDiaries, setPictureDiaries] = useRecoilState(PictureDiaryState);
   const { setItem } = useAsyncStorage("@pictureDiaries");
+  const [status, requestPermission] = MediaLibrary.usePermissions();
+  let viewShotRef = useRef<ViewShot>(null);
 
   const onPressDeleteButton = () => {
     const newPictureDiaries = pictureDiaries?.filter((item) => {
@@ -47,40 +53,32 @@ const PreviewScreen = ({
     navigation.goBack();
   };
 
+  const handleOnPressDownloadIconButton = async (clearState: () => void) => {
+    //permission check, ref check
+    if (!status?.granted || !viewShotRef.current?.capture) {
+      requestPermission();
+      clearState();
+      return;
+    }
+
+    const uri = await viewShotRef.current.capture();
+    await MediaLibrary.saveToLibraryAsync(uri);
+    clearState();
+  };
+
   return (
     <CustomView>
-      <HeaderBlock
-        leftComponent={
-          <IconButton
-            icon={
-              <Icon
-                as={<Entypo name="chevron-left" />}
-                size="sm"
-                color="white"
-              />
-            }
-            onPress={() => {
-              navigation.goBack();
-            }}
-          />
-        }
-        rightComponent={
-          <IconButton
-            icon={
-              <Icon
-                as={<MaterialIcons name="more-vert" />}
-                size="sm"
-                color="white"
-              />
-            }
-            onPress={() => {
-              onOpen();
-            }}
-          />
-        }
+      <PreviewHeaderBlock
+        handleOnPressBackIconButton={() => {
+          navigation.goBack();
+        }}
+        handleOnPressMoreIconButton={onOpen}
+        handleOnPressDownloadIconButton={handleOnPressDownloadIconButton}
       />
       <Center m={Spaces.padding}>
-        <PictureDiaryDetail pictureDiary={route.params.pictureDiary} />
+        <ViewShot ref={viewShotRef} options={{ format: "png", quality: 0.9 }}>
+          <PictureDiaryDetail pictureDiary={route.params.pictureDiary} />
+        </ViewShot>
       </Center>
       <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content>
@@ -89,6 +87,7 @@ const PreviewScreen = ({
               navigation.navigate("CreateAndEdit", {
                 pictureDiary: route.params.pictureDiary,
               });
+
               onClose();
             }}
           >
