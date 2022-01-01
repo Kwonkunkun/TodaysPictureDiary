@@ -4,9 +4,19 @@ import StyledText from "@components/atoms/StyledText";
 import { HeaderBlock } from "@components/blocks/HeaderBlock";
 import { Colors, Sizes } from "@constants";
 import { Entypo, AntDesign } from "@expo/vector-icons";
-import { Box, Divider, Icon, IconButton, Pressable, VStack } from "native-base";
-import React from "react";
-import { Linking, Share, View } from "react-native";
+import {
+  Box,
+  Button,
+  Divider,
+  Icon,
+  IconButton,
+  Image,
+  Pressable,
+  Text,
+  VStack,
+} from "native-base";
+import React, { useEffect } from "react";
+import { Linking } from "react-native";
 import { RootStackScreenProps } from "types/navigation";
 
 const SettingScreen = ({ navigation }: RootStackScreenProps<"Setting">) => {
@@ -53,7 +63,6 @@ const SettingScreen = ({ navigation }: RootStackScreenProps<"Setting">) => {
           <Box p={"4"}>
             <StyledText style={{ textAlign: "right" }}>준비중이에요</StyledText>
           </Box>
-          <Divider />
         </Pressable>
         <Pressable
           onPress={() => {
