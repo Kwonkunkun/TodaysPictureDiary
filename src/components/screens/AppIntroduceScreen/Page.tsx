@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components/native";
 import { ViewStyle } from "react-native";
 import { Image, Heading, Center, Text, Flex } from "native-base";
@@ -14,11 +14,12 @@ const PageItem = styled.View<{ color: string }>`
   align-items: center;
   border-radius: 20px;
 `;
-
-export default function Page({ item, style }: PageProps) {
+const Page = ({ item, style }: PageProps) => {
   return (
     <PageItem color={item.color} style={style}>
       <Image resizeMode={"contain"} source={item.imgSource} />
     </PageItem>
   );
-}
+};
+
+export default memo(Page);

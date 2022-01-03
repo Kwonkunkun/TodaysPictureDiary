@@ -28,17 +28,6 @@ const AppIntroduceScreen = ({
             }}
           />
         }
-        // rightComponent={
-        //   <IconButton
-        //     icon={
-        //       <Icon
-        //         as={<AntDesign name="question" />}
-        //         size="sm"
-        //         color="white"
-        //       />
-        //     }
-        //   />
-        // }
       />
       <Center flex={1}>
         <Carousel

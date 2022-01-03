@@ -1,4 +1,4 @@
-import { HomeHeaderBlock } from "@components/screens/HomeScreen/HomeHeaderBlock";
+import HomeHeaderBlock from "@components/screens/HomeScreen/HomeHeaderBlock";
 import { FlatList, View, Center } from "native-base";
 import React, { useEffect, useState } from "react";
 import { RootStackScreenProps } from "types/navigation";
@@ -10,22 +10,7 @@ import StyledText from "@components/atoms/StyledText";
 import CustomView from "@components/atoms/CustomView";
 import CustomButton from "@components/atoms/CustomButton";
 import FilterBlock from "./FilterBlock";
-
-const formatData = (data: Array<any>, numColumns: number) => {
-  let result = [...data];
-  const numberOfFullRows = Math.floor(result.length / numColumns);
-
-  let numberOfElementsLastRow = result.length - numberOfFullRows * numColumns;
-  while (
-    numberOfElementsLastRow !== numColumns &&
-    numberOfElementsLastRow !== 0
-  ) {
-    result.push({ empty: true });
-    numberOfElementsLastRow++;
-  }
-
-  return result;
-};
+import { formatData } from "@Utils";
 
 const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
   const [selectedTime, setSelectedTime] = useState(() => {

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { memo, useRef, useState } from "react";
 import { Center, HStack, Icon, IconButton, Slider, VStack } from "native-base";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import SignatureScreen, {
@@ -12,12 +12,28 @@ type CavasBlockProps = {
   defaultData: string;
   onOK: (signature?: string) => void;
 };
-export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
+
+const webStyle = `.m-signature-pad {
+  box-shadow: none; 
+  margin-left: 0px;
+  margin-top: 0px;
+} 
+ .m-signature-pad--body
+  canvas {
+    background-color: ${Colors.snow};
+  }
+.m-signature-pad--body {border: none}
+.m-signature-pad--footer {display: none; margin: 0px;}
+body,html {
+   width: 100%; 
+   height: 100%;
+}`;
+
+const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
   const [selectedColor, setSelectedColor] = useState("#000000");
   const ref = useRef<SignatureViewRef>(null);
 
   const handleSignature = (signature?: string) => {
-    console.log(signature);
     onOK(signature);
   };
 
@@ -32,31 +48,9 @@ export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
   const handleEnd = () => {
     ref.current?.readSignature();
   };
-  // .m-signature-pad--footer {display: none; margin: 0px; }
-
-  const style = `.m-signature-pad {box-shadow: none;  } 
-              .m-signature-pad--body {border: none;, margin: 0; }
-              .m-signature-pad--footer {display: none; margin: 0px; padding: 0px}
-                `;
-
-  const webStyle = `.m-signature-pad {
-    box-shadow: none; 
-    margin-left: 0px;
-    margin-top: 0px;
-  } 
-   .m-signature-pad--body
-    canvas {
-      background-color: ${Colors.snow};
-    }
-  .m-signature-pad--body {border: none}
-  .m-signature-pad--footer {display: none; margin: 0px;}
-  body,html {
-     width: 100%; 
-     height: 100%;
-  }`;
 
   return (
-    <VStack flex={1}>
+    <VStack flex={1} bg={Colors.snow}>
       <Center flex={2}>
         <SignatureScreen
           ref={ref}
@@ -171,3 +165,5 @@ export const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
     </VStack>
   );
 };
+
+export default memo(CanvasBlock);
