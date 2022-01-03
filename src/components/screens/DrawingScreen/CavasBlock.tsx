@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { Center, HStack, Icon, IconButton, Slider, VStack } from "native-base";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import SignatureScreen, {
@@ -31,7 +31,7 @@ body,html {
 
 const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
   const [selectedColor, setSelectedColor] = useState("#000000");
-  const ref = useRef<SignatureViewRef>(null);
+  let ref = useRef<SignatureViewRef>(null);
 
   const handleSignature = (signature?: string) => {
     onOK(signature);
@@ -49,6 +49,11 @@ const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
     ref.current?.readSignature();
   };
 
+  useEffect(() => {
+    console.log("시작한디");
+    return () => {};
+  }, [defaultData]);
+
   return (
     <VStack flex={1} bg={Colors.snow}>
       <Center flex={2}>
@@ -57,13 +62,13 @@ const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
           onOK={handleSignature}
           onEmpty={handleEmpty}
           onClear={handleClear}
-          autoClear={true}
+          autoClear={false}
           backgroundColor={Colors.snow}
           webStyle={webStyle}
           penColor={selectedColor}
           minWidth={2}
           maxWidth={2}
-          dataURL={defaultData !== "" ? defaultData : undefined}
+          dataURL={defaultData}
           webviewContainerStyle={{ backgroundColor: Colors.subBackground }}
         />
       </Center>
@@ -166,4 +171,4 @@ const CanvasBlock = ({ defaultData, onOK }: CavasBlockProps) => {
   );
 };
 
-export default memo(CanvasBlock);
+export default CanvasBlock;

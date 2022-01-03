@@ -47,7 +47,7 @@
     "react-native-modal-datetime-picker": "^13.0.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
-    "react-native-signature-canvas": "^4.3.0",
+    "react-native-signature-canvas": "https://github.com/Kwonkunkun/react-native-signature-canvas.git",
     "react-native-svg": "12.1.1",
     "react-native-view-shot": "3.1.2",
     "react-native-web": "0.17.1",
