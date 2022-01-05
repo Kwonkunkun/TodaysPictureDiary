@@ -4,23 +4,8 @@ import StyledText from "@components/atoms/StyledText";
 import { HeaderBlock } from "@components/blocks/HeaderBlock";
 import { Sizes } from "@constants";
 import { Entypo, AntDesign } from "@expo/vector-icons";
-<<<<<<< HEAD
-import {
-  Box,
-  Button,
-  Divider,
-  Icon,
-  IconButton,
-  Image,
-  Pressable,
-  Text,
-  VStack,
-} from "native-base";
-import React, { useEffect } from "react";
-=======
 import { Box, Divider, Icon, IconButton, Pressable, VStack } from "native-base";
 import React from "react";
->>>>>>> main
 import { Linking } from "react-native";
 import { RootStackScreenProps } from "types/navigation";
 
