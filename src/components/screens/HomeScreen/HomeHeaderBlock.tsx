@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { HStack, IconButton, Icon, Image } from "native-base";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { Colors, Sizes, Spaces } from "@constants";
@@ -22,7 +22,7 @@ type HomeHeaderBlockProps = {
   handleOnPressSettingIconButton: () => void;
 };
 
-export const HomeHeaderBlock = ({
+const HomeHeaderBlock = ({
   selectedTime,
   setSelectedTime,
   handleOnPressPlusIconButton,
@@ -47,28 +47,6 @@ export const HomeHeaderBlock = ({
   return (
     <>
       <HeaderBlock
-        // leftComponent={
-        //   <TouchableOpacity
-        //     style={{ flexDirection: "row" }}
-        //     onPress={showDatePicker}
-        //   >
-        //     <Text
-        //       style={{ alignSelf: "center", paddingLeft: Spaces.left }}
-        //       color="white"
-        //       fontSize="15"
-        //       fontWeight="medium"
-        //     >
-        //       {`${selectedTime.getFullYear()}년 ${
-        //         selectedTime.getMonth() + 1
-        //       }월`}
-        //     </Text>
-        //     <Icon
-        //       size="sm"
-        //       as={<Entypo name="chevron-small-down" color="black" />}
-        //       color="white"
-        //     />
-        //   </TouchableOpacity>
-        // }
         leftComponent={
           <HStack alignItems={"center"}>
             <Image
@@ -132,3 +110,5 @@ export const HomeHeaderBlock = ({
     </>
   );
 };
+
+export default memo(HomeHeaderBlock);

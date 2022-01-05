@@ -11,6 +11,7 @@ import {
   Center,
   Icon,
   IconButton,
+  ScrollView,
   Spinner,
   Text,
   useDisclose,
@@ -75,7 +76,7 @@ const PreviewScreen = ({
         handleOnPressMoreIconButton={onOpen}
         handleOnPressDownloadIconButton={handleOnPressDownloadIconButton}
       />
-      <Center m={Spaces.padding}>
+      <Center p={Spaces.padding}>
         <ViewShot ref={viewShotRef} options={{ format: "png", quality: 0.9 }}>
           <PictureDiaryDetail pictureDiary={route.params.pictureDiary} />
         </ViewShot>

@@ -42,3 +42,19 @@ export const getSortedPictureDiariesWith = (
 
   return result;
 };
+
+export const formatData = (data: Array<any>, numColumns: number) => {
+  let result = [...data];
+  const numberOfFullRows = Math.floor(result.length / numColumns);
+
+  let numberOfElementsLastRow = result.length - numberOfFullRows * numColumns;
+  while (
+    numberOfElementsLastRow !== numColumns &&
+    numberOfElementsLastRow !== 0
+  ) {
+    result.push({ empty: true });
+    numberOfElementsLastRow++;
+  }
+
+  return result;
+};

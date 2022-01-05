@@ -1,17 +1,14 @@
 import { HeaderBlock } from "@components/blocks/HeaderBlock";
 import PictureDiaryDetail from "@components/blocks/PictureDiaryDetail";
-import { Dimension, Spaces } from "@constants";
-import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import { Colors, Dimension, Sizes, Spaces } from "@constants";
 import {
   Actionsheet,
   HStack,
-  Icon,
-  IconButton,
   Pressable,
   ScrollView,
   VStack,
 } from "native-base";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import { RootStackScreenProps } from "types/navigation";
 import LottieView from "lottie-react-native";
@@ -25,7 +22,7 @@ import { useRecoilState } from "recoil";
 import { PictureDiaryState } from "@state";
 import CustomView from "@components/atoms/CustomView";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import { getSortedPictureDiariesWith } from "@Utils";
+import CreateAndEditDiaryHeaderBlock from "./CreateAndEditDiaryHeaderBlock";
 
 /**
  * CreateAndEditDiaryScreen
@@ -57,6 +54,9 @@ const CreateAndEditDiaryScreen = ({
           content: "",
         }
   );
+  const [isContentTextAreaVisible, setContentTextAreaVisibility] = useState(
+    false
+  );
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -74,8 +74,7 @@ const CreateAndEditDiaryScreen = ({
     setWeatherPickerVisiblilty(false);
   };
 
-  const handleDaetPickerConfirm = (date: Date) => {
-    console.warn("A date has been picked: ", date);
+  const handleDatePickerConfirm = (date: Date) => {
     setPictureDiary({
       ...pictureDiary,
       time: date.toISOString(),
@@ -86,7 +85,7 @@ const CreateAndEditDiaryScreen = ({
     hideDatePicker();
   };
 
-  const onPressCheckIconButton = () => {
+  const handleOnPressCheckIconButton = () => {
     //이 부분을 edit와 create 나눠서 분기처리할것
     if (isEdit) {
       const newPictureDiaries = pictureDiaries!.map((item) => {
@@ -121,33 +120,9 @@ const CreateAndEditDiaryScreen = ({
 
   return (
     <CustomView>
-      <HeaderBlock
-        leftComponent={
-          <IconButton
-            icon={
-              <Icon
-                as={<Entypo name="chevron-left" />}
-                size="sm"
-                color="white"
-              />
-            }
-            onPress={() => {
-              navigation.goBack();
-            }}
-          />
-        }
-        rightComponent={
-          <IconButton
-            icon={
-              <Icon
-                as={<MaterialIcons name="check" />}
-                size="sm"
-                color="white"
-              />
-            }
-            onPress={onPressCheckIconButton}
-          />
-        }
+      <CreateAndEditDiaryHeaderBlock
+        handleOnPressBackIconButton={() => navigation.goBack()}
+        handleOnPressCheckIconButton={handleOnPressCheckIconButton}
       />
 
       {/* body */}
@@ -186,36 +161,74 @@ const CreateAndEditDiaryScreen = ({
               contentTextAreaRef.current?.focus();
             }}
           />
+          {Platform.OS === "android" && (
+            <TextInput
+              ref={contentTextAreaRef}
+              multiline
+              style={{
+                borderWidth: 0.3,
+                borderTopWidth: 0,
+                color: Colors.black,
+                fontFamily: "young-child-bold",
+                backgroundColor: Colors.snow,
+                padding: Spaces.padding,
+                letterSpacing: 15,
+                fontSize: Sizes.bigText,
+              }}
+              defaultValue={pictureDiary.content}
+              onChangeText={(text) => {
+                setPictureDiary({ ...pictureDiary, content: text });
+              }}
+              onFocus={() => {
+                setContentTextAreaVisibility(true);
+                setTimeout(() => {
+                  scrollViewRef.current?.scrollToEnd();
+                }, 500);
+              }}
+              onBlur={() => {
+                setContentTextAreaVisibility(false);
+              }}
+              maxLength={50}
+              placeholder="내용을 작성해주세요."
+              numberOfLines={5}
+            />
+          )}
         </ScrollView>
       </KeyboardAvoidingView>
 
       {/* input */}
-      <TextInput
-        ref={contentTextAreaRef}
-        style={{ color: "transparent" }}
-        defaultValue={pictureDiary.content}
-        onChangeText={(text) => {
-          setPictureDiary({ ...pictureDiary, content: text });
-        }}
-        onFocus={() => {
-          setTimeout(() => {
-            scrollViewRef.current?.scrollToEnd();
-          }, 100);
-        }}
-        onBlur={() => {}}
-        maxLength={50}
-      />
+      {Platform.OS !== "android" && (
+        <TextInput
+          ref={contentTextAreaRef}
+          style={{
+            color: "transparent",
+          }}
+          defaultValue={pictureDiary.content}
+          onChangeText={(text) => {
+            setPictureDiary({ ...pictureDiary, content: text });
+          }}
+          onFocus={() => {
+            setTimeout(() => {
+              scrollViewRef.current?.scrollToEnd();
+            }, 100);
+          }}
+          onBlur={() => {}}
+          maxLength={50}
+        />
+      )}
+
       {/* date picker */}
       <DateTimePicker
         isVisible={isDatePickerVisible}
         mode="date"
-        onConfirm={handleDaetPickerConfirm}
+        onConfirm={handleDatePickerConfirm}
         onCancel={hideDatePicker}
         confirmTextIOS={"확인"}
         cancelTextIOS={"취소"}
         display="spinner"
         locale="ko_KR"
       />
+
       {/* action sheet */}
       <Actionsheet
         isOpen={isWeatherPickerVisible}

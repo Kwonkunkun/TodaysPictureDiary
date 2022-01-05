@@ -2,8 +2,9 @@ import CustomView from "@components/atoms/CustomView";
 import StyledBoldText from "@components/atoms/StyledBoldText";
 import StyledText from "@components/atoms/StyledText";
 import { HeaderBlock } from "@components/blocks/HeaderBlock";
-import { Colors, Sizes } from "@constants";
+import { Sizes } from "@constants";
 import { Entypo, AntDesign } from "@expo/vector-icons";
+<<<<<<< HEAD
 import {
   Box,
   Button,
@@ -16,6 +17,10 @@ import {
   VStack,
 } from "native-base";
 import React, { useEffect } from "react";
+=======
+import { Box, Divider, Icon, IconButton, Pressable, VStack } from "native-base";
+import React from "react";
+>>>>>>> main
 import { Linking } from "react-native";
 import { RootStackScreenProps } from "types/navigation";
 
@@ -78,32 +83,5 @@ const SettingScreen = ({ navigation }: RootStackScreenProps<"Setting">) => {
     </CustomView>
   );
 };
-
-// const ShareExample = () => {
-//   const onShare = async () => {
-//     try {
-//       const result = await Share.share({
-//         title: "공유",
-//         message: "내 그림일기를 자랑해보세요!",
-//       });
-//       if (result.action === Share.sharedAction) {
-//         if (result.activityType) {
-//           // shared with activity type of result.activityType
-//         } else {
-//           // shared
-//         }
-//       } else if (result.action === Share.dismissedAction) {
-//         // dismissed
-//       }
-//     } catch (error) {
-//       // alert(error.message);
-//     }
-//   };
-//   return (
-//     <View style={{ marginTop: 50 }}>
-//       <Button onPress={onShare} />
-//     </View>
-//   );
-// };
 
 export default SettingScreen;

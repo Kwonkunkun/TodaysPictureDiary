@@ -11,7 +11,6 @@ import { PictureDiaryState } from "@state";
 import AuthService from "@service/auth_service";
 import PictureDiaryRepository from "@service/pictureDiary_repository";
 import useCustomAsyncStorage from "@hooks/useCustomAsyncStorage";
-import * as SplashScreen from "expo-splash-screen";
 import { LogBox } from "react-native";
 import _ from "lodash";
 
@@ -26,12 +25,6 @@ console.warn = (message) => {
 
 const authService = new AuthService();
 const pictureDiaryRepositoryService = new PictureDiaryRepository();
-
-SplashScreen.preventAutoHideAsync()
-  .then((result) =>
-    console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`)
-  )
-  .catch(console.warn); // it's good to explicitly catch and inspect any error
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Center, Text, Divider, HStack, VStack, View } from "native-base";
 import StyledBoldText from "@components/atoms/StyledBoldText";
 
@@ -81,4 +81,4 @@ const getArrayScripts = (scriptsString: string) => {
   return result;
 };
 
-export default MenuScriptBlock;
+export default memo(MenuScriptBlock);

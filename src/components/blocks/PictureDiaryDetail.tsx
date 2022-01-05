@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { Center, Divider, HStack, Input, Pressable, VStack } from "native-base";
 import MenuScriptBlock from "@components/blocks/MenuScriptBlock";
-import { Image } from "react-native";
-import { Colors } from "@constants";
+import { Image, Platform } from "react-native";
+import { Colors, Spaces } from "@constants";
 import { getAppDateStringFormatWith, getClientStringWith } from "@Utils";
 import StyledText from "@components/atoms/StyledText";
 import emptyPicture from "@assets/images/emptyPicture.png";
@@ -125,16 +125,18 @@ const PictureDiaryDetail = ({
         </Pressable>
 
         {/* 원고지 */}
-        <Pressable
-          onPress={() => {
-            isEdit && handleOnPressMenuScript && handleOnPressMenuScript();
-          }}
-        >
-          <MenuScriptBlock scriptsString={pictureDiary.content} />
-        </Pressable>
+        {(Platform.OS !== "android" || !isEdit) && (
+          <Pressable
+            onPress={() => {
+              isEdit && handleOnPressMenuScript && handleOnPressMenuScript();
+            }}
+          >
+            <MenuScriptBlock scriptsString={pictureDiary.content} />
+          </Pressable>
+        )}
       </VStack>
     </>
   );
 };
 
-export default PictureDiaryDetail;
+export default memo(PictureDiaryDetail);
