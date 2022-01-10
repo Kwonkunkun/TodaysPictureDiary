@@ -14,6 +14,7 @@ export const Colors = {
   white: "#ffffff",
   snow: "#fffafa",
   black: "#000000",
+  gray: "gray",
 };
 
 export const Dimension = {

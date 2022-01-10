@@ -5,6 +5,7 @@ import LottieView from "lottie-react-native";
 import { getAppDateStringFormatWith, getLottieSourceWith } from "@Utils";
 import emptyPicture from "@assets/images/emptyPicture.png";
 import StyledText from "@components/atoms/StyledText";
+import StyledBoldText from "@components/atoms/StyledBoldText";
 
 type PictureDiaryListItemProps = {
   pictureDiary: PictureDiary;
@@ -45,9 +46,9 @@ const PictureDiaryListItem = ({
           <StyledText style={{ fontSize: Sizes.midText }}>
             {getAppDateStringFormatWith(pictureDiary.time)}
           </StyledText>
-          <StyledText style={{ fontSize: Sizes.midText }}>
+          <StyledBoldText style={{ fontSize: Sizes.midText }}>
             {pictureDiary.title}
-          </StyledText>
+          </StyledBoldText>
         </VStack>
       </Pressable>
     </VStack>
