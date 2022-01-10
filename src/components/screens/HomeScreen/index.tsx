@@ -55,7 +55,6 @@ const HomeScreen = ({ navigation }: RootTabScreenProps<"Home">) => {
         selectedTime={selectedTime}
         setSelectedTime={setSelectedTime}
         handleOnPressPlusIconButton={handleOnPressPlusIconButton}
-        handleOnPressSettingIconButton={handleOnPressSettingIconButton}
       />
 
       {/* 필터링 chip */}

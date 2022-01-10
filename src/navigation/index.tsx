@@ -15,12 +15,7 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
-import {
-  Animated,
-  ColorSchemeName,
-  GestureResponderEvent,
-  Touchable,
-} from "react-native";
+import { Animated, GestureResponderEvent } from "react-native";
 
 import NotFoundScreen from "../components/screens/NotFoundScreen";
 
@@ -32,11 +27,6 @@ import AppIntroduceScreen from "@components/screens/AppIntroduceScreen";
 import PreviewScreen from "@components/screens/PreviewScreen";
 import HomeScreen from "@components/screens/HomeScreen";
 import SettingScreen from "@components/screens/SettingScreen";
-import {
-  TapGestureHandler,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
-import CustomView from "@components/atoms/CustomView";
 import ShowOffScreen from "@components/screens/ShowOffScreen";
 import { Pressable } from "native-base";
 import { Colors } from "@constants";

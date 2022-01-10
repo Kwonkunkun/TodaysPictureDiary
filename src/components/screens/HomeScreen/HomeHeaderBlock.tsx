@@ -12,21 +12,19 @@ import logoImg from "@assets/images/logo.png";
  * HeaderBlock
  * 기능
  * 1. 필터링할 년 월을 정하고 보여주는 역할
- * 2. 추가, 설정으로 가는 버튼
+ * 2. 추가로 가는 버튼
  */
 
 type HomeHeaderBlockProps = {
   selectedTime: Date;
   setSelectedTime: React.Dispatch<React.SetStateAction<Date>>;
   handleOnPressPlusIconButton: () => void;
-  handleOnPressSettingIconButton: () => void;
 };
 
 const HomeHeaderBlock = ({
   selectedTime,
   setSelectedTime,
   handleOnPressPlusIconButton,
-  handleOnPressSettingIconButton,
 }: HomeHeaderBlockProps) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -77,19 +75,6 @@ const HomeHeaderBlock = ({
               }
               onPress={() => {
                 handleOnPressPlusIconButton();
-              }}
-            />
-
-            <IconButton
-              icon={
-                <Icon
-                  as={<MaterialIcons name="settings" />}
-                  size="sm"
-                  color="white"
-                />
-              }
-              onPress={() => {
-                handleOnPressSettingIconButton();
               }}
             />
           </>

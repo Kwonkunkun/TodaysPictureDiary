@@ -32,20 +32,6 @@ const SettingScreen = ({ navigation }: RootStackScreenProps<"Setting">) => {
             설정
           </StyledBoldText>
         }
-        rightComponent={
-          <IconButton
-            icon={
-              <Icon
-                as={<AntDesign name="question" />}
-                size="sm"
-                color="white"
-              />
-            }
-            onPress={() => {
-              navigation.navigate("AppIntroduce");
-            }}
-          />
-        }
       />
 
       <VStack>

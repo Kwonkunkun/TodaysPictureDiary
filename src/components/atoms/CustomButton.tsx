@@ -1,7 +1,7 @@
 import { Colors, Sizes } from "@constants";
 import { Button } from "native-base";
 import React from "react";
-import StyledText from "./StyledText";
+import StyledBoldText from "./StyledBoldText";
 
 type CustomButton = {
   innerText: string;
@@ -14,9 +14,9 @@ const CustomButton = ({
 }: CustomButton) => {
   return (
     <Button bg={Colors.button} onPress={handleOnPressButton}>
-      <StyledText style={{ color: Colors.white, fontSize: Sizes.midText }}>
+      <StyledBoldText style={{ color: Colors.snow, fontSize: Sizes.midText }}>
         {innerText}
-      </StyledText>
+      </StyledBoldText>
     </Button>
   );
 };
