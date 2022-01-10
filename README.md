@@ -16,6 +16,9 @@
 
 <!-- PROJECT LOGO -->
 # 오늘의 그림일기
+
+[play store 링크](https://play.google.com/store/apps/details?id=com.kunwookwon.TodaysPictureDiary)
+
 - react-native(expo) + recoil + ts 사용
 
 ---
