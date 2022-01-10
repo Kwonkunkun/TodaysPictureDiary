@@ -1,22 +1,30 @@
 import { Colors, Sizes } from "@constants";
 import { Button } from "native-base";
 import React from "react";
-import StyledText from "./StyledText";
+import { StyleProp, ViewStyle } from "react-native";
+import StyledBoldText from "./StyledBoldText";
 
 type CustomButton = {
   innerText: string;
   handleOnPressButton: () => void;
+  style?: StyleProp<ViewStyle>;
 };
 
 const CustomButton = ({
   innerText = "",
   handleOnPressButton,
+  style,
 }: CustomButton) => {
   return (
-    <Button bg={Colors.button} onPress={handleOnPressButton}>
-      <StyledText style={{ color: Colors.white, fontSize: Sizes.midText }}>
+    <Button
+      variant={""}
+      onPress={handleOnPressButton}
+      bg={Colors.button}
+      style={style}
+    >
+      <StyledBoldText style={{ color: Colors.snow, fontSize: Sizes.bigText }}>
         {innerText}
-      </StyledText>
+      </StyledBoldText>
     </Button>
   );
 };

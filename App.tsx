@@ -8,11 +8,11 @@ import { NativeBaseProvider, View } from "native-base";
 import { RecoilRoot, useSetRecoilState } from "recoil";
 
 import { PictureDiaryState } from "@state";
-import AuthService from "@service/auth_service";
-import PictureDiaryRepository from "@service/pictureDiary_repository";
 import useCustomAsyncStorage from "@hooks/useCustomAsyncStorage";
 import { LogBox } from "react-native";
 import _ from "lodash";
+
+import auth from "@react-native-firebase/auth";
 
 LogBox.ignoreLogs(["Warning:..."]); // ignore specific logs
 LogBox.ignoreAllLogs(); // ignore all logs
@@ -22,9 +22,6 @@ console.warn = (message) => {
     _console.warn(message);
   }
 };
-
-const authService = new AuthService();
-const pictureDiaryRepositoryService = new PictureDiaryRepository();
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -37,10 +34,10 @@ export default function App() {
         <NativeBaseProvider>
           <SafeAreaProvider>
             <GlobalStateSetter>
-              {/* <SignInChecker> */}
-              <Navigation />
-              <StatusBar style="dark" />
-              {/* </SignInChecker> */}
+              <SignInChecker>
+                <Navigation />
+                <StatusBar style="dark" />
+              </SignInChecker>
             </GlobalStateSetter>
           </SafeAreaProvider>
         </NativeBaseProvider>
@@ -55,9 +52,12 @@ const SignInChecker = (
   }>
 ) => {
   useEffect(() => {
-    authService.onAuthChange((user) => {
-      console.log(user);
-    });
+    // const subscriber = auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //     console.log(user);
+    //   }
+    // });
+    // return subscriber;
   }, []);
 
   return <View style={{ flex: 1 }} {...props} />;

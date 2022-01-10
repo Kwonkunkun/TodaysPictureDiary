@@ -15,12 +15,7 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
-import {
-  Animated,
-  ColorSchemeName,
-  GestureResponderEvent,
-  Touchable,
-} from "react-native";
+import { Animated, GestureResponderEvent } from "react-native";
 
 import NotFoundScreen from "../components/screens/NotFoundScreen";
 
@@ -32,15 +27,12 @@ import AppIntroduceScreen from "@components/screens/AppIntroduceScreen";
 import PreviewScreen from "@components/screens/PreviewScreen";
 import HomeScreen from "@components/screens/HomeScreen";
 import SettingScreen from "@components/screens/SettingScreen";
-import {
-  TapGestureHandler,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
-import CustomView from "@components/atoms/CustomView";
 import ShowOffScreen from "@components/screens/ShowOffScreen";
 import { Pressable } from "native-base";
 import { Colors } from "@constants";
 import UserScreen from "@components/screens/UserScreen";
+import SignInScreen from "@components/screens/SignInScreen";
+import SignUpScreen from "@components/screens/SingUpScreen";
 
 export default function Navigation() {
   return (
@@ -61,21 +53,38 @@ function RootNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        animation: "slide_from_right",
       }}
     >
-      <Stack.Screen name="Root" component={BottomTapNavigator} />
-      <Stack.Screen name="Preview" component={PreviewScreen} />
-      <Stack.Screen name="CreateAndEdit" component={CreateAndEditDiaryScreen} />
-      <Stack.Screen name="AppIntroduce" component={AppIntroduceScreen} />
-      <Stack.Screen name="Setting" component={SettingScreen} />
-      <Stack.Screen
-        name="NotFound"
-        component={HomeScreen}
-        options={{ title: "Oops!" }}
-      />
+      <Stack.Group
+        screenOptions={{
+          animation: "slide_from_right",
+        }}
+      >
+        <Stack.Screen name="Root" component={BottomTapNavigator} />
+        <Stack.Screen name="Preview" component={PreviewScreen} />
+        <Stack.Screen
+          name="CreateAndEdit"
+          component={CreateAndEditDiaryScreen}
+        />
+        <Stack.Screen name="AppIntroduce" component={AppIntroduceScreen} />
+        <Stack.Screen name="Setting" component={SettingScreen} />
+        <Stack.Screen
+          name="NotFound"
+          component={HomeScreen}
+          options={{ title: "Oops!" }}
+        />
+      </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "fullScreenModal" }}>
         <Stack.Screen name="Drawing" component={DrawingScreen} />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={{
+          presentation: "modal",
+          animation: "fade_from_bottom",
+        }}
+      >
+        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
