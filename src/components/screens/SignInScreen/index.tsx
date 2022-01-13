@@ -4,6 +4,7 @@ import { RootStackScreenProps } from "types/navigation";
 import SignInBlock from "./SignInBlock";
 import SignInHeaderBlock from "./SignInHeaderBlock";
 import auth from "@react-native-firebase/auth";
+import { Alert } from "react-native";
 
 const SignInScreen = ({ navigation }: RootStackScreenProps<"SignIn">) => {
   const handleOnPressCloseButton = () => {
@@ -19,31 +20,48 @@ const SignInScreen = ({ navigation }: RootStackScreenProps<"SignIn">) => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
-        console.log(user);
+        //여기서 처리해줄건 없음, app.tsx에서 listen 중
+        navigation.goBack();
       })
       .catch((error) => {
         if (error.code === "auth/operation-not-allowed") {
-          console.log("Enable anonymous in your firebase console.");
-        }
-
-        console.error(error);
-      });
-
-    auth()
-      .createUserWithEmailAndPassword(
-        "jane.doe@example.com",
-        "SuperSecretPassword!"
-      )
-      .then(() => {
-        console.log("User account created & signed in!");
-      })
-      .catch((error) => {
-        if (error.code === "auth/email-already-in-use") {
-          console.log("That email address is already in use!");
+          Alert.alert("서버에러 입니다.", "에러상황 문의 바랍니다.", [
+            {
+              text: "확인",
+              style: "cancel",
+            },
+          ]);
         }
 
         if (error.code === "auth/invalid-email") {
-          console.log("That email address is invalid!");
+          Alert.alert(
+            "유효하지 않은 아이디입니다.",
+            "아이디를 다시 입력해주세요.",
+            [
+              {
+                text: "확인",
+                style: "cancel",
+              },
+            ]
+          );
+        }
+
+        if (error.code === "auth/user-not-found") {
+          Alert.alert("해당 유저는 없습니다.", "다시 시도해주세요.", [
+            {
+              text: "확인",
+              style: "cancel",
+            },
+          ]);
+        }
+
+        if (error.code === "auth/wrong-password") {
+          Alert.alert("비밀번호가 틀렸습니다.", "다시 시도해주세요.", [
+            {
+              text: "확인",
+              style: "cancel",
+            },
+          ]);
         }
 
         console.error(error);

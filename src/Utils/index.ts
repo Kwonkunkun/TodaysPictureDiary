@@ -1,3 +1,5 @@
+import { User } from "types/user";
+import { FirebaseAuthTypes } from "@react-native-firebase/auth";
 export const getAppDateStringFormatWith = (ISODateFormatString: string) => {
   const date = new Date(ISODateFormatString);
   return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
@@ -56,5 +58,29 @@ export const formatData = (data: Array<any>, numColumns: number) => {
     numberOfElementsLastRow++;
   }
 
+  return result;
+};
+
+//이메일 체크 정규식
+export const isNotEmail = (asValue: string) => {
+  const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+  return !regExp.test(asValue);
+};
+
+//6자 이상
+export const isNotPassword = (asValue: string) => {
+  return !(asValue.length >= 6);
+};
+
+export const getAppUserWith = (firebaseUser: FirebaseAuthTypes.User | null) => {
+  if (firebaseUser === null) {
+    return null;
+  }
+
+  const result: User = {
+    uid: firebaseUser.uid,
+    displayName: firebaseUser.displayName ?? "정해지지 않음",
+  };
   return result;
 };

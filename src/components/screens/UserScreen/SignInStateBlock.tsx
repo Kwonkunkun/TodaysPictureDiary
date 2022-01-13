@@ -3,10 +3,17 @@ import StyledText from "@components/atoms/StyledText";
 import { Colors, Sizes, Spaces } from "@constants";
 import { HStack } from "native-base";
 import React from "react";
+import { User } from "types/user";
 
-type SignInStateBlockProps = {};
+type SignInStateBlockProps = {
+  user: User;
+  handleOnPressSignOutButton: () => void;
+};
 
-const SignInStateBlock = ({}: SignInStateBlockProps) => {
+const SignInStateBlock = ({
+  user,
+  handleOnPressSignOutButton,
+}: SignInStateBlockProps) => {
   return (
     <HStack
       backgroundColor={Colors.header}
@@ -14,8 +21,13 @@ const SignInStateBlock = ({}: SignInStateBlockProps) => {
       justifyContent={"space-between"}
       alignItems={"center"}
     >
-      <StyledText style={{ fontSize: Sizes.midText }}>사용자님</StyledText>
-      <CustomButton innerText="로그아웃" handleOnPressButton={() => {}} />
+      <StyledText style={{ fontSize: Sizes.midText }}>
+        {user.displayName}
+      </StyledText>
+      <CustomButton
+        innerText="로그아웃"
+        handleOnPressButton={handleOnPressSignOutButton}
+      />
     </HStack>
   );
 };

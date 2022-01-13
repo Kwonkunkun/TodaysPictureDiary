@@ -1,11 +1,18 @@
 import CustomAnimationView from "@components/atoms/CustomAnimationView";
+import { UserState } from "@state";
 import React from "react";
+import { useRecoilValue } from "recoil";
 import { RootTabScreenProps } from "types/navigation";
 import SettingBlock from "./SettingBlock";
+import SignInStateBlock from "./SignInStateBlock";
 import SignOutStateBlock from "./SignOutStateBlock";
 import UserHeaderBlock from "./UserHeaderBlock";
+import auth from "@react-native-firebase/auth";
+import { Alert } from "react-native";
 
 const UserScreen = ({ navigation }: RootTabScreenProps<"User">) => {
+  const user = useRecoilValue(UserState);
+
   const handleOnPressQuestionIconButton = () => {
     navigation.navigate("AppIntroduce");
   };
@@ -18,6 +25,19 @@ const UserScreen = ({ navigation }: RootTabScreenProps<"User">) => {
     navigation.navigate("SignIn");
   };
 
+  const handleOnPressSignOutButton = () => {
+    auth()
+      .signOut()
+      .then(() => {
+        Alert.alert("로그아웃이 되었습니다.", "이용해주셔서 감사합니다.", [
+          {
+            text: "확인",
+            style: "cancel",
+          },
+        ]);
+      });
+  };
+
   return (
     <CustomAnimationView>
       <UserHeaderBlock
@@ -25,7 +45,16 @@ const UserScreen = ({ navigation }: RootTabScreenProps<"User">) => {
       />
 
       {/* login click block */}
-      <SignOutStateBlock handleOnPressLogInButton={handleOnPressLogInButton} />
+      {user ? (
+        <SignInStateBlock
+          user={user}
+          handleOnPressSignOutButton={handleOnPressSignOutButton}
+        />
+      ) : (
+        <SignOutStateBlock
+          handleOnPressLogInButton={handleOnPressLogInButton}
+        />
+      )}
 
       <SettingBlock handleOnPressSettingBlock={handleOnPressSettingBlock} />
 

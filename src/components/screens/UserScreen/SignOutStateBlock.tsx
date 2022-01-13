@@ -3,7 +3,7 @@ import StyledText from "@components/atoms/StyledText";
 import { Colors, Sizes, Spaces } from "@constants";
 import { GOOGLE_ANDROID_CLIENT_ID, GOOGLE_IOS_CLIENT_ID } from "@env";
 import { HStack } from "native-base";
-import React, { useEffect } from "react";
+import React from "react";
 import auth from "@react-native-firebase/auth";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { Platform } from "react-native";

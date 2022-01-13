@@ -7,12 +7,13 @@ import Navigation from "./src/navigation";
 import { NativeBaseProvider, View } from "native-base";
 import { RecoilRoot, useSetRecoilState } from "recoil";
 
-import { PictureDiaryState } from "@state";
+import { PictureDiaryState, UserState } from "@state";
 import useCustomAsyncStorage from "@hooks/useCustomAsyncStorage";
 import { LogBox } from "react-native";
 import _ from "lodash";
 
 import auth from "@react-native-firebase/auth";
+import { getAppUserWith } from "@Utils";
 
 LogBox.ignoreLogs(["Warning:..."]); // ignore specific logs
 LogBox.ignoreAllLogs(); // ignore all logs
@@ -51,13 +52,14 @@ const SignInChecker = (
     children?: React.ReactNode;
   }>
 ) => {
+  const setUser = useSetRecoilState(UserState);
+
   useEffect(() => {
-    // const subscriber = auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //     console.log(user);
-    //   }
-    // });
-    // return subscriber;
+    const subscriber = auth().onAuthStateChanged((user) => {
+      setUser(getAppUserWith(user));
+      console.log(user);
+    });
+    return subscriber;
   }, []);
 
   return <View style={{ flex: 1 }} {...props} />;
