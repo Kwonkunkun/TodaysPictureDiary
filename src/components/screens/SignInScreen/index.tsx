@@ -25,7 +25,6 @@ const SignInScreen = ({ navigation }: RootStackScreenProps<"SignIn">) => {
      */
     auth()
       .signInWithEmailAndPassword(email, password)
-
       .then((user) => {
         //여기서 처리해줄건 없음, app.tsx에서 listen 중
         navigation.goBack();
