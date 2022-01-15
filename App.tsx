@@ -55,10 +55,15 @@ const SignInChecker = (
   const setUser = useSetRecoilState(UserState);
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged((user) => {
+    // const subscriber = auth().onAuthStateChanged((user) => {
+    //   setUser(getAppUserWith(user));
+    //   console.log(user);
+    // });
+
+    const subscriber = auth().onUserChanged((user) => {
       setUser(getAppUserWith(user));
-      console.log(user);
     });
+
     return subscriber;
   }, []);
 
@@ -82,6 +87,10 @@ const GlobalStateSetter = (
       setPictureDiaries(response);
     }
   }, [response]);
+
+  if (!isLoadingComplete) {
+    return <View></View>;
+  }
 
   return <View style={{ flex: 1 }} {...props} />;
 };

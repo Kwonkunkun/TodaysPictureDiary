@@ -26,6 +26,7 @@ export type RootStackParamList = {
   ColorPicker: undefined;
   SignIn: undefined;
   SignUp: undefined;
+  FindPassword: undefined;
   NotFound: undefined;
 };
 

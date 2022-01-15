@@ -33,6 +33,7 @@ import { Colors } from "@constants";
 import UserScreen from "@components/screens/UserScreen";
 import SignInScreen from "@components/screens/SignInScreen";
 import SignUpScreen from "@components/screens/SingUpScreen";
+import FindPasswordScreen from "@components/screens/FindPasswordScreen";
 
 export default function Navigation() {
   return (
@@ -85,6 +86,7 @@ function RootNavigator() {
       >
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="FindPassword" component={FindPasswordScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );

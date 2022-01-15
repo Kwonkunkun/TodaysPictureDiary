@@ -5106,6 +5106,11 @@ find-up@^5.0.0, find-up@~5.0.0:
     locate-path "^6.0.0"
     path-exists "^4.0.0"
 
+firebase-error-codes@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/firebase-error-codes/-/firebase-error-codes-1.2.2.tgz#32f24a6c28ed8898b6705372ff0693c0cad7c455"
+  integrity sha512-h3r+y4TZ6r4gFOpBq57vbPwxvGuDU/t0X7JY8Kj/J0NHmTFjC2tt3/IfiB5z72kjNkbohKJ7o3QJ62rZ7U01AA==
+
 firebase@^9.6.1:
   version "9.6.1"
   resolved "https://registry.yarnpkg.com/firebase/-/firebase-9.6.1.tgz#08e0fd0799f57a885f895b86a6ed2bc0083412fe"

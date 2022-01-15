@@ -42,6 +42,12 @@ const SignUpScreen = ({ navigation }: RootStackScreenProps<"SignIn">) => {
     }
 
     //sign up & sign in
+    /**
+     * @error auth/email-already-in-use Thrown if there already exists an account with the given email address.
+     * @error auth/invalid-email Thrown if the email address is not valid.
+     * @error auth/operation-not-allowed Thrown if email/password accounts are not enabled. Enable email/password accounts in the Firebase Console, under the Auth tab.
+     * @error auth/weak-password Thrown if the password is not strong enough
+     */
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
@@ -86,6 +92,7 @@ const SignUpScreen = ({ navigation }: RootStackScreenProps<"SignIn">) => {
       <KeyboardAwareScrollView>
         <Stack flex={1} space={"2"} p={Spaces.padding}>
           <InValidCheckInput
+            autoFocus={true}
             checkInValid={isNotEmail}
             checkTrigger={checkTrigger}
             label={"아이디"}
@@ -93,6 +100,9 @@ const SignUpScreen = ({ navigation }: RootStackScreenProps<"SignIn">) => {
             setText={setEmail}
             placeholder={"goo@gmail.com"}
             errorMessage={"이메일 형식이 아닙니다."}
+            helperText={
+              "유효한 이메일 입력을 추천합니다.(비밀번호 찾기에 사용)"
+            }
           />
           <InValidCheckInput
             checkInValid={isNotPassword}

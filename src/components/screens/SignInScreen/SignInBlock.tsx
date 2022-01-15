@@ -2,7 +2,7 @@ import CustomButton from "@components/atoms/CustomButton";
 import StyledBoldText from "@components/atoms/StyledBoldText";
 import { Colors, Sizes, Spaces } from "@constants";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Button, Icon, Input, Stack } from "native-base";
+import { Button, Icon, IconButton, Input, Stack } from "native-base";
 import React, { useState } from "react";
 
 type SignInBlockProps = {
@@ -18,6 +18,7 @@ const SignInBlock = ({
 }: SignInBlockProps) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const onPressSignInButton = () => {
     handleOnPressSignInButton(email, password);
@@ -57,14 +58,25 @@ const SignInBlock = ({
           />
         }
         InputRightElement={
-          <Icon
-            as={<MaterialIcons name="visibility-off" />}
-            size={5}
-            mr="2"
-            color="muted.400"
+          <IconButton
+            onPress={() => {
+              setIsPasswordVisible(!isPasswordVisible);
+            }}
+            icon={
+              <Icon
+                as={
+                  <MaterialIcons
+                    name={isPasswordVisible ? "visibility" : "visibility-off"}
+                  />
+                }
+                size={5}
+                mr="2"
+                color="muted.400"
+              />
+            }
           />
         }
-        type="password"
+        type={isPasswordVisible ? undefined : "password"}
         placeholder="Password"
         fontSize={Sizes.bigText}
         fontFamily={"young-child-bold"}

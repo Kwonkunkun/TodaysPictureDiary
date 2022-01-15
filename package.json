@@ -39,6 +39,7 @@
     "expo-updates": "~0.10.13",
     "expo-web-browser": "~10.0.3",
     "firebase": "^9.6.1",
+    "firebase-error-codes": "^1.2.2",
     "lottie-react-native": "4.0.3",
     "native-base": "^3.2.2",
     "react": "17.0.1",

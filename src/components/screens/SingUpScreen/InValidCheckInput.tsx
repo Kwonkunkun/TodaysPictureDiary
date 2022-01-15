@@ -15,6 +15,7 @@ type InValidCheckInputProps = {
   helperText?: string;
   errorMessage?: string;
   isMask?: boolean;
+  autoFocus?: boolean;
 };
 
 const InValidCheckInput = ({
@@ -27,6 +28,7 @@ const InValidCheckInput = ({
   helperText,
   errorMessage,
   isMask,
+  autoFocus,
 }: InValidCheckInputProps) => {
   const [isInValid, setIsInValid] = useState(false);
 
@@ -41,6 +43,7 @@ const InValidCheckInput = ({
       <Stack>
         <FormControl.Label>{label}</FormControl.Label>
         <Input
+          autoFocus={autoFocus}
           placeholder={placeholder}
           onChangeText={setText}
           onBlur={() => {
