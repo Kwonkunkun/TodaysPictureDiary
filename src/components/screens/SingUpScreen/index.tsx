@@ -4,7 +4,7 @@ import { Colors, Sizes, Spaces } from "@constants";
 import { Checkbox, FormControl, HStack, Stack, Text } from "native-base";
 
 import React, { useState } from "react";
-import { Alert, Pressable } from "react-native";
+import { Alert, Linking, Pressable } from "react-native";
 import { RootStackScreenProps } from "types/navigation";
 import SignUpHeaderBlock from "./SignUpHeaderBlock";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -143,7 +143,11 @@ const SignUpScreen = ({ navigation }: RootStackScreenProps<"SignIn">) => {
                 <Text paddingLeft="2">개인정보 수집 및 이용 (필수)</Text>
               </Checkbox>
             </FormControl>
-            <Pressable onPress={() => {}}>
+            <Pressable
+              onPress={() => {
+                Linking.openURL("https://keen-mestorf-af2db2.netlify.app");
+              }}
+            >
               <Text style={{ color: Colors.gray }}>내용 확인</Text>
             </Pressable>
           </HStack>

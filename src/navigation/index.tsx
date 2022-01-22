@@ -103,7 +103,7 @@ function BottomTapNavigator() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          height: 60,
+          // height: 100,
           // position: "absolute",
           // bottom: 16,
           // right: 16,
@@ -196,7 +196,7 @@ const TabBarButton = (props: {
       {
         scale: animValue.interpolate({
           inputRange: [0, 1],
-          outputRange: [2, 3],
+          outputRange: [2, 4],
         }),
       },
     ],
