@@ -22,7 +22,7 @@ const FilterBlock = ({}) => {
           setOption("recent");
         }}
       />
-      <Chip
+      {/* <Chip
         isSelected={option === "like"}
         innerText="좋아요순"
         handleOnPressButton={() => {
@@ -31,7 +31,7 @@ const FilterBlock = ({}) => {
           }
           setOption("like");
         }}
-      />
+      /> */}
     </HStack>
   );
 };

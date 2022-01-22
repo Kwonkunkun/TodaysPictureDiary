@@ -34,6 +34,7 @@ import UserScreen from "@components/screens/UserScreen";
 import SignInScreen from "@components/screens/SignInScreen";
 import SignUpScreen from "@components/screens/SingUpScreen";
 import FindPasswordScreen from "@components/screens/FindPasswordScreen";
+import ShowOffDetailScreen from "@components/screens/ShowOffDetailScreen";
 
 export default function Navigation() {
   return (
@@ -63,6 +64,7 @@ function RootNavigator() {
       >
         <Stack.Screen name="Root" component={BottomTapNavigator} />
         <Stack.Screen name="Preview" component={PreviewScreen} />
+        <Stack.Screen name="ShowOffDetail" component={ShowOffDetailScreen} />
         <Stack.Screen
           name="CreateAndEdit"
           component={CreateAndEditDiaryScreen}

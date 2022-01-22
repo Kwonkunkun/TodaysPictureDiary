@@ -16,7 +16,7 @@ const ShowOffHeaderBlock = ({
     <HeaderBlock
       centerComponent={
         <StyledBoldText style={{ fontSize: Sizes.bigText }}>
-          자랑한 일기들
+          다른사람들의 일기
         </StyledBoldText>
       }
       rightComponent={

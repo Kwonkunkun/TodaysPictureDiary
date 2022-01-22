@@ -132,8 +132,9 @@ const SignUpScreen = ({ navigation }: RootStackScreenProps<"SignIn">) => {
             label={"이름"}
             text={name}
             setText={setName}
-            placeholder={"1글자 이상 입력해주세요."}
-            errorMessage={"1글자 이상 입력해주세요."}
+            placeholder={"1~4글자 입력해주세요."}
+            errorMessage={"1~4글자 입력해주세요."}
+            maxLength={4}
           />
 
           <HStack justifyContent={"space-between"} marginTop={Spaces.top}>

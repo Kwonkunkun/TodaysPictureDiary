@@ -16,6 +16,7 @@ type InValidCheckInputProps = {
   errorMessage?: string;
   isMask?: boolean;
   autoFocus?: boolean;
+  maxLength?: number;
 };
 
 const InValidCheckInput = ({
@@ -29,6 +30,7 @@ const InValidCheckInput = ({
   errorMessage,
   isMask,
   autoFocus,
+  maxLength,
 }: InValidCheckInputProps) => {
   const [isInValid, setIsInValid] = useState(false);
 
@@ -50,6 +52,7 @@ const InValidCheckInput = ({
             setIsInValid(checkInValid(text));
           }}
           type={isMask ? "password" : undefined}
+          maxLength={maxLength}
         />
         {/* helperText 존재시에만 추가 */}
         {helperText && (

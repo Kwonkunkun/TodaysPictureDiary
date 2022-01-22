@@ -27,6 +27,7 @@ export type RootStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
   FindPassword: undefined;
+  ShowOffDetail: { pictureDiary: ShowOffPictureDiary };
   NotFound: undefined;
 };
 

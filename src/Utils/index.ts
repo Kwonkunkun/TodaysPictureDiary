@@ -80,7 +80,37 @@ export const getAppUserWith = (firebaseUser: FirebaseAuthTypes.User | null) => {
 
   const result: User = {
     uid: firebaseUser.uid,
-    displayName: firebaseUser.displayName ?? "정해지지 않음",
+    displayName: firebaseUser.displayName ?? "없음",
   };
+  return result;
+};
+
+export const getShowOffPictureDiaryWith = (
+  pictureDiary: PictureDiary,
+  uid: string,
+  likes: number,
+  creatorName: string,
+  createAt: string
+) => {
+  const result: ShowOffPictureDiary = {
+    ...pictureDiary,
+    uid: uid,
+    likes: likes,
+    creatorName: creatorName,
+    createAt: createAt,
+  };
+
+  return result;
+};
+
+export const getRandomString = (length: number) => {
+  const randomChars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += randomChars.charAt(
+      Math.floor(Math.random() * randomChars.length)
+    );
+  }
   return result;
 };
