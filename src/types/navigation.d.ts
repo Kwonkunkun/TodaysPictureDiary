@@ -24,6 +24,10 @@ export type RootStackParamList = {
   CreateAndEdit: { pictureDiary?: PictureDiary };
   Drawing: { base64Img: string; setBase64Img: (base64Img: string) => void };
   ColorPicker: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
+  FindPassword: undefined;
+  ShowOffDetail: { pictureDiary: ShowOffPictureDiary };
   NotFound: undefined;
 };
 

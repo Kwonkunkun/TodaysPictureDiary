@@ -31,6 +31,10 @@ import ShowOffScreen from "@components/screens/ShowOffScreen";
 import { Pressable } from "native-base";
 import { Colors } from "@constants";
 import UserScreen from "@components/screens/UserScreen";
+import SignInScreen from "@components/screens/SignInScreen";
+import SignUpScreen from "@components/screens/SingUpScreen";
+import FindPasswordScreen from "@components/screens/FindPasswordScreen";
+import ShowOffDetailScreen from "@components/screens/ShowOffDetailScreen";
 
 export default function Navigation() {
   return (
@@ -51,21 +55,40 @@ function RootNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        animation: "slide_from_right",
       }}
     >
-      <Stack.Screen name="Root" component={BottomTapNavigator} />
-      <Stack.Screen name="Preview" component={PreviewScreen} />
-      <Stack.Screen name="CreateAndEdit" component={CreateAndEditDiaryScreen} />
-      <Stack.Screen name="AppIntroduce" component={AppIntroduceScreen} />
-      <Stack.Screen name="Setting" component={SettingScreen} />
-      <Stack.Screen
-        name="NotFound"
-        component={HomeScreen}
-        options={{ title: "Oops!" }}
-      />
+      <Stack.Group
+        screenOptions={{
+          animation: "slide_from_right",
+        }}
+      >
+        <Stack.Screen name="Root" component={BottomTapNavigator} />
+        <Stack.Screen name="Preview" component={PreviewScreen} />
+        <Stack.Screen name="ShowOffDetail" component={ShowOffDetailScreen} />
+        <Stack.Screen
+          name="CreateAndEdit"
+          component={CreateAndEditDiaryScreen}
+        />
+        <Stack.Screen name="AppIntroduce" component={AppIntroduceScreen} />
+        <Stack.Screen name="Setting" component={SettingScreen} />
+        <Stack.Screen
+          name="NotFound"
+          component={HomeScreen}
+          options={{ title: "Oops!" }}
+        />
+      </Stack.Group>
       <Stack.Group screenOptions={{ presentation: "fullScreenModal" }}>
         <Stack.Screen name="Drawing" component={DrawingScreen} />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={{
+          presentation: "modal",
+          animation: "fade_from_bottom",
+        }}
+      >
+        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="FindPassword" component={FindPasswordScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -80,12 +103,12 @@ function BottomTapNavigator() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          height: 60,
-          position: "absolute",
-          bottom: 16,
-          right: 16,
-          left: 16,
-          borderRadius: 16,
+          // height: 100,
+          // position: "absolute",
+          // bottom: 16,
+          // right: 16,
+          // left: 16,
+          // borderRadius: 16,
         },
       }}
     >
@@ -173,7 +196,7 @@ const TabBarButton = (props: {
       {
         scale: animValue.interpolate({
           inputRange: [0, 1],
-          outputRange: [2, 3],
+          outputRange: [2, 4],
         }),
       },
     ],

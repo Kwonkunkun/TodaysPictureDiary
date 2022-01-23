@@ -23,6 +23,7 @@ import { PictureDiaryState } from "@state";
 import CustomView from "@components/atoms/CustomView";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import CreateAndEditDiaryHeaderBlock from "./CreateAndEditDiaryHeaderBlock";
+import { getRandomString } from "@Utils";
 
 /**
  * CreateAndEditDiaryScreen
@@ -46,7 +47,7 @@ const CreateAndEditDiaryScreen = ({
     route.params.pictureDiary
       ? route.params.pictureDiary
       : {
-          id: new Date().toISOString(),
+          id: new Date().toISOString() + getRandomString(7),
           time: new Date().toISOString(),
           weather: "sun",
           title: "",

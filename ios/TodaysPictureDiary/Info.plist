@@ -25,10 +25,19 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>myapp</string>
 				<string>com.kunwookwon.TodaysPictureDiary</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.547478500439-4pcmvragq1hf1r5ue1j377lhcskqr8r0</string>
 			</array>
 		</dict>
 	</array>

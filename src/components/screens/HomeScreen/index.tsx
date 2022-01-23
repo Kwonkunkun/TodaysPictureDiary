@@ -29,26 +29,6 @@ const HomeScreen = ({ navigation }: RootTabScreenProps<"Home">) => {
     navigation.navigate("CreateAndEdit", { pictureDiary: undefined });
   };
 
-  const handleOnPressSettingIconButton = () => {
-    navigation.navigate("Setting");
-  };
-
-  const renderPictureDiaryList = () => {
-    switch (orderedPictureDiariesLoadable.state) {
-      case "hasValue":
-        return;
-      case "loading":
-        return (
-          <CustomView>
-            <StyledText>loading</StyledText>
-          </CustomView>
-        );
-
-      case "hasError":
-        throw orderedPictureDiariesLoadable.contents;
-    }
-  };
-
   return (
     <CustomAnimationView>
       <HomeHeaderBlock

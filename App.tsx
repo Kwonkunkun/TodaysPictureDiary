@@ -7,12 +7,13 @@ import Navigation from "./src/navigation";
 import { NativeBaseProvider, View } from "native-base";
 import { RecoilRoot, useSetRecoilState } from "recoil";
 
-import { PictureDiaryState } from "@state";
-import AuthService from "@service/auth_service";
-import PictureDiaryRepository from "@service/pictureDiary_repository";
+import { PictureDiaryState, UserState } from "@state";
 import useCustomAsyncStorage from "@hooks/useCustomAsyncStorage";
 import { LogBox } from "react-native";
 import _ from "lodash";
+
+import auth from "@react-native-firebase/auth";
+import { getAppUserWith } from "@Utils";
 
 LogBox.ignoreLogs(["Warning:..."]); // ignore specific logs
 LogBox.ignoreAllLogs(); // ignore all logs
@@ -22,9 +23,6 @@ console.warn = (message) => {
     _console.warn(message);
   }
 };
-
-const authService = new AuthService();
-const pictureDiaryRepositoryService = new PictureDiaryRepository();
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -37,10 +35,10 @@ export default function App() {
         <NativeBaseProvider>
           <SafeAreaProvider>
             <GlobalStateSetter>
-              {/* <SignInChecker> */}
-              <Navigation />
-              <StatusBar style="dark" />
-              {/* </SignInChecker> */}
+              <SignInChecker>
+                <Navigation />
+                <StatusBar style="dark" />
+              </SignInChecker>
             </GlobalStateSetter>
           </SafeAreaProvider>
         </NativeBaseProvider>
@@ -54,10 +52,19 @@ const SignInChecker = (
     children?: React.ReactNode;
   }>
 ) => {
+  const setUser = useSetRecoilState(UserState);
+
   useEffect(() => {
-    authService.onAuthChange((user) => {
-      console.log(user);
+    // const subscriber = auth().onAuthStateChanged((user) => {
+    //   setUser(getAppUserWith(user));
+    //   console.log(user);
+    // });
+
+    const subscriber = auth().onUserChanged((user) => {
+      setUser(getAppUserWith(user));
     });
+
+    return subscriber;
   }, []);
 
   return <View style={{ flex: 1 }} {...props} />;
@@ -80,6 +87,10 @@ const GlobalStateSetter = (
       setPictureDiaries(response);
     }
   }, [response]);
+
+  if (!isLoadingComplete) {
+    return <View></View>;
+  }
 
   return <View style={{ flex: 1 }} {...props} />;
 };

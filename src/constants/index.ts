@@ -57,9 +57,9 @@ export const Spaces = {
 export const Sizes = {
   icon: 18,
   borderRadius: 10,
-  bigText: 15,
-  midText: 13,
-  smallText: 10,
+  bigText: 18,
+  midText: 15,
+  smallText: 13,
   smallButton: 150,
   chip: 60,
 };
