@@ -3,10 +3,11 @@ import { Entypo } from "@expo/vector-icons";
 import { Center, Icon, IconButton } from "native-base";
 
 import React from "react";
-import { Dimension } from "@constants";
+import { Colors, Dimension, Sizes } from "@constants";
 import { Carousel } from "./Carousel";
 import { RootStackScreenProps } from "types/navigation";
 import CustomView from "@components/atoms/CustomView";
+import StyledBoldText from "@components/atoms/StyledBoldText";
 
 const AppIntroduceScreen = ({
   navigation,
@@ -27,6 +28,11 @@ const AppIntroduceScreen = ({
               navigation.goBack();
             }}
           />
+        }
+        centerComponent={
+          <StyledBoldText style={{ fontSize: Sizes.bigText, color: "green" }}>
+            앱 소개
+          </StyledBoldText>
         }
       />
       <Center flex={1}>

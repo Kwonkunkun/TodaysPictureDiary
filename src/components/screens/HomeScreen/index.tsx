@@ -1,7 +1,7 @@
 import HomeHeaderBlock from "@components/screens/HomeScreen/HomeHeaderBlock";
 import { FlatList, View, Center } from "native-base";
 import React, { useEffect, useState } from "react";
-import { RootStackScreenProps } from "types/navigation";
+import { RootStackScreenProps, RootTabScreenProps } from "types/navigation";
 import PictureDiaryListItem from "./PictureDiaryListItem";
 import { Colors, Dimension, Sizes, Spaces } from "@constants";
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
@@ -11,8 +11,9 @@ import CustomView from "@components/atoms/CustomView";
 import CustomButton from "@components/atoms/CustomButton";
 import FilterBlock from "./FilterBlock";
 import { formatData } from "@Utils";
+import CustomAnimationView from "@components/atoms/CustomAnimationView";
 
-const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
+const HomeScreen = ({ navigation }: RootTabScreenProps<"Home">) => {
   const [selectedTime, setSelectedTime] = useState(() => {
     let date = new Date();
     date.setDate(1);
@@ -28,33 +29,12 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
     navigation.navigate("CreateAndEdit", { pictureDiary: undefined });
   };
 
-  const handleOnPressSettingIconButton = () => {
-    navigation.navigate("Setting");
-  };
-
-  const renderPictureDiaryList = () => {
-    switch (orderedPictureDiariesLoadable.state) {
-      case "hasValue":
-        return;
-      case "loading":
-        return (
-          <CustomView>
-            <StyledText>loading</StyledText>
-          </CustomView>
-        );
-
-      case "hasError":
-        throw orderedPictureDiariesLoadable.contents;
-    }
-  };
-
   return (
-    <CustomView>
+    <CustomAnimationView>
       <HomeHeaderBlock
         selectedTime={selectedTime}
         setSelectedTime={setSelectedTime}
         handleOnPressPlusIconButton={handleOnPressPlusIconButton}
-        handleOnPressSettingIconButton={handleOnPressSettingIconButton}
       />
 
       {/* 필터링 chip */}
@@ -90,7 +70,7 @@ const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
           ></CustomButton>
         </Center>
       )}
-    </CustomView>
+    </CustomAnimationView>
   );
 };
 

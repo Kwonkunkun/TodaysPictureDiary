@@ -31,9 +31,15 @@ export const HeaderBlock = ({
         justifyContent="space-between"
         alignItems="center"
       >
-        <HStack>{leftComponent}</HStack>
-        <HStack>{centerComponent}</HStack>
-        <HStack>{rightComponent}</HStack>
+        <HStack flex={1} justifyContent={"flex-start"}>
+          {leftComponent}
+        </HStack>
+        <HStack flex={1} justifyContent={"center"}>
+          {centerComponent}
+        </HStack>
+        <HStack flex={1} justifyContent={"flex-end"}>
+          {rightComponent}
+        </HStack>
       </HStack>
     </>
   );

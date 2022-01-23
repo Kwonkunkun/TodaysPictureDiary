@@ -1,11 +1,14 @@
 import {
   FacebookAuthProvider,
+  getAuth,
+  GoogleAuthProvider,
   signInWithCredential,
   User,
 } from "firebase/auth";
 import { firebaseAuth } from "./firebase";
 import * as Facebook from "expo-facebook";
-import { FACEBOOK_APP_ID } from "@env";
+import { FACEBOOK_APP_ID, GOOGLE_IOS_CLIENT_ID } from "@env";
+import * as Google from "expo-auth-session/providers/google";
 
 class AuthService {
   logout() {

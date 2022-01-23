@@ -17,13 +17,17 @@ declare global {
 }
 
 export type RootStackParamList = {
-  Home: undefined;
+  Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Preview: { pictureDiary: PictureDiary };
   Setting: undefined;
   AppIntroduce: undefined;
   CreateAndEdit: { pictureDiary?: PictureDiary };
   Drawing: { base64Img: string; setBase64Img: (base64Img: string) => void };
   ColorPicker: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
+  FindPassword: undefined;
+  ShowOffDetail: { pictureDiary: ShowOffPictureDiary };
   NotFound: undefined;
 };
 
@@ -31,14 +35,15 @@ export type RootStackScreenProps<
   Screen extends keyof RootStackParamList
 > = NativeStackScreenProps<RootStackParamList, Screen>;
 
-// export type RootTabParamList = {
-//   TabOne: undefined;
-//   TabTwo: undefined;
-// };
+export type RootTabParamList = {
+  Home: undefined;
+  ShowOff: undefined;
+  User: undefined;
+};
 
-// export type RootTabScreenProps<
-//   Screen extends keyof RootTabParamList
-// > = CompositeScreenProps<
-//   BottomTabScreenProps<RootTabParamList, Screen>,
-//   NativeStackScreenProps<RootStackParamList>
-// >;
+export type RootTabScreenProps<
+  Screen extends keyof RootTabParamList
+> = CompositeScreenProps<
+  BottomTabScreenProps<RootTabParamList, Screen>,
+  NativeStackScreenProps<RootStackParamList>
+>;
