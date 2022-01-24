@@ -59,11 +59,9 @@
 		</dict>
 	</dict>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to save photos.</string>
+	<string>그림일기를 저장하기 위해서 사용자 앨범 접근 권한을 허용해주세요.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allow $(PRODUCT_NAME) to access your photos.</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>This identifier will be used to deliver personalized ads to you.</string>
+	<string>그림일기를 저장하기 위해서 사용자 앨범 접근 권한을 허용해주세요.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
