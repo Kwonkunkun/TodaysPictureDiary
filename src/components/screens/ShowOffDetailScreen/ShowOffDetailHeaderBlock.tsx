@@ -13,12 +13,14 @@ import React, { useState } from "react";
 type ShowOffDetailHeaderBlockProps = {
   creatorName: string;
   handleOnPressBackIconButton: () => void;
+  handleOnPressMoreIconButton: () => void;
   handleOnPressDownloadIconButton: (clearState: () => void) => void;
 };
 
 const ShowOffDetailHeaderBlock = ({
   creatorName,
   handleOnPressBackIconButton,
+  handleOnPressMoreIconButton,
   handleOnPressDownloadIconButton,
 }: ShowOffDetailHeaderBlockProps) => {
   const [isDownloadComplete, setIsDownloadComplete] = useState(true);
@@ -67,6 +69,16 @@ const ShowOffDetailHeaderBlock = ({
               }
             />
           )}
+          <IconButton
+            icon={
+              <Icon
+                as={<MaterialIcons name="more-vert" />}
+                size="sm"
+                color="white"
+              />
+            }
+            onPress={handleOnPressMoreIconButton}
+          />
         </>
       }
     />

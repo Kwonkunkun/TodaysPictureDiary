@@ -28,6 +28,7 @@ export type RootStackParamList = {
   SignUp: undefined;
   FindPassword: undefined;
   ShowOffDetail: { pictureDiary: ShowOffPictureDiary };
+  Report: { contentId: string; plaintiffUid: string; defendantUid: string };
   NotFound: undefined;
 };
 
