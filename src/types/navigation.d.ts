@@ -27,7 +27,12 @@ export type RootStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
   FindPassword: undefined;
-  ShowOffDetail: { pictureDiary: ShowOffPictureDiary };
+  ShowOffDetail: {
+    pictureDiary: ShowOffPictureDiary;
+    handleOnPressDeleteButton: (
+      showOffPictureDiary: ShowOffPictureDiary
+    ) => void;
+  };
   Report: { contentId: string; plaintiffUid: string; defendantUid: string };
   BlockUserGroup: undefined;
   NotFound: undefined;

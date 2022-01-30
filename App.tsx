@@ -62,6 +62,8 @@ const SignInChecker = (
 
     const subscriber = auth().onUserChanged((user) => {
       setUser(getAppUserWith(user));
+
+      //여기서 user가 undefined가 아닐때마다, user block목록을 불러오고 그것을 recoil에다가 넣는다.
     });
 
     return subscriber;

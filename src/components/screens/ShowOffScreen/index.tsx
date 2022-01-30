@@ -93,6 +93,20 @@ const ShowOffScreen = ({ navigation }: RootTabScreenProps<"ShowOff">) => {
     //이거 누르면 어케 추가하는지 설명하는 modal? 혹은 page 보여주기
   };
 
+  //이건 detail page에 넘겨주는 함수
+  const handleOnPressDeleteButton = (
+    showOffPictureDiary: ShowOffPictureDiary
+  ) => {
+    const newPictureDiaries = showOffPictureDiaries?.filter((item) => {
+      if (item.id === showOffPictureDiary.id) {
+        return false;
+      }
+      return true;
+    });
+
+    setShowOffPictureDiaries(newPictureDiaries);
+  };
+
   const onRefresh = () => {
     console.log("onRefresh");
     setRefreshing(true);
@@ -132,7 +146,10 @@ const ShowOffScreen = ({ navigation }: RootTabScreenProps<"ShowOff">) => {
               pictureDiary={item as ShowOffPictureDiary}
               handleOnPressItem={() => {
                 //다른페이지 만들면 변경
-                navigation.navigate("ShowOffDetail", { pictureDiary: item });
+                navigation.navigate("ShowOffDetail", {
+                  pictureDiary: item,
+                  handleOnPressDeleteButton: handleOnPressDeleteButton,
+                });
               }}
             />
           )

@@ -11,6 +11,8 @@ import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import ViewShot from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
 import ShowOffDetailHeaderBlock from "./ShowOffDetailHeaderBlock";
+import firestore from "@react-native-firebase/firestore";
+import { Alert } from "react-native";
 
 const ShowOffDetailScreen = ({
   navigation,
@@ -34,7 +36,52 @@ const ShowOffDetailScreen = ({
     }
   };
 
-  const onPressBlockUserButton = () => {};
+  const onPressBlockUserButton = () => {
+    if (user) {
+      firestore()
+        .collection("users")
+        .doc(user.uid)
+        .collection("blockUserGroup")
+        .doc(pictureDiary.uid)
+        .set({
+          uid: pictureDiary.uid,
+          username: pictureDiary.creatorName,
+        })
+        .then(() => {
+          console.log("차단 성공");
+        })
+        .catch((error) => {
+          Alert.alert(
+            "서버에러로 차단에 실패했습니다. 잠시후 다시 시도해주세요."
+          );
+        });
+    } else {
+      navigation.navigate("SignIn");
+    }
+  };
+
+  const onPressDeleteButton = () => {
+    if (user) {
+      firestore()
+        .collection("pictureDiaries")
+        .doc(pictureDiary.id)
+        .delete()
+        .then(() => {
+          console.log("삭제 성공");
+
+          route.params.handleOnPressDeleteButton(pictureDiary);
+
+          navigation.goBack();
+        })
+        .catch((error) => {
+          Alert.alert(
+            "서버에러로 삭제에 실패했습니다. 잠시후 다시 시도해주세요."
+          );
+        });
+    } else {
+      navigation.navigate("SignIn");
+    }
+  };
 
   const handleOnPressDownloadIconButton = async (clearState: () => void) => {
     //permission check, ref check
@@ -64,20 +111,29 @@ const ShowOffDetailScreen = ({
           <PictureDiaryDetail pictureDiary={pictureDiary} />
         </ViewShot>
       </Center>
+      {/* 내것일때와 아닐때 분기를 나눠서 action sheet 보여줌 */}
       <Actionsheet isOpen={isOpen} onClose={onClose}>
-        <Actionsheet.Content>
-          <Actionsheet.Item onPress={onPressBlockUserButton}>
-            <StyledText style={{ color: "red" }}>{`해당 유저 차단하기 (${
-              user ? "현재 로그인중" : "현재 로그인이 아님"
-            })`}</StyledText>
-          </Actionsheet.Item>
+        {user?.uid !== pictureDiary.uid ? (
+          <Actionsheet.Content>
+            <Actionsheet.Item onPress={onPressBlockUserButton}>
+              <StyledText style={{ color: "red" }}>{`해당 유저 차단하기 (${
+                user ? "현재 로그인중" : "현재 로그인이 아님"
+              })`}</StyledText>
+            </Actionsheet.Item>
 
-          <Actionsheet.Item onPress={onPressReportButton}>
-            <StyledText style={{ color: "red" }}>{`해당 컨텐츠 신고하기 (${
-              user ? "현재 로그인중" : "현재 로그인이 아님"
-            })`}</StyledText>
-          </Actionsheet.Item>
-        </Actionsheet.Content>
+            <Actionsheet.Item onPress={onPressReportButton}>
+              <StyledText style={{ color: "red" }}>{`해당 컨텐츠 신고하기 (${
+                user ? "현재 로그인중" : "현재 로그인이 아님"
+              })`}</StyledText>
+            </Actionsheet.Item>
+          </Actionsheet.Content>
+        ) : (
+          <Actionsheet.Content>
+            <Actionsheet.Item onPress={onPressDeleteButton}>
+              <StyledText style={{ color: "red" }}>{`삭제하기`}</StyledText>
+            </Actionsheet.Item>
+          </Actionsheet.Content>
+        )}
       </Actionsheet>
     </CustomView>
   );
