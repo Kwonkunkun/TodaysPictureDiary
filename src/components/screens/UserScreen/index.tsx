@@ -38,6 +38,10 @@ const UserScreen = ({ navigation }: RootTabScreenProps<"User">) => {
       });
   };
 
+  const handleOnPressBlockUserGroupButton = () => {
+    navigation.navigate("BlockUserGroup");
+  };
+
   return (
     <CustomAnimationView>
       <UserHeaderBlock
@@ -49,6 +53,7 @@ const UserScreen = ({ navigation }: RootTabScreenProps<"User">) => {
         <SignInStateBlock
           user={user}
           handleOnPressSignOutButton={handleOnPressSignOutButton}
+          handleOnPressBlockUserGroupButton={handleOnPressBlockUserGroupButton}
         />
       ) : (
         <SignOutStateBlock

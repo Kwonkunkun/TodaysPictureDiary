@@ -1,7 +1,14 @@
 import CustomAnimationView from "@components/atoms/CustomAnimationView";
 import CustomButton from "@components/atoms/CustomButton";
 import { Colors, Sizes, Spaces } from "@constants";
-import { Checkbox, FormControl, HStack, Stack, Text } from "native-base";
+import {
+  Checkbox,
+  FormControl,
+  HStack,
+  Stack,
+  Text,
+  WarningOutlineIcon,
+} from "native-base";
 
 import React, { useState } from "react";
 import { Alert, Linking, Pressable } from "react-native";
@@ -142,6 +149,11 @@ const SignUpScreen = ({ navigation }: RootStackScreenProps<"SignIn">) => {
               <Checkbox value="agree" onChange={setIsCheckPolicy}>
                 <Text paddingLeft="2">개인정보 수집 및 이용 (필수)</Text>
               </Checkbox>
+              <FormControl.ErrorMessage
+                leftIcon={<WarningOutlineIcon size="xs" />}
+              >
+                개인정보 수집 및 이용에 동의해주세요
+              </FormControl.ErrorMessage>
             </FormControl>
             <Pressable
               onPress={() => {

@@ -34,6 +34,8 @@ const ShowOffDetailScreen = ({
     }
   };
 
+  const onPressBlockUserButton = () => {};
+
   const handleOnPressDownloadIconButton = async (clearState: () => void) => {
     //permission check, ref check
     if (!status?.granted || !viewShotRef.current?.capture) {
@@ -64,8 +66,14 @@ const ShowOffDetailScreen = ({
       </Center>
       <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content>
+          <Actionsheet.Item onPress={onPressBlockUserButton}>
+            <StyledText style={{ color: "red" }}>{`해당 유저 차단하기 (${
+              user ? "현재 로그인중" : "현재 로그인이 아님"
+            })`}</StyledText>
+          </Actionsheet.Item>
+
           <Actionsheet.Item onPress={onPressReportButton}>
-            <StyledText>{`신고하기 (${
+            <StyledText style={{ color: "red" }}>{`해당 컨텐츠 신고하기 (${
               user ? "현재 로그인중" : "현재 로그인이 아님"
             })`}</StyledText>
           </Actionsheet.Item>

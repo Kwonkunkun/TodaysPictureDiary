@@ -5,3 +5,8 @@ type User = {
   displayName: string;
   photoURL?: string;
 };
+
+type BlockUser = {
+  uid: string;
+  username: string;
+};

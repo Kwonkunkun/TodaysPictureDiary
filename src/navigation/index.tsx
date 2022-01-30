@@ -36,6 +36,7 @@ import SignUpScreen from "@components/screens/SingUpScreen";
 import FindPasswordScreen from "@components/screens/FindPasswordScreen";
 import ShowOffDetailScreen from "@components/screens/ShowOffDetailScreen";
 import ReportScreen from "@components/screens/ReportScreen";
+import BlockUserGroupScreen from "@components/screens/BlockUserGroupScreen";
 
 export default function Navigation() {
   return (
@@ -72,6 +73,7 @@ function RootNavigator() {
         />
         <Stack.Screen name="AppIntroduce" component={AppIntroduceScreen} />
         <Stack.Screen name="Setting" component={SettingScreen} />
+        <Stack.Screen name="BlockUserGroup" component={BlockUserGroupScreen} />
         <Stack.Screen
           name="NotFound"
           component={HomeScreen}
