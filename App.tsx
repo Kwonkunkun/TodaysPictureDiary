@@ -58,11 +58,6 @@ const SignInChecker = (
   const setBlockUser = useSetRecoilState(BlockUserState);
 
   useEffect(() => {
-    // const subscriber = auth().onAuthStateChanged((user) => {
-    //   setUser(getAppUserWith(user));
-    //   console.log(user);
-    // });
-
     const subscriber = auth().onUserChanged((user) => {
       setUser(getAppUserWith(user));
 

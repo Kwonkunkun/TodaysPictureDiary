@@ -2,7 +2,7 @@ import CustomView from "@components/atoms/CustomView";
 import StyledText from "@components/atoms/StyledText";
 import PictureDiaryDetail from "@components/blocks/PictureDiaryDetail";
 import { Colors, Spaces } from "@constants";
-import { PictureDiaryState, UserState } from "@state";
+import { BlockUserState, PictureDiaryState, UserState } from "@state";
 import { Actionsheet, Center, useDisclose } from "native-base";
 import React, { useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -22,6 +22,7 @@ const ShowOffDetailScreen = ({
   const [pictureDiary, setPictureDiary] = useState(route.params.pictureDiary);
   const [status, requestPermission] = MediaLibrary.usePermissions();
   const user = useRecoilValue(UserState);
+  const [blockUser, setBlockUser] = useRecoilState(BlockUserState);
   let viewShotRef = useRef<ViewShot>(null);
 
   const onPressReportButton = () => {
@@ -51,6 +52,15 @@ const ShowOffDetailScreen = ({
           Alert.alert("차단에 성공했습니다.", "", [
             {
               onPress: () => {
+                if (blockUser) {
+                  setBlockUser([
+                    ...blockUser,
+                    {
+                      uid: pictureDiary.uid,
+                      username: pictureDiary.creatorName,
+                    },
+                  ]);
+                }
                 navigation.goBack();
               },
             },

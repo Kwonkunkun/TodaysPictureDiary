@@ -13,6 +13,8 @@ import { formatData } from "@Utils";
 import { Dimension } from "@constants";
 import ShowOffPictureDiaryListItem from "./ShowOffPictureDiaryListItem";
 import { NativeScrollEvent, RefreshControl } from "react-native";
+import { useRecoilValue } from "recoil";
+import { BlockUserState, UserState } from "@state";
 
 /**
  * ShowOffScreen
@@ -38,18 +40,36 @@ const ShowOffScreen = ({ navigation }: RootTabScreenProps<"ShowOff">) => {
     Array<ShowOffPictureDiary>
   >([]);
 
+  const blockUser = useRecoilValue(BlockUserState);
+
   useEffect(() => {
     fetchItem(page.val === 0 ? true : false);
   }, [page]);
 
+  useEffect(() => {
+    if (showOffPictureDiaries.length !== 0 && blockUser) {
+      const newShowOffPictureDiaries = showOffPictureDiaries.filter((item) => {
+        let result = true;
+        blockUser.forEach((bu) => {
+          if (bu.uid === item.uid) {
+            result = false;
+          }
+        });
+        return result;
+      });
+      if (newShowOffPictureDiaries.length === showOffPictureDiaries.length) {
+        return;
+      }
+      setShowOffPictureDiaries(newShowOffPictureDiaries);
+    }
+  }, [showOffPictureDiaries, blockUser]);
+
   const fetchItem = (isRefresh?: boolean) => {
-    console.log("fetchItem1", isLoading, isEnd);
     if (isLoading || isEnd) {
       setIsLoading(false);
       setRefreshing(false);
       return;
     }
-    console.log("fetchItem2");
 
     setIsLoading(true);
     firestore()
