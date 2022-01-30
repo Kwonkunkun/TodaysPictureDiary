@@ -7,13 +7,15 @@ import Navigation from "./src/navigation";
 import { NativeBaseProvider, View } from "native-base";
 import { RecoilRoot, useSetRecoilState } from "recoil";
 
-import { PictureDiaryState, UserState } from "@state";
+import { BlockUserState, PictureDiaryState, UserState } from "@state";
 import useCustomAsyncStorage from "@hooks/useCustomAsyncStorage";
 import { LogBox } from "react-native";
 import _ from "lodash";
 
 import auth from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
 import { getAppUserWith } from "@Utils";
+import { BlockUser } from "types/user";
 
 LogBox.ignoreLogs(["Warning:..."]); // ignore specific logs
 LogBox.ignoreAllLogs(); // ignore all logs
@@ -53,6 +55,7 @@ const SignInChecker = (
   }>
 ) => {
   const setUser = useSetRecoilState(UserState);
+  const setBlockUser = useSetRecoilState(BlockUserState);
 
   useEffect(() => {
     // const subscriber = auth().onAuthStateChanged((user) => {
@@ -64,6 +67,25 @@ const SignInChecker = (
       setUser(getAppUserWith(user));
 
       //여기서 user가 undefined가 아닐때마다, user block목록을 불러오고 그것을 recoil에다가 넣는다.
+      if (user) {
+        firestore()
+          .collection("users")
+          .doc(user.uid)
+          .collection("blockUserGroup")
+          .get()
+          .then((snapshot) => {
+            const data = snapshot.docs.map((docs) =>
+              docs.data()
+            ) as Array<BlockUser>;
+
+            setBlockUser(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        setBlockUser(null);
+      }
     });
 
     return subscriber;

@@ -18,6 +18,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import InValidCheckInput from "./InValidCheckInput";
 import { isNotEmail, isNotPassword } from "@Utils";
 import auth from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
 
 const SignUpScreen = ({ navigation }: RootStackScreenProps<"SignIn">) => {
   const [checkTrigger, setValidCheckTrigger] = useState(false);

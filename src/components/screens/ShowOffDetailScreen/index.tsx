@@ -48,7 +48,13 @@ const ShowOffDetailScreen = ({
           username: pictureDiary.creatorName,
         })
         .then(() => {
-          console.log("차단 성공");
+          Alert.alert("차단에 성공했습니다.", "", [
+            {
+              onPress: () => {
+                navigation.goBack();
+              },
+            },
+          ]);
         })
         .catch((error) => {
           Alert.alert(
@@ -67,10 +73,7 @@ const ShowOffDetailScreen = ({
         .doc(pictureDiary.id)
         .delete()
         .then(() => {
-          console.log("삭제 성공");
-
           route.params.handleOnPressDeleteButton(pictureDiary);
-
           navigation.goBack();
         })
         .catch((error) => {
