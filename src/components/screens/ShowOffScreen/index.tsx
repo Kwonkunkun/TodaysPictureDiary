@@ -12,6 +12,7 @@ import ShowOffPictureDiaryListItem from "./ShowOffPictureDiaryListItem";
 import { Platform, RefreshControl } from "react-native";
 import { useRecoilValue } from "recoil";
 import { BlockUserState } from "@state";
+import LoadingBlock from "./LoadingBlock";
 
 /**
  * ShowOffScreen
@@ -148,40 +149,44 @@ const ShowOffScreen = ({ navigation }: RootTabScreenProps<"ShowOff">) => {
         handleOnPressQuestionIconButton={handleOnPressQuestionIconButton}
       />
       <FilterBlock />
-      <FlatList
-        refreshControl={
-          <RefreshControl
-            tintColor={Platform.OS === "ios" ? Colors.black : undefined}
-            refreshing={refresing}
-            onRefresh={onRefresh}
-          />
-        }
-        onEndReached={onScrollEndReach}
-        onEndReachedThreshold={1}
-        data={formatData(showOffPictureDiaries, Dimension.isPad ? 4 : 2)}
-        renderItem={({ item }) =>
-          item.empty ? (
-            <View
-              flex={1}
-              width={Dimension.window.width / (Dimension.isPad ? 4 : 2)}
-              p={"2"}
+      {isLoading && showOffPictureDiaries.length === 0 ? (
+        <LoadingBlock />
+      ) : (
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              tintColor={Platform.OS === "ios" ? Colors.black : undefined}
+              refreshing={refresing}
+              onRefresh={onRefresh}
             />
-          ) : (
-            <ShowOffPictureDiaryListItem
-              pictureDiary={item as ShowOffPictureDiary}
-              handleOnPressItem={() => {
-                //다른페이지 만들면 변경
-                navigation.navigate("ShowOffDetail", {
-                  pictureDiary: item,
-                  handleOnPressDeleteButton: handleOnPressDeleteButton,
-                });
-              }}
-            />
-          )
-        }
-        numColumns={Dimension.isPad ? 4 : 2}
-        keyExtractor={(item, idx) => idx.toString()}
-      />
+          }
+          onEndReached={onScrollEndReach}
+          onEndReachedThreshold={1}
+          data={formatData(showOffPictureDiaries, Dimension.isPad ? 4 : 2)}
+          renderItem={({ item }) =>
+            item.empty ? (
+              <View
+                flex={1}
+                width={Dimension.window.width / (Dimension.isPad ? 4 : 2)}
+                p={"2"}
+              />
+            ) : (
+              <ShowOffPictureDiaryListItem
+                pictureDiary={item as ShowOffPictureDiary}
+                handleOnPressItem={() => {
+                  //다른페이지 만들면 변경
+                  navigation.navigate("ShowOffDetail", {
+                    pictureDiary: item,
+                    handleOnPressDeleteButton: handleOnPressDeleteButton,
+                  });
+                }}
+              />
+            )
+          }
+          numColumns={Dimension.isPad ? 4 : 2}
+          keyExtractor={(item, idx) => idx.toString()}
+        />
+      )}
     </CustomAnimationView>
   );
 };
