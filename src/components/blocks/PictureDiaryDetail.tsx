@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { Center, Divider, HStack, Input, Pressable, VStack } from "native-base";
 import MenuScriptBlock from "@components/blocks/MenuScriptBlock";
 import { Image, Platform } from "react-native";
-import { Colors, Spaces } from "@constants";
+import { Colors, Dimension, Spaces } from "@constants";
 import { getAppDateStringFormatWith, getClientStringWith } from "@Utils";
 import StyledText from "@components/atoms/StyledText";
 import emptyPicture from "@assets/images/emptyPicture.png";
@@ -117,7 +117,7 @@ const PictureDiaryDetail = ({
               }
               style={{
                 width: "100%",
-                height: 260,
+                height: (Dimension.isPad ? 2 : 1) * 260,
                 resizeMode: "stretch",
               }}
             />

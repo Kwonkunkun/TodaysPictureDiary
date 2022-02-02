@@ -7,9 +7,9 @@ import ShowOffHeaderBlock from "./ShowOffHeaderBlock";
 import FilterBlock from "./FilterBlock";
 import { FlatList, View } from "native-base";
 import { formatData } from "@Utils";
-import { Dimension } from "@constants";
+import { Colors, Dimension } from "@constants";
 import ShowOffPictureDiaryListItem from "./ShowOffPictureDiaryListItem";
-import { RefreshControl } from "react-native";
+import { Platform, RefreshControl } from "react-native";
 import { useRecoilValue } from "recoil";
 import { BlockUserState } from "@state";
 
@@ -22,7 +22,7 @@ import { BlockUserState } from "@state";
  */
 
 const DEFAULT_PAGE = 0;
-const DEFAULT_SIZE = 16;
+const DEFAULT_SIZE = Dimension.isPad ? 32 : 16;
 const DEFAULT_ENDITEMCREATEAT = "3000-01-16T08:49:27.474Z";
 
 const ShowOffScreen = ({ navigation }: RootTabScreenProps<"ShowOff">) => {
@@ -150,7 +150,11 @@ const ShowOffScreen = ({ navigation }: RootTabScreenProps<"ShowOff">) => {
       <FilterBlock />
       <FlatList
         refreshControl={
-          <RefreshControl refreshing={refresing} onRefresh={onRefresh} />
+          <RefreshControl
+            tintColor={Platform.OS === "ios" ? Colors.black : undefined}
+            refreshing={refresing}
+            onRefresh={onRefresh}
+          />
         }
         onEndReached={onScrollEndReach}
         onEndReachedThreshold={1}
@@ -175,7 +179,7 @@ const ShowOffScreen = ({ navigation }: RootTabScreenProps<"ShowOff">) => {
             />
           )
         }
-        numColumns={2}
+        numColumns={Dimension.isPad ? 4 : 2}
         keyExtractor={(item, idx) => idx.toString()}
       />
     </CustomAnimationView>
