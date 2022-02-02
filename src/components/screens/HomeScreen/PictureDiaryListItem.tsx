@@ -29,7 +29,7 @@ const PictureDiaryListItem = ({
                 }
               : emptyPicture
           }
-          width={Dimension.window.width / 2}
+          width={Dimension.window.width / (Dimension.isPad ? 4 : 2)}
           height={"32"}
           resizeMode="stretch"
         />
@@ -37,8 +37,8 @@ const PictureDiaryListItem = ({
           autoPlay={true}
           source={getLottieSourceWith(pictureDiary.weather)}
           style={{
-            width: Dimension.window.width / 8,
-            height: Dimension.window.width / 8,
+            width: Dimension.window.width / (Dimension.isPad ? 16 : 8),
+            height: Dimension.window.width / (Dimension.isPad ? 16 : 8),
             backgroundColor: "transparent",
             position: "absolute",
           }}

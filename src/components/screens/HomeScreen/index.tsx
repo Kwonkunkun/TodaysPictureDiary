@@ -59,7 +59,7 @@ const HomeScreen = ({ navigation }: RootTabScreenProps<"Home">) => {
               />
             )
           }
-          numColumns={2}
+          numColumns={Dimension.isPad ? 4 : 2}
           keyExtractor={(item, idx) => idx.toString()}
         />
       ) : (
