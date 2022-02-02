@@ -2,6 +2,7 @@ import { Dimensions } from "react-native";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
+const aspectRatio = height / width;
 
 export const Colors = {
   header: "#FFAAA7",
@@ -22,6 +23,7 @@ export const Dimension = {
     width,
     height,
   },
+  isPad: aspectRatio > 1.6 ? false : true,
   isSmallDevice: width < 375,
 };
 

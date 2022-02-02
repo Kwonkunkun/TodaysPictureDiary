@@ -54,13 +54,14 @@ const ShowOffDetailScreen = ({
               onPress: () => {
                 if (blockUser) {
                   setBlockUser([
-                    ...blockUser,
                     {
                       uid: pictureDiary.uid,
                       username: pictureDiary.creatorName,
                     },
+                    ...blockUser,
                   ]);
                 }
+                onClose();
                 navigation.goBack();
               },
             },
@@ -83,6 +84,7 @@ const ShowOffDetailScreen = ({
         .doc(pictureDiary.id)
         .delete()
         .then(() => {
+          onClose();
           route.params.handleOnPressDeleteButton(pictureDiary);
           navigation.goBack();
         })

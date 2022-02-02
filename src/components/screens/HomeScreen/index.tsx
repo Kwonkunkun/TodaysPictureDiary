@@ -1,13 +1,12 @@
 import HomeHeaderBlock from "@components/screens/HomeScreen/HomeHeaderBlock";
 import { FlatList, View, Center } from "native-base";
-import React, { useEffect, useState } from "react";
-import { RootStackScreenProps, RootTabScreenProps } from "types/navigation";
+import React, { useState } from "react";
+import { RootTabScreenProps } from "types/navigation";
 import PictureDiaryListItem from "./PictureDiaryListItem";
-import { Colors, Dimension, Sizes, Spaces } from "@constants";
+import { Dimension, Spaces } from "@constants";
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
-import { OrderedPictureDiaryState, PictureDiaryState } from "@state";
+import { OrderedPictureDiaryState } from "@state";
 import StyledText from "@components/atoms/StyledText";
-import CustomView from "@components/atoms/CustomView";
 import CustomButton from "@components/atoms/CustomButton";
 import FilterBlock from "./FilterBlock";
 import { formatData } from "@Utils";
@@ -43,10 +42,14 @@ const HomeScreen = ({ navigation }: RootTabScreenProps<"Home">) => {
       {/* 아이템 list */}
       {orderedPictureDiaries && orderedPictureDiaries.length !== 0 ? (
         <FlatList
-          data={formatData(orderedPictureDiaries, 2)}
+          data={formatData(orderedPictureDiaries, Dimension.isPad ? 4 : 2)}
           renderItem={({ item }) =>
             item.empty ? (
-              <View flex={1} width={Dimension.window.width / 2} p={"2"} />
+              <View
+                flex={1}
+                width={Dimension.window.width / (Dimension.isPad ? 4 : 2)}
+                p={"2"}
+              />
             ) : (
               <PictureDiaryListItem
                 pictureDiary={item as PictureDiary}

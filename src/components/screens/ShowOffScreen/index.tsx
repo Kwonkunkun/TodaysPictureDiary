@@ -1,20 +1,17 @@
 import CustomAnimationView from "@components/atoms/CustomAnimationView";
-import CustomView from "@components/atoms/CustomView";
 import React, { useEffect, useState } from "react";
 import { RootTabScreenProps } from "types/navigation";
 
-import { utils } from "@react-native-firebase/app";
 import firestore from "@react-native-firebase/firestore";
 import ShowOffHeaderBlock from "./ShowOffHeaderBlock";
 import FilterBlock from "./FilterBlock";
-import dummyData from "./dummyData.json";
 import { FlatList, View } from "native-base";
 import { formatData } from "@Utils";
 import { Dimension } from "@constants";
 import ShowOffPictureDiaryListItem from "./ShowOffPictureDiaryListItem";
-import { NativeScrollEvent, RefreshControl } from "react-native";
+import { RefreshControl } from "react-native";
 import { useRecoilValue } from "recoil";
-import { BlockUserState, UserState } from "@state";
+import { BlockUserState } from "@state";
 
 /**
  * ShowOffScreen
@@ -157,10 +154,14 @@ const ShowOffScreen = ({ navigation }: RootTabScreenProps<"ShowOff">) => {
         }
         onEndReached={onScrollEndReach}
         onEndReachedThreshold={1}
-        data={formatData(showOffPictureDiaries, 2)}
+        data={formatData(showOffPictureDiaries, Dimension.isPad ? 4 : 2)}
         renderItem={({ item }) =>
           item.empty ? (
-            <View flex={1} width={Dimension.window.width / 2} p={"2"} />
+            <View
+              flex={1}
+              width={Dimension.window.width / (Dimension.isPad ? 4 : 2)}
+              p={"2"}
+            />
           ) : (
             <ShowOffPictureDiaryListItem
               pictureDiary={item as ShowOffPictureDiary}
